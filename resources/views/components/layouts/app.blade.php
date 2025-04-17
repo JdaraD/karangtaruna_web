@@ -10,7 +10,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-slate-100 dark:bg-slate-900">
+<body class="h-full w-full bg-white dark:bg-black">
     {{-- Cek jika bukan di halaman login, tampilkan Navbar --}}
     @if (!request()->routeIs('filament.admin.auth.login'))
         @livewire('components.layouts.navbar')
