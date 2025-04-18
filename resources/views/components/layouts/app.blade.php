@@ -8,9 +8,10 @@
 
     @livewireStyles
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="h-full w-full bg-white dark:bg-black">
+<body class="h-full w-full bg-white">
     {{-- Cek jika bukan di halaman login, tampilkan Navbar --}}
     @if (!request()->routeIs('filament.admin.auth.login'))
         @livewire('components.layouts.navbar')
