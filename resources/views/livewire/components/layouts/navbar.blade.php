@@ -75,7 +75,12 @@
             <div class="flex justify-center items-center col-span-9 px-1">
                 <marquee behavior="scroll" direction="left" scrollamount="8">
                     <div class="">
-                        <p class="normal-case font-[poppins] text-sm font-medium">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                        @foreach ( $Text as $texts )
+                            <p class="normal-case font-[poppins] text-sm font-medium">
+                                {{ $texts->description }}
+                            </p>
+                            
+                        @endforeach
                     </div>
                 </marquee>
 

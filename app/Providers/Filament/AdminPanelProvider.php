@@ -2,11 +2,16 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\RunningTextBerandaResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
+use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -51,6 +56,24 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder{
+                return $builder->groups([
+                    NavigationGroup::make()
+                        ->items([
+                            NavigationItem::make('Dashboard')
+                                ->icon('heroicon-s-home')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.pages.dashboard'))
+                                ->url(fn(): string => Dashboard::getUrl()),
+                        ]),
+                    NavigationGroup::make('Beranda')
+                    ->items([
+                        NavigationItem::make('Running Text')
+                            ->icon('heroicon-s-information-circle')
+                            ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index'))
+                            ->url(RunningTextBerandaResource::getUrl()),
+                    ]),
+                ]);
+            })
             ->authMiddleware([
                 Authenticate::class,
             ]);
