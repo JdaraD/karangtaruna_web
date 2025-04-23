@@ -1,4 +1,4 @@
-<div class="static">
+<div id="mainNavbar" class="relative transition-all duration-300">
     {{-- Navbar --}}
     <div class="flex w-full h-[72px] bg-[#F5ECE0] justify-center">
     
@@ -91,3 +91,15 @@
     {{-- Running Text --}}
 
 </div>
+
+{{-- <script>
+window.addEventListener('scroll', function () {
+    console.log('Scrolled');  // Debugging line
+    const navbar = document.getElementById('mainNavbar');
+    if (window.scrollY > 0) {
+        navbar.classList.add('fixed', 'top-0', 'left-0', 'z-50', 'shadow-md');
+    } else {
+        navbar.classList.remove('fixed', 'top-0', 'left-0', 'z-50', 'shadow-md');
+    }
+});
+</script> --}}

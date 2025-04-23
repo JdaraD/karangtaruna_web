@@ -1,6 +1,6 @@
-<div class="static">
+<div class="relative">
     {{-- infomasi --}}
-    <div class="absolute flex justify-center items-center align-content-center bottom-0 w-full h-[344px] bg-black">
+    <div class="flex justify-center items-center align-content-center bottom-0 w-full h-[344px] bg-black">
         <div class="grid grid-cols-3 h-full py-2 gap-4 size-[90%]">
 
             <div class="grid grid-rows-4 gap-2 h-full">
