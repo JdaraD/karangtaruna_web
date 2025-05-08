@@ -10,6 +10,15 @@
     @vite('resources/css/app.css')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {{-- maps API --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap">
+    </script>
+    {{-- maps API --}}
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="h-full w-full bg-white">
@@ -30,5 +39,6 @@
 
     @livewireStyles
 </body>
+
 
 </html>

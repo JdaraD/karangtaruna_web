@@ -1,4 +1,4 @@
-<div class="flex relative">
+<div class="flex relative select-none">
     {{-- infomasi --}}
     <div class="flex justify-center items-center align-content-center w-full h-[344px] bg-black">
         <div class="grid grid-cols-3 h-full py-2 gap-4 size-[90%]">

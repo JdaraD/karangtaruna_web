@@ -1,3 +1,4 @@
+{{-- website --}}
 <div id="mainNavbar" class="relative transition-all duration-300">
     {{-- Navbar --}}
     <div class="flex w-full h-[72px] bg-[#F5ECE0] justify-center">
@@ -21,31 +22,103 @@
     
             {{-- Menu Start --}}
             <div class="flex col-span-4 w-full h-full= justify-center items-center gap-10">
-                <a href="" class="uppercase font-[poppins] text-sm">beranda</a>
-                <div>
-                    <p class="uppercase font-[poppins] text-sm">profil</p>
-    
+                <a href="{{ route('Beranda') }}" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md">beranda</a>
+                    
+                <div x-data="{ open: false }" class="relative inline-block text-left">
+                    <button @click="open = !open" class="uppercase font-[poppins] text-sm inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        profil
+
+                        <!-- Panah ke kiri (←) saat dropdown tertutup -->
+                        <svg x-show="!open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+
+                        <!-- Panah ke bawah (↓) saat dropdown terbuka -->
+                        <svg x-show="open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                
+                    <div x-show="open" @click.outside="open = false" x-transition
+                        class="absolute left-0 mt-2 w-[160px] rounded-md shadow-lg bg-white ring-opacity-5 z-50">
+                        <div class="py-1">
+                            <a href="{{ route('tentangkami') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">tentang kami</a>
+                            <a href="{{ route('sktuktur') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">struktur katar</a>
+                            <a href="{{ route('dasarhukum') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">dasar hukum</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div x-data="{ open: false }" class="relative inline-block text-left">
+                    <button @click="open = !open" class="uppercase font-[poppins] text-sm inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        program
+                        <!-- Panah ke kiri (←) saat dropdown tertutup -->
+                        <svg x-show="!open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+
+                        <!-- Panah ke bawah (↓) saat dropdown terbuka -->
+                        <svg x-show="open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                
+                    <div x-show="open" @click.outside="open = false" x-transition
+                        class="absolute left-0 mt-2 w-[140px] rounded-md shadow-lg bg-white ring-opacity-5 z-50">
+                        <div class="py-1">
+                            <a href="#" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">kegiatan</a>
+                            <a href="#" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">usaha mandiri</a>
+                            <a href="#" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">kolaborasi</a>
+                        </div>
+                    </div>
                 </div>
     
-                <div>
-                    <p class="uppercase font-[poppins] text-sm">program</p>
-    
+                <div x-data="{ open: false }" class="relative inline-block text-left">
+                    <button @click="open = !open" class="uppercase font-[poppins] text-sm inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        media
+                        <!-- Panah ke kiri (←) saat dropdown tertutup -->
+                        {{-- <svg x-show="!open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg> --}}
+                        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="ml-2" width="18" height="18" fill="#000000" viewBox="0 0 256 256">
+                            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM149.66,93.66,115.31,128l34.35,34.34a8,8,0,0,1-11.32,11.32l-40-40a8,8,0,0,1,0-11.32l40-40a8,8,0,0,1,11.32,11.32Z">
+                            </path>
+                        </svg>
+
+                        <!-- Panah ke bawah (↓) saat dropdown terbuka -->
+                        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="ml-2" width="18" height="18" fill="#000000" viewBox="0 0 256 256">
+                            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm45.66-109.66a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L128,140.69l34.34-34.35A8,8,0,0,1,173.66,106.34Z">
+                            </path>
+                        </svg>
+                        {{-- <svg x-show="open" class="ml-2 h-4 w-4 transform" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg> --}}
+                    </button>
+                
+                    <div x-show="open" @click.outside="open = false" x-transition
+                        class="absolute left-0 mt-2 w-[140px] rounded-md shadow-lg bg-white ring-opacity-5 z-50">
+                        <div class="py-1">
+                            <a href="#" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">foto</a>
+                            <a href="#" class="uppercase font-[poppins] text-sm block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">video</a>
+                        </div>
+                    </div>
                 </div>
     
-                <div>
-                    <p class="uppercase font-[poppins] text-sm">media</p>
-    
-                </div>
-    
-                <a href="" class="uppercase font-[poppins] text-sm">event</a href="">
-                <a href="" class="uppercase font-[poppins] text-sm">berita</a>
+                <a href="" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md">event</a>
+                <a href="" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md">berita</a>
             </div>
             {{-- Menu End --}}
     
             {{-- Kontak & Search Start --}}
             <div class="flex col-span-1 w-full h-full justify-center items-center gap-4">
                 <a href="">
-                    <p class="uppercase font-[poppins] text-sm font-medium">kontak</p>
+                    <p class="uppercase font-[poppins] text-sm font-medium hover:bg-gray-50 px-4 py-2 rounded-md">kontak</p>
                 </a>
     
                 {{-- Search start--}}
@@ -91,6 +164,11 @@
     {{-- Running Text --}}
 
 </div>
+{{-- website --}}
+
+{{-- mobile --}}
+{{-- mobile --}}
+
 
 {{-- <script>
 window.addEventListener('scroll', function () {
