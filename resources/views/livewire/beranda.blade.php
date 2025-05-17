@@ -1,7 +1,7 @@
 <div class="w-full select-none">
     {{-- image gallery --}}
-    <div class="flex justify-center items-center bg-gray-300 h-[500px] w-full">
-        <img src="{{ asset('image/sider.png') }}" alt="" class="h-[500px] w-full object-fill">
+    <div class="flex justify-center items-center bg-gray-300 mb-4 lg:h-[500px] md:h-[250px] h-[180px] w-full">
+        <img src="{{ asset('image/sider.png') }}" alt="" class="lg:h-[500px] md:h-[250px] h-[180px] w-full object-fill">
     </div>
     {{-- image gallery --}}
 
@@ -17,7 +17,7 @@
 
         {{-- content --}}
         <div class="flex items-center justify-center bg-white w-full h-full">
-            <div class="flex flex-wrap justify-center gap-6 py-4 max-w-[768px]">
+            <div class="flex flex-wrap justify-center gap-6 py-4 max-w-[1024px]">
 
                 <div class="flex flex-col items-center bg-[#6A9C89] w-[230px] h-[320px] rounded-lg">
 
@@ -179,15 +179,16 @@
 
             <div class="flex items-center justify-center bg-white w-full h-full">
                 <div class="flex flex-wrap justify-center gap-3 pb-4 max-w-[1440px]">
+
                     <div class="flex justify-center items-center w-[420px] h-[249px] bg-[#F5F5F5] rounded-lg">
                         <div class="grid grid-rows-1 gap-2 h-full w-full rounded-lg px-2 py-2">
                             <div class="flex flex-col flex-wrap gap-2 h-[164px] rounded-lg">
                                 <div class="flex h-[164px] w-[144px]">
                                     <img src="{{ asset('image/pp.jpg') }}" alt="" class="object-fit rounded-lg">
                                 </div>
-                                <div class="relative lg:h-[164px] lg:w-[250px]">
+                                <div class="flex flex-col flex-wrap lg:h-[164px] lg:w-[250px] md:h-[200px] md:w-[250px] h-[220px] w-[250px]">
                                     <p class="uppercase font-bold">kagiatan 1</p>
-                                    <p class="text-xs text-justify font-[poppins] line-clamp-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                                    <p class="text-xs text-justify font-[poppins] line-clamp-6 text-wrap">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 </div>
                             </div>
                             <div class="grid grid-rows-2 h-[60px] rounded-lg">
@@ -210,7 +211,7 @@
                                 <div class="flex h-[164px] w-[144px]">
                                     <img src="{{ asset('image/pp.jpg') }}" alt="" class="object-fit rounded-lg">
                                 </div>
-                                <div class="relative lg:h-[164px] lg:w-[250px]">
+                                <div class="flex flex-col flex-wrap lg:h-[164px] lg:w-[250px] md:h-[200px] md:w-[250px] h-[220px] w-[250px]">
                                     <p class="uppercase font-bold">kagiatan 1</p>
                                     <p class="text-xs text-justify font-[poppins] line-clamp-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 </div>
@@ -235,7 +236,7 @@
                                 <div class="flex h-[164px] w-[144px]">
                                     <img src="{{ asset('image/pp.jpg') }}" alt="" class="object-fit rounded-lg">
                                 </div>
-                                <div class="relative lg:h-[164px] lg:w-[250px]">
+                                <div class="flex flex-col flex-wrap lg:h-[164px] lg:w-[250px] md:h-[200px] md:w-[250px] h-[220px] w-[250px]">
                                     <p class="uppercase font-bold">kagiatan 1</p>
                                     <p class="text-xs text-justify font-[poppins] line-clamp-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 </div>
@@ -260,7 +261,7 @@
                                 <div class="flex h-[164px] w-[144px]">
                                     <img src="{{ asset('image/pp.jpg') }}" alt="" class="object-fit rounded-lg">
                                 </div>
-                                <div class="relative lg:h-[164px] lg:w-[250px]">
+                                <div class="flex flex-col flex-wrap lg:h-[164px] lg:w-[250px] md:h-[200px] md:w-[250px] h-[220px] w-[250px]">
                                     <p class="uppercase font-bold">kagiatan 1</p>
                                     <p class="text-xs text-justify font-[poppins] line-clamp-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 </div>
@@ -285,7 +286,7 @@
                                 <div class="flex h-[164px] w-[144px]">
                                     <img src="{{ asset('image/pp.jpg') }}" alt="" class="object-fit rounded-lg">
                                 </div>
-                                <div class="relative lg:h-[164px] lg:w-[250px]">
+                                <div class="flex flex-col flex-wrap lg:h-[164px] lg:w-[250px] md:h-[200px] md:w-[250px] h-[220px] w-[250px]">
                                     <p class="uppercase font-bold">kagiatan 1</p>
                                     <p class="text-xs text-justify font-[poppins] line-clamp-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                 </div>
@@ -423,6 +424,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="bg-[#D9D9D9] py-2 w-full h-[198px] rounded-lg">
                     <p class="flex items-center justify-center capitalize font-semibold font-[poppins] text-xl mb-2">sosial media</p>
                     <div class="w-[90%] px-10">
