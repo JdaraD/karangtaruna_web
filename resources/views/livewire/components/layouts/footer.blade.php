@@ -4,32 +4,36 @@
         <div class="grid grid-cols-3 h-full py-2 gap-4 size-[90%]">
 
             <div class="grid grid-rows-4 gap-2 h-full">
+                @foreach ( $tentangkami as $tentang )
+                    
                 <div class="flex row-span-1 items-center gap-2">
                     {{-- logo Start --}}
-                    <img src="{{ asset('image/logo.png')}}" alt="" class="lg:size-15 md:size-10 size-8">
+                    <img src="{{ asset('storage/' .$tentang->foto_profil)}}" alt="" class="lg:size-15 md:size-10 size-8">
                     {{-- logo Ends --}}
-
+                    
                     {{-- logo Start --}}
                     {{-- logo Ends --}}
-
+                    
                     {{-- identity name --}}
                     <div>
-                        <p class="font-[poppins] font-medium lg:text-sm md:text-sm text-[10px] text-white normal-case">Karang Taruna</p>
-                        <p class="font-[poppins] font-medium lg:text-xs md:text-[10px] text-[8px] text-white normal-case">Desa Waru</p>
+                        <p class="font-[poppins] font-medium lg:text-sm md:text-sm text-[10px] text-white normal-case">{{ $tentang->first_name }}</p>
+                        <p class="font-[poppins] font-medium lg:text-xs md:text-[10px] text-[8px] text-white normal-case">{{ $tentang->last_name }}</p>
                     </div>
                     {{-- identity name --}}
-
+                    
                 </div>
-
+                
                 {{-- Deskripsi --}}
                 <div class="row-span-3 h-fitt">
-
+                    
                     <p class="pb-2 lg:text-sm md:text-sm text-[10px] font-[poppins] font-semibold text-white normal-case">Deskripsi</p>
-                    <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white line-clamp-9 normal-case">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                
+                    <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white line-clamp-9 normal-case">{{ $tentang->description }}</p>
+                    <a href="{{ route('tentang') }}" class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white hover:text-blue-300 normal-case">Selengkapnya...</a>
+                    
                 </div>
                 {{-- Deskripsi --}}
-
+                
+                @endforeach
             </div>
 
             <div class="h-full">
@@ -83,8 +87,8 @@
                             </svg>
 
                             <div class="flex gap-2">
-                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">Name :</p>
-                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">(+62)800058xxx</address>
+                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">Name :</p>
+                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">(+62)800058xxx</address>
                             </div>
 
                         </div>
@@ -97,8 +101,8 @@
                             </svg>
 
                             <div class="flex gap-2">
-                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">Name :</p>
-                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">(+62)800058xxx</address>
+                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">Name :</p>
+                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">(+62)800058xxx</address>
                             </div>
 
                         </div>
@@ -111,8 +115,8 @@
                             </svg>
 
                             <div class="flex gap-2">
-                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">Name :</p>
-                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium text-white normal-case text-white">(+62)800058xxx</address>
+                                <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">Name :</p>
+                                <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">(+62)800058xxx</address>
                             </div>
 
                         </div>

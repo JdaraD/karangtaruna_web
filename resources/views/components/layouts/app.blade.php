@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ session('title', 'Page Title') }}</title>
+    {{-- <title>{{ session('title', 'Page Title') }}</title> --}}
+    <title>{{ session('title', 'Karang Taruna Desa Waru') }}</title>
+    @foreach ( $tentangkami as $tentang)
+    <link rel="icon" href="{{ asset('storage/'. $tentang->foto_profil) }}" type="image/x-icon">
+        
+    @endforeach
+
+    {{-- CSRF Token --}}
 
     @livewireStyles
     @vite('resources/css/app.css')

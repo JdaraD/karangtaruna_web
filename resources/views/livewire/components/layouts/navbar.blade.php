@@ -6,18 +6,21 @@
         <div class="grid grid-cols-6 gap-4 h-full size-[90%]">
     
             {{-- Logo Start --}}
+            @foreach ( $tentangkami as $tentang )
+                
             <div class="flex lg:col-span-1 md:col-span-1 col-span-4 w-full h-full justify-center items-center gap-2">
                 {{-- logo --}}
-                <img src="{{ asset('image/logo.png') }}" alt="" class="size-10 ">
+                <img src="{{ asset('storage/' . $tentang->foto_profil) }}" alt="" class="size-10 ">
                 {{-- logo --}}
-    
+                
                 {{-- identity name --}}
-                <div>
-                    <p class="font-[poppins] font-medium lg:text-sm md:text-sm text-sm ">Karang Taruna</p>
-                    <p class="font-[poppins] font-normal lg:text-sm md:text-sm text-sm ">Desa Waru</p>
-                </div>
+                <a href="{{ route('tentang') }}">
+                    <p class="font-[poppins] font-medium lg:text-sm md:text-sm text-sm ">{{ $tentang->first_name }}</p>
+                    <p class="font-[poppins] font-normal lg:text-sm md:text-sm text-sm ">{{ $tentang->last_name }}</p>
+                </a>
                 {{-- identity name --}}
             </div>
+            @endforeach
             {{-- Logo End --}}
     
             {{-- Menu Start --}}
@@ -44,7 +47,7 @@
                     <div x-show="open" @click.outside="open = false" x-transition
                         class="absolute left-0 mt-2 w-[160px] rounded-md shadow-lg bg-white ring-opacity-5 z-50">
                         <div class="py-1">
-                            <a href="{{ route('tentangkami') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-gray-700 hover:bg-gray-100">tentang kami</a>
+                            <a href="{{ route('tentang') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-gray-700 hover:bg-gray-100">tentang kami</a>
                             <a href="{{ route('sktuktur') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-gray-700 hover:bg-gray-100">struktur katar</a>
                             <a href="{{ route('dasarhukum') }}" class="uppercase font-[poppins] text-sm block px-4 py-2 text-gray-700 hover:bg-gray-100">dasar hukum</a>
                         </div>

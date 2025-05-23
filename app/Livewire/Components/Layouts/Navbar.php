@@ -3,11 +3,21 @@
 namespace App\Livewire\Components\Layouts;
 
 use App\Models\RunningText;
+use App\Models\tentangKami;
 use Livewire\Component;
 
 class Navbar extends Component
 {
     public $Text;
+    public $tentangkami;
+
+    // Tentang Kami
+    public function loadTentangKami ()
+    {
+        // Mengambil semua data tentang kami
+        $this->tentangkami = tentangKami::all()
+        ->where('is_active',1);
+    }
 
     // Running Text
     protected function loadRunningText ()
@@ -21,6 +31,7 @@ class Navbar extends Component
     public function mount()
     {
         $this->loadRunningText();
+        $this->loadTentangKami();
         // dd($this->loadRunningText());
     }
 

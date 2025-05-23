@@ -2,7 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\MisiResource;
 use App\Filament\Resources\RunningTextBerandaResource;
+use App\Filament\Resources\TentangKamiResource;
+use App\Filament\Resources\ValueResource;
+use App\Filament\Resources\VisiResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -65,12 +69,31 @@ class AdminPanelProvider extends PanelProvider
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.pages.dashboard'))
                                 ->url(fn(): string => Dashboard::getUrl()),
                         ]),
+                    NavigationGroup::make('Profil')
+                    ->items([
+                        NavigationItem::make('Tentang Kami')
+                            ->icon('heroicon-s-information-circle')
+                            ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.tentangKamiBeranda.index'))
+                            ->url(fn(): string => TentangKamiResource::getUrl()),
+                        NavigationItem::make('Visi')
+                            ->icon('heroicon-s-information-circle')
+                            ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.VisiBeranda.index'))
+                            ->url(fn(): string => VisiResource::getUrl()),
+                        NavigationItem::make('Misi')
+                            ->icon('heroicon-s-information-circle')
+                            ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.MisiBeranda.index'))
+                            ->url(fn(): string => MisiResource::getUrl()),
+                        NavigationItem::make('Value')
+                            ->icon('heroicon-s-information-circle')
+                            ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.MisiBeranda.index'))
+                            ->url(fn(): string => ValueResource::getUrl()),
+                    ]),
                     NavigationGroup::make('Beranda')
                     ->items([
                         NavigationItem::make('Running Text')
                             ->icon('heroicon-s-information-circle')
                             ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index'))
-                            ->url(RunningTextBerandaResource::getUrl()),
+                            ->url(fn(): string => RunningTextBerandaResource::getUrl()),
                     ]),
                 ]);
             })

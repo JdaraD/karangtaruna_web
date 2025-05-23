@@ -310,7 +310,7 @@
             </div>
 
             <div class="flex justify-center items-center h-[50px] w-full px-4">
-                <a href="" class="flex items-center justify-center bg-[#2E8A99] font-[poppins] text-sm w-full rounded-sm font-[poppins] text-sm text-white">Data Selengkapnya</a>
+                <a href="" class="flex items-center justify-center bg-[#2E8A99] font-[poppins] text-sm w-full rounded-sm text-white">Data Selengkapnya</a>
             </div>
 
         </div>
@@ -361,7 +361,7 @@
             </div>
 
             <div class="flex justify-center items-center h-[50px] w-full px-4">
-                <a href="" class="flex items-center justify-center bg-[#2E8A99] font-[poppins] text-sm w-full rounded-sm font-[poppins] text-sm text-white">Data Selengkapnya</a>
+                <a href="" class="flex items-center justify-center bg-[#2E8A99] w-full rounded-sm font-[poppins] text-sm text-white">Data Selengkapnya</a>
             </div>
 
         </div>

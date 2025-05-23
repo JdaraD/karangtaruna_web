@@ -10,13 +10,13 @@ use App\Livewire\Kolaborasidetail;
 use App\Livewire\Menukegiatan;
 use App\Livewire\News;
 use App\Livewire\Struktur;
+use App\Livewire\Tentang;
 use App\Livewire\Usahamandiri;
 use App\Livewire\Videodetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
 use App\Livewire\Event;
 use App\Livewire\Foto;
-use App\Livewire\Tentangkami;
 use App\Livewire\Video;
 
 // Route::get('/', function () {
@@ -24,7 +24,7 @@ use App\Livewire\Video;
 // });
 
 Route::get('/', Beranda::class)->name('Beranda');
-Route::get('/tentangkami', Tentangkami::class)->name('tentangkami');
+Route::get('/tentangkami', Tentang::class)->name('tentang');
 Route::get('/dasarhukum', Dasarhukum::class)->name('dasarhukum');
 Route::get('/sktuktur', Struktur::class)->name('sktuktur');
 Route::get('/menukagiatan', Menukegiatan::class)->name('menukegiatan');
