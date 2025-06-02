@@ -2,12 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VisiResource\Pages;
-use App\Filament\Resources\VisiResource\RelationManagers;
-use App\Models\Visi;
+use App\Filament\Resources\NomortambahanResource\Pages;
+use App\Filament\Resources\NomortambahanResource\RelationManagers;
+use App\Models\Nomortambahan;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -15,19 +14,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class VisiResource extends Resource
+class NomortambahanResource extends Resource
 {
-    protected static ?string $model = Visi::class;
+    protected static ?string $model = Nomortambahan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getPluralModelLabel(): string
     {
-        return 'Visi';
+        return 'Kontak';
     }
     public static function getModelLabel(): string
     {
-        return 'Visi';
+        return 'Kontak';
     }
 
     public static function form(Form $form): Form
@@ -35,23 +34,29 @@ class VisiResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('order')
-                    ->hidden()
+                    ->required()
                     ->numeric()
-                    ->default(0),
-                Section::make()
+                    ->default(0)
+                    ->hidden(),
+                Section::make('Status')
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Status')
-                            ->default(true)
-                            ->required(),
-                    ]),
-                Section::make()
-                    ->schema([
-                        TextInput::make('description')
-                            ->label('Deskripsi')
-                            ->placeholder('Masukan Deskripsi')
                             ->required()
-                            ->maxLength(1000),
+                            ->label('Aktif')
+                            ->default(true),
+                    ]),
+                Section::make('Informasi Kontak')
+                    ->schema([
+                        Forms\Components\TextInput::make('nama')
+                            ->label('Nama Kontak')
+                            ->required()
+                            ->maxLength(100)
+                            ->default(null),
+                        Forms\Components\TextInput::make('nomor')
+                            ->label('Nomor Kontak')
+                            ->required()
+                            ->maxLength(50)
+                            ->default(null),
                     ]),
             ]);
     }
@@ -61,17 +66,19 @@ class VisiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
-                    ->label('Urutan')
+                    ->numeric()
+                    ->sortable()
                     ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
                         return $rowLoop->iteration; // ini akan mulai dari 1
-                    })
-                    ->sortable()
-                    ->searchable(),
+                    }),
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Status'),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Deskripsi')
-                    ->sortable()
+                    ->label('Status')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nama')
+                    ->label('Nama Kontak') 
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nomor')
+                    ->label('Nomor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -105,9 +112,9 @@ class VisiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVisis::route('/'),
-            'create' => Pages\CreateVisi::route('/create'),
-            'edit' => Pages\EditVisi::route('/{record}/edit'),
+            'index' => Pages\ListNomortambahans::route('/'),
+            'create' => Pages\CreateNomortambahan::route('/create'),
+            'edit' => Pages\EditNomortambahan::route('/{record}/edit'),
         ];
     }
 }

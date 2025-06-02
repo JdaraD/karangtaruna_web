@@ -75,6 +75,14 @@ class RunningTextBerandaResource extends Resource
                     ->limit(20)
                     ->toolTip(fn($record) => $record->title)
                     ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->reorderable('order')
             ->filters([

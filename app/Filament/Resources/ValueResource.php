@@ -6,11 +6,15 @@ use App\Filament\Resources\ValueResource\Pages;
 use App\Filament\Resources\ValueResource\RelationManagers;
 use App\Models\Value;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -34,25 +38,31 @@ class ValueResource extends Resource
     {
         return $form
             ->schema([
-                Tables\Columns\TextColumn::make('order')
-                    ->label('Urutan')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Status')
-                    ->boolean()
-                    ->sortable()
-                    ->searchable()
-                    ->trueIcon('heroicon-o-check-circle')
-                    ->falseIcon('heroicon-o-x-circle'),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Deskripsi')
-                    ->sortable()
-                    ->searchable(),
+                TextInput::make('order')
+                    ->hidden()
+                    ->numeric()
+                    ->default(0),
+                Section::make()
+                    ->schema([
+                        Toggle::make('is_active')
+                        ->label('Status')
+                        ->default(true)
+                        ->required(),
+                    ]),
+                Section::make()
+                    ->schema([
+                        TextInput::make('title')
+                            ->label('Judul')
+                            ->placeholder('Masukan Deskripsi')
+                            ->required()
+                            ->maxLength(1000),
+                        TextInput::make('description')
+                            ->label('Deskripsi')
+                            ->placeholder('Masukan Deskripsi')
+                            ->required()
+                            ->maxLength(1000),
+                    ]),
+                
             ]);
     }
 
@@ -65,18 +75,23 @@ class ValueResource extends Resource
                     ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
                         return $rowLoop->iteration; // ini akan mulai dari 1
                     })
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
                 TextColumn::make('title')
                     ->label('Judul')
-                    ->sortable()
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('Deskripsi')
-                    ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

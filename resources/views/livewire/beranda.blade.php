@@ -1,7 +1,30 @@
 <div class="w-full select-none">
     {{-- image gallery --}}
-    <div class="flex justify-center items-center bg-gray-300 mb-4 lg:h-[500px] md:h-[250px] h-[180px] w-full">
-        <img src="{{ asset('image/sider.png') }}" alt="" class="lg:h-[500px] md:h-[250px] h-[180px] w-full object-fill">
+    <div class="relative overflow-hidden w-full lg:aspect-[26/9] md:aspect-[20/9] aspect-[16/9] mt-2 mb-2" id="slider">
+        {{-- image --}}
+        <div class="flex w-full h-full transition-transform duration-1000 ease-in-out" id="slides">
+            <div class="w-full shrink-0">
+                <img src="{{ asset('image/ln2.jpeg') }}" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full shrink-0">
+                <img src="{{ asset('image/ln1.jpg') }}" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full shrink-0">
+                <img src="{{ asset('image/ln3.jpeg') }}" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full shrink-0">
+                <img src="{{ asset('image/sider.png') }}" alt="" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        {{-- button --}}
+        <div class="absolute w-full bottom-4 flex justify-center">
+            <div class="inline-flex justify-center items-center gap-4 px-4 rounded-2xl opacity-60 bg-gray-500 h-10">
+                <div class="navigation-auto flex gap-4" id="auto-dots">
+                    {{-- generate di js --}}
+                </div>
+            </div>
+        </div>
     </div>
     {{-- image gallery --}}
 
@@ -17,9 +40,9 @@
 
         {{-- content --}}
         <div class="flex items-center justify-center bg-white w-full h-full">
-            <div class="flex flex-wrap justify-center gap-6 py-4 max-w-[1024px]">
+            <div class="flex flex-wrap justify-center gap-4 py-4 px-2 max-w-full">
 
-                <div class="flex flex-col items-center bg-[#6A9C89] w-[230px] h-[320px] rounded-lg">
+                <div class="flex flex-col items-center bg-[#6A9C89] lg:w-[230px] lg:h-[320px] rounded-lg">
 
                     <img src="{{ asset('image/program.jpg') }}" alt="" class="w-[200px] h-[130px] mt-4 rounded-lg">
 
@@ -464,8 +487,10 @@
                 </div>
             </div>
             <div class="bg-[#D9D9D9] w-[500px] h-[516px] rounded-lg">
-                {{-- <div id="map" class="h-full w-full"></div> --}}
-                <p class="uppercase font-[poppins] text-[40px] font-bold flex justify-center items-center h-full w-full">Maps</p>
+                <div id="map" class="h-full w-full">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15322.343291210836!2d106.70023158715819!3d-6.418299699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e62919a6edfb%3A0x63e7cbc78630da2!2sKantor%20Desa%20Waru!5e1!3m2!1sen!2sid!4v1748670855362!5m2!1sen!2sid" width="100%" height="100%" border-radius="8px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                {{-- <p class="uppercase font-[poppins] text-[40px] font-bold flex justify-center items-center h-full w-full">Maps</p> --}}
             </div>
 
         </div>
@@ -475,17 +500,80 @@
 </div>
 
 <script>
-    function initMap() {
-        const map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
-            zoom: 12
+    // image sider
+    const slides = document.getElementById('slides');
+    const slider = document.getElementById('slider');
+    const dotsContainer = document.getElementById('auto-dots');
+    const totalSlides = slides.children.length;
+    let index = 0;
+    let interval = null;
+    let dots = [];
+
+    // Generate dots dynamically
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot border-2 border-[#40D3DC] hover:bg-[#40D3DC] active:bg-[#40D3DC] p-1.5 rounded-[10px] cursor-pointer transition-[0.5s]';
+        dot.addEventListener('click', () => manualSlide(i));
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+    }
+
+    // Responsive update on window resize
+    window.addEventListener('resize', () => showSlide(index));
+
+    function showSlide(i) {
+        const slideWidth = slider.offsetWidth;
+        slides.style.width = `${slideWidth * totalSlides}px`; // adjust total width
+        Array.from(slides.children).forEach(slide => {
+            slide.style.width = `${slideWidth}px`; // each slide width
         });
 
-        // Tambahkan marker (opsional)
-        const marker = new google.maps.Marker({
-            position: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
-            map: map,
-            title: "Parung, Bogor"
-        });
+        slides.style.transform = `translateX(-${slideWidth * i}px)`;
+        dots.forEach(dot => dot.classList.remove('bg-[#40D3DC]'));
+        if (dots[i]) dots[i].classList.add('bg-[#40D3DC]');
+        index = i;
     }
+
+    function nextSlide() {
+        index = (index + 1) % totalSlides;
+        showSlide(index);
+    }
+
+    function startAutoSlide() {
+        interval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+
+    function manualSlide(i) {
+        stopAutoSlide();
+        showSlide(i);
+        startAutoSlide();
+    }
+
+    slider.addEventListener('mouseenter', stopAutoSlide);
+    slider.addEventListener('mouseleave', startAutoSlide);
+
+    // Start
+    showSlide(0);
+    startAutoSlide();
+
+    // image sider
+
+    // function initMap() {
+        // const map = new google.maps.Map(document.getElementById("map"), {
+            // center: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
+            // zoom: 12
+        // });
+
+        // Tambahkan marker (opsional)
+        // const marker = new google.maps.Marker({
+            // position: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
+            // map: map,
+            // title: "Parung, Bogor"
+        // });
+    // }
+    
 </script>

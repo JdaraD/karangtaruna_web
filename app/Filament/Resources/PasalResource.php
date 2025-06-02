@@ -2,12 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VisiResource\Pages;
-use App\Filament\Resources\VisiResource\RelationManagers;
-use App\Models\Visi;
+use App\Filament\Resources\PasalResource\Pages;
+use App\Filament\Resources\PasalResource\RelationManagers;
+use App\Models\Pasal;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -15,19 +14,18 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class VisiResource extends Resource
+class PasalResource extends Resource
 {
-    protected static ?string $model = Visi::class;
+    protected static ?string $model = Pasal::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     public static function getPluralModelLabel(): string
     {
-        return 'Visi';
+        return 'Pasal-Pasal';
     }
     public static function getModelLabel(): string
     {
-        return 'Visi';
+        return 'Pasal-Pasal';
     }
 
     public static function form(Form $form): Form
@@ -35,9 +33,10 @@ class VisiResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('order')
-                    ->hidden()
+                    ->required()
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->hidden(),
                 Section::make()
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
@@ -47,12 +46,14 @@ class VisiResource extends Resource
                     ]),
                 Section::make()
                     ->schema([
-                        TextInput::make('description')
-                            ->label('Deskripsi')
-                            ->placeholder('Masukan Deskripsi')
+                        Forms\Components\TextInput::make('pasal')
                             ->required()
                             ->maxLength(1000),
+                        Forms\Components\TextInput::make('description')
+                            ->maxLength(1000)
+                            ->default(null),
                     ]),
+                
             ]);
     }
 
@@ -61,17 +62,18 @@ class VisiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
-                    ->label('Urutan')
+                    ->numeric()
+                    ->sortable()
                     ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
                         return $rowLoop->iteration; // ini akan mulai dari 1
-                    })
-                    ->sortable()
-                    ->searchable(),
+                    }),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
+                Tables\Columns\TextColumn::make('pasal')
+                    ->label('Pasal')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Deskripsi')
-                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -105,9 +107,9 @@ class VisiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVisis::route('/'),
-            'create' => Pages\CreateVisi::route('/create'),
-            'edit' => Pages\EditVisi::route('/{record}/edit'),
+            'index' => Pages\ListPasals::route('/'),
+            'create' => Pages\CreatePasal::route('/create'),
+            'edit' => Pages\EditPasal::route('/{record}/edit'),
         ];
     }
 }

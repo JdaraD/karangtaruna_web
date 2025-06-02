@@ -1,6 +1,6 @@
 <div class="select-none">
 
-    <div class="flex justify-center items-center w-full h-full select-none">
+    <div class="flex justify-center items-center w-full h-[300px] select-none">
 
         {{-- dekripsi --}}
         <div class="h-full w-[88%] mt-6">
@@ -85,25 +85,14 @@
         <div class="flex flex-col gap-4 px-4 py-4 h-full w-[509px] bg-white shadow-md rounded-md">
             <div class="flex justify-center items-center">
                 <p class="capitalize font-bold font-[poppins] text-xl">value</p>
-
             </div>
 
-            <div class="flex gap-2">
-                <p class="capitalize font-bold text-bold font-[poppins] text-sm">berani</p>
-                <p class="capitalize font-[poppins] text-xs text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-            </div>
-            <div class="flex gap-2">
-                <p class="capitalize font-bold text-bold font-[poppins] text-sm">berani</p>
-                <p class="capitalize font-[poppins] text-xs text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-            </div>
-            <div class="flex gap-2">
-                <p class="capitalize font-bold text-bold font-[poppins] text-sm">berani</p>
-                <p class="capitalize font-[poppins] text-xs text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-            </div>
-            <div class="flex gap-2">
-                <p class="capitalize font-bold text-bold font-[poppins] text-sm">berani</p>
-                <p class="capitalize font-[poppins] text-xs text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-            </div>
+            @foreach ( $value as $va )
+                <div class="flex gap-2 mb-2">
+                    <p class="capitalize font-bold text-bold font-[poppins] text-sm">{{ $va->title }}</p>
+                    <p class="capitalize font-[poppins] text-xs text-justify">{{ $va->description }}</p>
+                </div>
+            @endforeach
             
         </div>
     </div>

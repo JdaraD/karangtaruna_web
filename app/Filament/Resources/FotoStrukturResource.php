@@ -2,33 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VisiResource\Pages;
-use App\Filament\Resources\VisiResource\RelationManagers;
-use App\Models\Visi;
+use App\Filament\Resources\FotoStrukturResource\Pages;
+use App\Filament\Resources\FotoStrukturResource\RelationManagers;
+use App\Models\FotoStruktur;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class VisiResource extends Resource
+class FotoStrukturResource extends Resource
 {
-    protected static ?string $model = Visi::class;
+    protected static ?string $model = FotoStruktur::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function getPluralModelLabel(): string
-    {
-        return 'Visi';
-    }
-    public static function getModelLabel(): string
-    {
-        return 'Visi';
-    }
 
     public static function form(Form $form): Form
     {
@@ -47,7 +38,23 @@ class VisiResource extends Resource
                     ]),
                 Section::make()
                     ->schema([
-                        TextInput::make('description')
+                        Forms\Components\FileUpload::make('foto_struktur')
+                            ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                    '16:9',
+                                    '4:3',
+                                    '1:1',
+                                ])
+                            ->image()
+                            ->label('gambar')
+                            ->placeholder('Masukan Gambar')
+                            ->required()
+                            ->maxSize(2024)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg']) // hanya file tipe ini
+                            ->rules(['mimes:jpg,jpeg,png'])
+                            ->preserveFilenames()
+                            ->downloadable(),
+                        Forms\Components\TextInput::make('description')
                             ->label('Deskripsi')
                             ->placeholder('Masukan Deskripsi')
                             ->required()
@@ -61,18 +68,21 @@ class VisiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
-                    ->label('Urutan')
-                    ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
-                        return $rowLoop->iteration; // ini akan mulai dari 1
-                    })
-                    ->sortable()
-                    ->searchable(),
+                    ->numeric()
+                    ->hidden()
+                    ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
+                Tables\Columns\ImageColumn::make('foto_struktur')
+                    ->label('gambar')
+                    ->disk('public')
+                    ->url(fn ($record) => asset('storage/' . $record->foto_struktur))
+                    ->getStateUsing(fn ($record) => asset('storage/' . $record->foto_struktur))
+                    ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Deskripsi')
-                    ->sortable()
-                    ->searchable(),
+                    ->limit(50)
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -105,9 +115,9 @@ class VisiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVisis::route('/'),
-            'create' => Pages\CreateVisi::route('/create'),
-            'edit' => Pages\EditVisi::route('/{record}/edit'),
+            'index' => Pages\ListFotoStrukturs::route('/'),
+            'create' => Pages\CreateFotoStruktur::route('/create'),
+            'edit' => Pages\EditFotoStruktur::route('/{record}/edit'),
         ];
     }
 }

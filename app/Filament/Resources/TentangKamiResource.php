@@ -99,6 +99,15 @@ class TentangKamiResource extends Resource
                 ImageColumn::make('foto_profil')
                     ->label('Gambar')
                     ->getStateUsing(fn ($record) => asset('storage/' . $record->foto_profil)),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])->filters([
                 //
             ])->headerActions([

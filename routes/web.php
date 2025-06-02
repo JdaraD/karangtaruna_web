@@ -41,3 +41,10 @@ Route::get('/news', News::class)->name('news');
 Route::get('/event', Event::class)->name('event');
 
 Route::get('/maps', [MapsController::class,'index'])->name('maps');
+
+// Route::get('/download-foto/{id}', function ($id) {
+//     $record = App\Models\FotoStruktur::findOrFail($id);
+//     $path = storage_path('app/public/' . $record->foto_struktur);
+
+//     return response()->download($path);
+// })->name('download.foto');
