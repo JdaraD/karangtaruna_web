@@ -41,7 +41,7 @@ class FotoStrukturResource extends Resource
                         Forms\Components\FileUpload::make('foto_struktur')
                             ->imageEditor()
                             ->imageEditorAspectRatios([
-                                    '16:9',
+                                    '16:10',
                                     '4:3',
                                     '1:1',
                                 ])
@@ -52,8 +52,7 @@ class FotoStrukturResource extends Resource
                             ->maxSize(2024)
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg']) // hanya file tipe ini
                             ->rules(['mimes:jpg,jpeg,png'])
-                            ->preserveFilenames()
-                            ->downloadable(),
+                            ->preserveFilenames(),
                         Forms\Components\TextInput::make('description')
                             ->label('Deskripsi')
                             ->placeholder('Masukan Deskripsi')
@@ -68,14 +67,16 @@ class FotoStrukturResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
-                    ->hidden()
+                    ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
+                        return $rowLoop->iteration; // ini akan mulai dari 1
+                    })
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
                 Tables\Columns\ImageColumn::make('foto_struktur')
                     ->label('gambar')
-                    ->disk('public')
                     ->url(fn ($record) => asset('storage/' . $record->foto_struktur))
                     ->getStateUsing(fn ($record) => asset('storage/' . $record->foto_struktur))
                     ->openUrlInNewTab(),

@@ -486,12 +486,25 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-[#D9D9D9] w-[500px] h-[516px] rounded-lg">
-                <div id="map" class="h-full w-full">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15322.343291210836!2d106.70023158715819!3d-6.418299699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e62919a6edfb%3A0x63e7cbc78630da2!2sKantor%20Desa%20Waru!5e1!3m2!1sen!2sid!4v1748670855362!5m2!1sen!2sid" width="100%" height="100%" border-radius="8px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            {{-- Maps --}}
+            @foreach ($lokasi as $lk)
+                <div class="bg-[#D9D9D9] w-[500px] h-[516px] rounded-lg">
+                    <div class="h-full w-full rounded-md">
+                        <iframe
+                            src="{{ $lk->lokasi_embed }}"
+                            width="100%"
+                            height="100%"
+                            style="border-radius: 8px"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                        ></iframe>
+                    </div>
                 </div>
-                {{-- <p class="uppercase font-[poppins] text-[40px] font-bold flex justify-center items-center h-full w-full">Maps</p> --}}
-            </div>
+            @endforeach
+            {{-- Maps --}}
+
 
         </div>
     </div>
@@ -500,7 +513,7 @@
 </div>
 
 <script>
-    // image sider
+    // slider fungsi
     const slides = document.getElementById('slides');
     const slider = document.getElementById('slider');
     const dotsContainer = document.getElementById('auto-dots');
@@ -509,7 +522,7 @@
     let interval = null;
     let dots = [];
 
-    // Generate dots dynamically
+    // dots fungsi
     for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement('div');
         dot.className = 'dot border-2 border-[#40D3DC] hover:bg-[#40D3DC] active:bg-[#40D3DC] p-1.5 rounded-[10px] cursor-pointer transition-[0.5s]';
@@ -518,14 +531,13 @@
         dots.push(dot);
     }
 
-    // Responsive update on window resize
     window.addEventListener('resize', () => showSlide(index));
 
     function showSlide(i) {
         const slideWidth = slider.offsetWidth;
-        slides.style.width = `${slideWidth * totalSlides}px`; // adjust total width
+        slides.style.width = `${slideWidth * totalSlides}px`;
         Array.from(slides.children).forEach(slide => {
-            slide.style.width = `${slideWidth}px`; // each slide width
+            slide.style.width = `${slideWidth}px`;
         });
 
         slides.style.transform = `translateX(-${slideWidth * i}px)`;
@@ -540,7 +552,7 @@
     }
 
     function startAutoSlide() {
-        interval = setInterval(nextSlide, 5000);
+        interval = setInterval(nextSlide, 4000);
     }
 
     function stopAutoSlide() {
@@ -557,8 +569,11 @@
     slider.addEventListener('mouseleave', startAutoSlide);
 
     // Start
-    showSlide(0);
-    startAutoSlide();
+    if (totalSlides > 0) {
+        showSlide(0);
+        startAutoSlide();
+    }
+
 
     // image sider
 

@@ -5,17 +5,18 @@
         <div class="flex justify-center items-center h-full w-full">
             <div class="flex flex-col gap-4 w-[80%] h-full">
                 {{-- content --}}
-                @for ($i = 0 ; $i < 6 ; $i++)
-                    <div class="flex flex-wrap gap-2 w-[98%] h-full">
+                @foreach ( $acara as $ar)
+                    <div class="flex flex-wrap gap-2 w-[98%] bg-gray-50 shadow py-2 px-2 rounded-md transition-transform duration-100 hover:scale-102 h-full">
                         <div class="flex justify-center w-[40%] h-full">
-                            <img src="{{ asset('image/ln1.jpg') }}" alt="" class="w-full h-[195px] object-cover rounded-lg">
+                            <img src="{{ asset('storage/'.$ar->gambar) }}" alt="{{ $ar->nama_acara }}" class="w-full h-[195px] object-cover rounded-lg">
                         </div>
-                        <div class="w-[59%] h-full line-clamp-4 text-justify">
-                            <p class="uppercase font-[poppins] text-sm">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem explicabo reiciendis iusto in! Eveniet accusantium, fugiat incidunt id, totam odio nulla ipsa ipsum, consectetur sequi quod! Voluptate labore tempora animi! Lorem</p>
+                        <div class="w-[58%] h-full line-clamp-4 text-justify">
+                            <p class="uppercase font-[poppins] text-sm">{{ $ar->deskripsi }}</p>
+                            <p class="capitalize font-[poppins] text-sm italic">{{ \Carbon\Carbon::parse($ar->tanggal)->translatedFormat('d F Y') }}</p>
                         </div>
                     </div>
   
-                @endfor
+                @endforeach
                 {{-- content --}}
             </div>
         </div>

@@ -81,8 +81,11 @@ class TentangKamiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
+                    ->label('Urutan')
                     ->numeric()
-                    ->hidden()
+                    ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
+                        return $rowLoop->iteration; // ini akan mulai dari 1
+                    })
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),

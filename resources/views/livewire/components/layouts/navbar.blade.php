@@ -113,8 +113,8 @@
                     </div>
                 </div>
     
-                <a href="{{ route('event') }}" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md">event</a>
-                <a href="{{ route('news') }}" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md">berita</a>
+                <a href="{{ route('event') }}" class="uppercase font-[poppins] text-sm focus:bg-gray-50 hover:bg-gray-50 px-4 py-2 rounded-md {{ request()->routeIs('event') ? 'bg-gray-50' : '' }}">event</a>
+                <a href="{{ route('news') }}" class="uppercase font-[poppins] text-sm hover:bg-gray-50 px-4 py-2 rounded-md {{ request()->routeIs('news') ? 'bg-gray-50' : '' }}">berita</a>
             </div>
             {{-- Menu End --}}
     

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dataanggotas', function (Blueprint $table) {
             $table->id()->primary();
             $table->integer('order')->default(0);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(1);
             $table->string('name', 100)->nullable();   
             $table->string('image', 255)->nullable();
             $table->string('alamat', 255)->nullable();
