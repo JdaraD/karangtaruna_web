@@ -2,8 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\LoginCustom;
 use App\Filament\Resources\AcaraResource;
 use App\Filament\Resources\AlamatResource;
+use App\Filament\Resources\AlbumResource;
 use App\Filament\Resources\BannermarketResource;
 use App\Filament\Resources\BeritaResource;
 use App\Filament\Resources\DataanggotaResource;
@@ -51,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            // ->login(LoginCustom::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -167,8 +170,8 @@ class AdminPanelProvider extends PanelProvider
                         ->items([
                             NavigationItem::make('Foto')
                                 ->icon('heroicon-s-information-circle')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index')),
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.albums.*'))
+                                ->url(fn(): string => AlbumResource::getUrl()),
                             
                             NavigationItem::make('Video')
                                 ->icon('heroicon-s-information-circle')

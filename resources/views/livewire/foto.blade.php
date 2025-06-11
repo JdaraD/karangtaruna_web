@@ -1,22 +1,44 @@
 <div class="select-none my-6">
+
     <div class="flex justify-center items-center w-full h-full">
         <div class="flex flex-wrap gap-4 justify-center items-center w-full max-w-[1152px] h-full">
             {{-- content --}}
-
-            @for ($i = 0; $i < 6; $i++ )
+            {{-- @for ($i = 0; $i < 10; $i++) --}}
                 
-            <a href="{{ route('fotodetails') }}" class="hover:cursor-pointer">
-                <div class="flex flex-col justify-center items-center bg-white shadow-lg w-[360px] h-[240px] rounded-md">
-                    <div class="flex justify-center items-center w-full h-[200px] rounded-t-md">
-                        <img src="{{ asset('image/ln2.jpeg') }}" alt="" class="w-full h-full object-cover rounded-t-md">
+            @foreach ( $albums as $ab)
+                
+            <a href="{{ route('fotodetails', $ab->slug) }}" class="group hover:cursor-pointer">
+                <div class="relative flex flex-col justify-center items-center bg-white shadow-lg w-[360px] h-[240px] rounded-md">
+                    
+                    {{-- Foto Album --}}
+                    <div class="flex justify-center items-center w-full h-[200px] rounded-t-md bg-gray-100 overflow-hidden">
+                        @if ($ab->photos->first())
+                            <img src="{{ asset('storage/' . $ab->photos->first()->gambar) }}"
+                                alt="Foto Album"
+                                class="w-full h-full object-cover rounded-t-md">
+                        @else
+                            <span class="text-sm text-gray-500">Tidak ada foto</span>
+                        @endif
+
+                        {{-- Icon muncul saat hover --}}
+                        <div class="absolute inset-0 flex justify-center items-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 rounded-md"> --}}
+                            <!-- Icon Album -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2 3h10v9H3V7z" />
+                            </svg>
+                        </div>
                     </div>
+
+                    {{-- Nama Album --}}
                     <div class="flex justify-center bg-[#D9D9D9] shadow items-center w-full h-[40px] rounded-b-md">
-                        <p class="font-[poppins] text-md font-medium capitalize">kegiatan 1</p>
+                        <p class="font-[poppins] text-md font-medium capitalize">{{ $ab->judul }}</p>
                     </div>
                 </div>
-
             </a>
-            @endfor
+
+            @endforeach
+            {{-- @endfor --}}
+
             {{-- content --}}
 
 

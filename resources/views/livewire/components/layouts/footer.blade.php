@@ -1,7 +1,7 @@
-<div class="flex relative select-none">
+<div class="relative select-none bottom-0 bg-black w-full">
     {{-- infomasi --}}
-    <div class="flex justify-center items-center align-content-center w-full lg:h-[344px] md:h-[284px] h-[224px] bg-black">
-        <div class="grid grid-cols-3 h-full py-2 gap-4 size-[90%]">
+    <div class="flex justify-center items-center align-content-center w-full h-full bg-black">
+        <div class="grid grid-cols-3 h-full py-2 lg:gap-4 md:gap-4 gap-2 size-[94%]">
 
             <div class="grid grid-rows-4 gap-2 h-full">
                 @foreach ( $tentangkami as $tentang )
@@ -27,7 +27,7 @@
                 <div class="row-span-3 h-fitt">
                     
                     <p class="pb-2 lg:text-sm md:text-sm text-[10px] font-[poppins] font-semibold text-white normal-case">Deskripsi</p>
-                    <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white line-clamp-9 normal-case">{{ $tentang->description }}</p>
+                    <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white lg:line-clamp-9 md:line-clamp-9 line-clamp-5 normal-case">{{ $tentang->description }}</p>
                     <a href="{{ route('tentang') }}" class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white hover:text-blue-300 normal-case">Selengkapnya...</a>
                     
                 </div>
@@ -103,10 +103,12 @@
     {{-- infomasi --}}
 
     {{-- copyright --}}
-    <div class="absolute flex justify-center items-center bottom-0 right-0 bg-[#D9D9D9] lg:h-[45px] lg:w-[345px] md:h-[45px] md:w-[345px] h-[28px] w-[185px] gap-2 lg:rounded-tl-[28px] md:rounded-tl-[24px] rounded-tl-[18px]">
-        <img src="{{ asset('image/logo.png')}}" alt="" class="lg:size-8 md:size-4 size-4">
-        <p class="font-[poppins] font-medium lg:text-xs md:text-[10px] text-[8px] text-black normal-case">copyright &copy; by Karang Taruna Desa Waru</p>
-    </div>
+    @foreach ( $tentangkami as $tentang )
+        <div class="bg-gray-800 text-center py-2 text-xs flex justify-center items-center gap-2">
+            <img src="{{ asset('storage/'. $tentang->foto_profil) }}" alt="Logo" class="w-4 h-4">
+            <p class="font-[poppins] font-medium lg:text-sm md:text-[10px] text-[8px] text-white normal-case">Copyright &copy; {{ date('Y') }} {{ $tentang->first_name }} {{ $tentang->last_name }}. All rights reserved.</p>
+        </div>
+        
+    @endforeach
     {{-- copyright --}}
-
 </div>

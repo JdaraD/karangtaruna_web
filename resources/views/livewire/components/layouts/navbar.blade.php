@@ -1,5 +1,5 @@
 {{-- website --}}
-<div id="mainNavbar" class="relative transition-all duration-300">
+<div id="mainNavbar" class="relative transition-all duration-300 z-50">
     {{-- Navbar --}}
     <div class="flex w-full lg:h-[72px] md:h-[72px] h-[58px] bg-[#F5ECE0] justify-center">
     

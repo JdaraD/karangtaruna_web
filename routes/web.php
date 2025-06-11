@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Livewire\Beranda;
 use App\Livewire\Dasarhukum;
 use App\Livewire\Detailusaha;
@@ -36,7 +37,8 @@ Route::get('/detailproduk/{id}', [UsahaMandiriController::class, 'show'])->name(
 Route::get('/kolaborasi', Kolaborasi::class)->name('kolaborasi');
 Route::get('/kolaborasidetail', Kolaborasidetail::class)->name('kolaborasidetail');
 Route::get('/foto', Foto::class)->name('foto');
-Route::get('/fotodetails', Fotodetails::class)->name('fotodetails');
+// Route::get('/foto', Foto::class)->name('foto');
+Route::get('/fotodetails/{slug}', Fotodetails::class)->name('fotodetails');
 Route::get('/video', Video::class)->name('video');
 // Route::get('/videodetails', Videodetails::class)->name('videodetails');
 Route::get('/news', News::class)->name('news');

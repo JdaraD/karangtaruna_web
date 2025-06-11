@@ -28,13 +28,13 @@
 
 </head>
 
-<body class="h-full w-full bg-white">
+<body class="min-h-screen flex flex-col h-full w-full bg-white">
     {{-- Cek jika bukan di halaman login, tampilkan Navbar --}}
     @if (!request()->routeIs('filament.admin.auth.login'))
         @livewire('components.layouts.navbar')
     @endif
 
-    <main>
+    <main class="flex-grow">
         {{ $slot }}
     </main>
 
