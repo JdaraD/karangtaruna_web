@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acaras', function (Blueprint $table) {
+        Schema::create('sosialmedia', function (Blueprint $table) {
             $table->id()->primary();
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(1);
-            $table->string('judul_acara',255);
-            $table->string('gambar');
-            $table->text('deskripsi');
-            $table->date('tanggal');
+            $table->string('logo');
+            $table->string('judul');
+            $table->string('nama_akun');
+            $table->string('link_aplikasi');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('acaras');
+        Schema::dropIfExists('sosialmedia');
     }
 };

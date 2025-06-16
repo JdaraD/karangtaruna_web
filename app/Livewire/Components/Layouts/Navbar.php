@@ -15,8 +15,10 @@ class Navbar extends Component
     public function loadTentangKami ()
     {
         // Mengambil semua data tentang kami
-        $this->tentangkami = tentangKami::all()
-        ->where('is_active',1);
+        $this->tentangkami = tentangKami::where('is_active',1)
+            // ->oldest()
+            ->latest()
+            ->first();
     }
 
     // Running Text

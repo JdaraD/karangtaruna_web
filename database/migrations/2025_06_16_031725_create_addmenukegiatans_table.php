@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acaras', function (Blueprint $table) {
+        Schema::create('addmenukegiatans', function (Blueprint $table) {
             $table->id()->primary();
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(1);
-            $table->string('judul_acara',255);
-            $table->string('gambar');
+            $table->string('nama_program',255);
+            $table->string('gambar',255);
             $table->text('deskripsi');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('acaras');
+        Schema::dropIfExists('addmenukegiatans');
     }
 };

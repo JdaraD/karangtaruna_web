@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\LoginCustom;
 use App\Filament\Resources\AcaraResource;
+use App\Filament\Resources\AddmenukegiatanResource;
 use App\Filament\Resources\AlamatResource;
 use App\Filament\Resources\AlbumResource;
 use App\Filament\Resources\BannermarketResource;
@@ -17,8 +18,11 @@ use App\Filament\Resources\MisiResource;
 use App\Filament\Resources\MVideoResource;
 use App\Filament\Resources\NomortambahanResource;
 use App\Filament\Resources\PasalResource;
+use App\Filament\Resources\ProgramkegiatanResource;
 use App\Filament\Resources\RunningTextBerandaResource;
+use App\Filament\Resources\SliderbrandaResource;
 use App\Filament\Resources\SlideriklanResource;
+use App\Filament\Resources\SosialMediaResource;
 use App\Filament\Resources\TentangKamiResource;
 use App\Filament\Resources\UsahamandiriResource;
 use App\Filament\Resources\ValueResource;
@@ -93,6 +97,10 @@ class AdminPanelProvider extends PanelProvider
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.running-text-berandas.*'))
                                 ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                            NavigationItem::make('Slider Branda')
+                                ->icon('heroicon-s-information-circle')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.sliderbrandas.*'))
+                                ->url(fn(): string => SliderbrandaResource::getUrl()),
                         ]),
                     NavigationGroup::make('Profil')
                         ->items([
@@ -136,10 +144,14 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Program Kegiatan')
                         ->items([
-                            NavigationItem::make('Running Text')
+                            NavigationItem::make('Add Menu Program')
                                 ->icon('heroicon-s-information-circle')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index'))
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.addmenukegiatans.*'))
+                                ->url(fn(): string => AddmenukegiatanResource::getUrl()),
+                            NavigationItem::make('Program Kegiatan')
+                                ->icon('heroicon-s-information-circle')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.programkegiatans.*'))
+                                ->url(fn(): string => ProgramkegiatanResource::getUrl()),
                             
                         ]),
                     NavigationGroup::make('Program Usaha Mandiri')
@@ -210,6 +222,10 @@ class AdminPanelProvider extends PanelProvider
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.lokasis.*'))
                                 ->url(fn(): string => LokasiResource::getUrl()),
+                            NavigationItem::make('Sosial Media')
+                                ->icon('heroicon-s-information-circle')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.' . SosialMediaResource::getSlug() . '.*'))
+                                ->url(fn(): string => SosialMediaResource::getUrl()),
                             
                         ]),
                     

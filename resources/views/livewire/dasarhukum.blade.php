@@ -6,19 +6,19 @@
         <div class="h-full w-[88%] mt-6 mb-4">
 
             <p class="uppercase font-bold text-bold font-[poppins] text-xl">dasar hukum</p>
-            @foreach ( $tentang as $te )
+            @if ( $tentang)
                 
             <div class="mt-4 mb-6">
                 {{-- Logo Start --}}
                 <div class="flex items-center w-full h-full gap-2">
                     {{-- logo --}}
-                    <img src="{{ asset('storage/'.$te->foto_profil) }}" alt="" class="size-10 ">
+                    <img src="{{ asset('storage/'.$tentang->foto_profil) }}" alt="" class="size-10 ">
                     {{-- logo --}}
                     
                     {{-- identity name --}}
                     <div>
-                        <p class="font-[poppins] font-medium text-sm ">{{ $te->first_name }}</p>
-                        <p class="font-[poppins] font-normal text-xs ">{{ $te->last_name }}</p>
+                        <p class="font-[poppins] font-medium text-sm ">{{ $tentang->first_name }}</p>
+                        <p class="font-[poppins] font-normal text-xs ">{{ $tentang->last_name }}</p>
                     </div>
                     {{-- identity name --}}
                 </div>
@@ -26,7 +26,7 @@
                 
             </div>
             
-            @endforeach
+            @endif
             @foreach ( $hukum as $hkm )
                 
             {{-- deskripsi --}}

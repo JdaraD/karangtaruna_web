@@ -150,9 +150,7 @@ class DataanggotaResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 ImageColumn::make('image')
-                    ->label('foto')
-                    ->getStateUsing(fn ($record) => asset('storage/' . $record->image))
-                    ->url(fn ($record) => asset('storage/' . $record->image)),
+                    ->label('foto'),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime()

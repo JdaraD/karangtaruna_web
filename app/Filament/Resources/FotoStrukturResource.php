@@ -77,8 +77,6 @@ class FotoStrukturResource extends Resource
                     ->label('Status'),
                 Tables\Columns\ImageColumn::make('foto_struktur')
                     ->label('gambar')
-                    ->url(fn ($record) => asset('storage/' . $record->foto_struktur))
-                    ->getStateUsing(fn ($record) => asset('storage/' . $record->foto_struktur))
                     ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Deskripsi')

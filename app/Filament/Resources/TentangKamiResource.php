@@ -100,8 +100,7 @@ class TentangKamiResource extends Resource
                     ->limit(50)
                     ->sortable(),
                 ImageColumn::make('foto_profil')
-                    ->label('Gambar')
-                    ->getStateUsing(fn ($record) => asset('storage/' . $record->foto_profil)),
+                    ->label('Gambar'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

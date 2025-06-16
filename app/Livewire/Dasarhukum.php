@@ -17,9 +17,9 @@ class Dasarhukum extends Component
     public function loadtentang()
     {
         $this->tentang = tentangKami::where('is_active',1)
+            // ->oldest()
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
     }
     // laod data hukum
     public function loadhukum()

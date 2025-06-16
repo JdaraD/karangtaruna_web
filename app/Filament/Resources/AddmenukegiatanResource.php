@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AcaraResource\Pages;
-use App\Filament\Resources\AcaraResource\RelationManagers;
-use App\Models\Acara;
+use App\Filament\Resources\AddmenukegiatanResource\Pages;
+use App\Filament\Resources\AddmenukegiatanResource\RelationManagers;
+use App\Models\Addmenukegiatan;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
@@ -13,21 +13,20 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
-class AcaraResource extends Resource
+class AddmenukegiatanResource extends Resource
 {
-    protected static ?string $model = Acara::class;
+    protected static ?string $model = Addmenukegiatan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     public static function getPluralModelLabel(): string
     {
-        return 'Event';
+        return 'Add Menu Kegiatan';
     }
-
     public static function getModelLabel(): string
     {
-        return 'Event';
+        return 'Add Menu Kegiatan';
     }
 
     public static function form(Form $form): Form
@@ -41,35 +40,34 @@ class AcaraResource extends Resource
                 Section::make()
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
-                        ->label('Status')
-                        ->required()
-                        ->default(true),
-                    ]),
+                            ->required()
+                            ->label('Status')
+                            ->default(true),
+                            ]),
                 Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('judul_acara')
-                            ->label('Judul Event')
-                            ->placeholder('Masukan Judul Event')
+                        Forms\Components\TextInput::make('nama_program')
+                            ->label('Nama Program')
+                            ->placeholder('Masukan Nama Program')
+                            ->beforeStateDehydrated(function ($state) {
+                                return Str::title($state); // Kapitalisasi tiap kata, misalnya "halo dunia" → "Halo Dunia"
+                            })
                             ->required()
                             ->maxLength(255),
                         Forms\Components\FileUpload::make('gambar')
                             ->label('Gambar')
-                            ->placeholder('Masukan Gambar')
-                            ->imageEditor()
+                            ->placeholder('Masukan Gambar Program (height 340px width 600px)')
                             ->image()
-                            ->required()
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg']) // hanya file tipe ini
-                            ->rules(['mimes:jpg,jpeg,png']),
+                            ->imageEditor()
+                            ->imageEditorViewportHeight(340)
+                            ->imageEditorViewportWidth(600)
+                            ->required(),
                         Forms\Components\Textarea::make('deskripsi')
                             ->label('Deskripsi')
-                            ->placeholder('Masukan Deskripsi')
-                            ->required(),
-                        Forms\Components\DatePicker::make('tanggal')
-                            ->label('Tanggal Publish')
-                            ->placeholder('Masukan Tanggal Publish')
-                            ->displayFormat('d/m/Y')
-                            ->required(),
-
+                            ->placeholder('Masukan Deskripsi)')
+                            ->rows(5)
+                            ->required()
+                            ->columnSpanFull(),
                     ]),
                 
             ]);
@@ -88,22 +86,16 @@ class AcaraResource extends Resource
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
-                Tables\Columns\TextColumn::make('judul_acara')
-                    ->label('Judul acara')
-                    ->sortable()
+                Tables\Columns\TextColumn::make('nama_program')
+                    ->label('Nama Program')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('gambar')
-                    ->label('Judul acara')
-                    ->sortable()    
+                    ->label('Gambar')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deskripsi')
                     ->label('Deskripsi')
-                    ->sortable()    
+                    ->limit(5)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tanggal')
-                    ->label('Tanggal')
-                    ->date('d/m/Y')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -136,9 +128,9 @@ class AcaraResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAcaras::route('/'),
-            'create' => Pages\CreateAcara::route('/create'),
-            'edit' => Pages\EditAcara::route('/{record}/edit'),
+            'index' => Pages\ListAddmenukegiatans::route('/'),
+            'create' => Pages\CreateAddmenukegiatan::route('/create'),
+            'edit' => Pages\EditAddmenukegiatan::route('/{record}/edit'),
         ];
     }
 }

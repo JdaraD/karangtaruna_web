@@ -4,21 +4,21 @@
 
         {{-- dekripsi --}}
         <div class="h-full w-[88%] mt-6">
-            @foreach ( $tentangkami as $tentang )
-
+            
             <p class="uppercase font-bold text-bold font-[poppins] text-xl">tentang kami</p>
-
+            
+            @if ( $tentangkami )
             <div class="mt-4 mb-6">
                 {{-- Logo Start --}}
                 <div class="flex items-center w-full h-full gap-2">
                     {{-- logo --}}
-                    <img src="{{ asset('storage/'.$tentang->foto_profil) }}" alt="" class="size-10 ">
+                    <img src="{{ asset('storage/'.$tentangkami->foto_profil) }}" alt="" class="size-10 ">
                     {{-- logo --}}
         
                     {{-- identity name --}}
                     <div>
-                        <p class="font-[poppins] font-medium text-sm ">{{ $tentang->first_name }}</p>
-                        <p class="font-[poppins] font-normal text-xs ">{{ $tentang->last_name }}</p>
+                        <p class="font-[poppins] font-medium text-sm ">{{ $tentangkami->first_name }}</p>
+                        <p class="font-[poppins] font-normal text-xs ">{{ $tentangkami->last_name }}</p>
                     </div>
                     {{-- identity name --}}
                 </div>
@@ -27,10 +27,10 @@
             </div>
             
             {{-- deskripsi --}}
-            <p class="font-[poppins] text-justify text-sm">{{ $tentang->description }}</p>
+            <p class="font-[poppins] text-justify text-sm">{{ $tentangkami->description }}</p>
             {{-- deskripsi --}}
             
-            @endforeach
+            @endif
         </div>
         {{-- dekripsi --}}
 
@@ -76,11 +76,11 @@
 
     {{-- identity & slogan --}}
     <div class="flex flex-wrap justify-center h-full w-full py-4 gap-8 max-w-[1024]">
-        @foreach ( $tentangkami as $tentang )  
+        @if ( $tentangkami )  
             <div class="flex justify-center items-center h-[509px] w-[509px] bg-white shadow-md rounded-md">
-                <img src="{{ asset('storage/' . $tentang->foto_profil) }}" alt="" class="h-[60%] w-[60%] ">
+                <img src="{{ asset('storage/' . $tentangkami->foto_profil) }}" alt="" class="h-[60%] w-[60%] ">
             </div>
-        @endforeach
+        @endif
 
         <div class="flex flex-col gap-4 px-4 py-4 h-full w-[509px] bg-white shadow-md rounded-md">
             <div class="flex justify-center items-center">

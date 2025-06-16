@@ -90,11 +90,10 @@ class BannermarketResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('gambar_banner')
                     ->label('Gambar Banner')
-                    ->getStateUsing(fn($record)=> asset('storage/'. $record->gambar_banner))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deskripsi')
-                    ->label('Gambar Banner')
+                    ->label('Deskripsi')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

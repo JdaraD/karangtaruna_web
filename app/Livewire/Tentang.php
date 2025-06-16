@@ -40,8 +40,10 @@ class Tentang extends Component
     protected function loadTentangkami()
     {
         // Mengambil semua data tentang kami
-        $this->tentangkami = TentangKami::all()
-            ->where('is_active', 1);
+        $this->tentangkami = tentangKami::where('is_active',1)
+            // ->oldest()
+            ->latest()
+            ->first();
     }
     // mengirim data ke Beranda
     public function mount()

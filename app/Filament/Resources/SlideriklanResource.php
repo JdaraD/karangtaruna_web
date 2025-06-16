@@ -93,7 +93,6 @@ class SlideriklanResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->label('Gambar')
-                    ->getStateUsing(fn($record) => asset('storage/'. $record->gambar ) )
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deskripsi')
