@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\DetailKolController;
 use App\Http\Controllers\EventDetailController;
 use App\Http\Controllers\kegiatanController;
+use App\Http\Controllers\kolaborasiController;
 use App\Livewire\Beranda;
 use App\Livewire\Dasarhukum;
 use App\Livewire\Detailusaha;
@@ -39,7 +41,9 @@ Route::get('/usahamandiri', Usahamandiri::class)->name('usahamandiri');
 Route::get('/detailproduk/{id}', [UsahaMandiriController::class, 'show'])->name('detailusaha');
 // Route::get('/detailusaha', Detailusaha::class)->name('detailusaha');
 Route::get('/kolaborasi', Kolaborasi::class)->name('kolaborasi');
-Route::get('/kolaborasidetail', Kolaborasidetail::class)->name('kolaborasidetail');
+Route::get('/kolaborasidetail/{id}', [kolaborasiController::class, 'show'])->name('kolaborasidetail');
+Route::get('/detailkolaborasi/{id}', [DetailKolController::class, 'show'])->name('detailkolaborasi');
+// Route::get('/kolaborasidetail', Kolaborasidetail::class)->name('kolaborasidetail');
 Route::get('/foto', Foto::class)->name('foto');
 // Route::get('/foto', Foto::class)->name('foto');
 Route::get('/fotodetails/{slug}', Fotodetails::class)->name('fotodetails');

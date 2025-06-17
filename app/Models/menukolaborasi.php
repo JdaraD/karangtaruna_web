@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class addmenukegiatan extends Model
+class menukolaborasi extends Model
 {
-    use HasFactory ;
+    use HasFactory;
     protected $fillable = [
         'order',
-        'is_active',
-        'nama_program',
+        'is_acrive',
+        'nama_kolaborasi',
         'gambar',
         'deskripsi',
         'created_at',
         'updated_at'
     ];
 
-    public function program()
+    public function kolaborasiprogram()
     {
-        return $this->hasMany(programkegiatan::class, 'program_id');
+        return $this->hasMany( kolaborasi::class,'program_id');
     }
 }

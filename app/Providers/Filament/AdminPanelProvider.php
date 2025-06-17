@@ -12,8 +12,10 @@ use App\Filament\Resources\BeritaResource;
 use App\Filament\Resources\DataanggotaResource;
 use App\Filament\Resources\FotoStrukturResource;
 use App\Filament\Resources\HukumResource;
+use App\Filament\Resources\KolaborasiResource;
 use App\Filament\Resources\KumpulanvideoResource;
 use App\Filament\Resources\LokasiResource;
+use App\Filament\Resources\MenukolaborasiResource;
 use App\Filament\Resources\MisiResource;
 use App\Filament\Resources\MVideoResource;
 use App\Filament\Resources\NomortambahanResource;
@@ -172,10 +174,14 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Program Kolaborasi')
                         ->items([
-                            NavigationItem::make('Berita ')
+                            NavigationItem::make('Add Menu Kolaborasi')
                                 ->icon('heroicon-s-information-circle')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index'))
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.menukolaborasis.*'))
+                                ->url(fn(): string => MenukolaborasiResource::getUrl()),
+                            NavigationItem::make('Kolaborasi')
+                                ->icon('heroicon-s-information-circle')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.kolaborasis.*'))
+                                ->url(fn(): string => KolaborasiResource::getUrl()),
                             
                         ]),
                     NavigationGroup::make('Media')

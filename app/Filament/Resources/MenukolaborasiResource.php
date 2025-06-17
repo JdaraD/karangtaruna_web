@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProgramkegiatanResource\Pages;
-use App\Filament\Resources\ProgramkegiatanResource\RelationManagers;
-use App\Models\addmenukegiatan;
-use App\Models\Programkegiatan;
+use App\Filament\Resources\MenukolaborasiResource\Pages;
+use App\Filament\Resources\MenukolaborasiResource\RelationManagers;
+use App\Models\Menukolaborasi;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
@@ -14,19 +13,20 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
-class ProgramkegiatanResource extends Resource
+class MenukolaborasiResource extends Resource
 {
-    protected static ?string $model = Programkegiatan::class;
+    protected static ?string $model = Menukolaborasi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function getPluralModelLabel(): string
     {
-        return 'Program Kegiatan';
+        return 'Menu Kolaborasi';
     }
     public static function getModelLabel(): string
     {
-        return 'Program Kegiatan';
+        return 'Menu Kolaborasi';
     }
 
     public static function form(Form $form): Form
@@ -38,45 +38,40 @@ class ProgramkegiatanResource extends Resource
                     ->numeric()
                     ->default(0),
                 Section::make()
-                    ->schema([                
+                    ->schema([
                         Forms\Components\Toggle::make('is_active')
                             ->label('Status')
                             ->default(true)
                             ->required(),
-                ]),
+                    ]),
                 Section::make()
                     ->schema([
-                        Forms\Components\Select::make('program_id')
-                            ->label('Program')
-                            ->placeholder('Pilih Program')
-                            ->relationship('AddmenuProgram', 'nama_program')
-                            ->required(),
-                        Forms\Components\FileUpload::make('gambar')
-                            ->label('Gambar')
-                            ->placeholder('Masukan Gambar ( width = 164px height = 143px )')
-                            ->image()
-                            ->imageEditor()
-                            ->imageEditorViewportHeight(164)
-                            ->imageEditorViewportWidth(143)
-                            ->required(),
-                        Forms\Components\Textarea::make('deskripsi')
-                            ->label('Deskripsi')
-                            ->placeholder('Masukan Deskripsi')
-                            ->rows(5)
-                            ->required(),
-                        Forms\Components\Select::make('progres')
-                            ->label('Progress')
-                            ->placeholder('Pilih Angka Progress')
-                            ->options([
-                                '0' => '0%',
-                                '25' => '25%',
-                                '50' => '50%',
-                                '75' => '75%',
-                                '100' => '100%',
-                            ])
-                            ->required(),
+                    Forms\Components\TextInput::make('nama_kolaborasi')
+                        ->label('Nama Kolaborasi')
+                        ->placeholder('Masukan Nama Kolaborasi')
+                        ->required()
+                        ->beforeStateDehydrated(function ($state) {
+                            return Str::title($state); // Kapitalisasi tiap kata, misalnya "halo dunia" → "Halo Dunia"
+                        })
+                        ->maxLength(255),
+                    Forms\Components\FileUpload::make('gambar')
+                        ->label('Gambar')
+                        ->placeholder('Masukan Gambar ( Height = 150px width = 320px)')
+                        ->image()
+                        ->imageEditor()
+                        ->imageEditorViewportHeight(150)
+                        ->imageEditorViewportWidth(320)
+                        ->required()
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg']) // hanya file tipe ini
+                        ->rules(['mimes:jpg,jpeg,png']),
+                    Forms\Components\Textarea::make('deskripsi')
+                        ->label('Deskripsi')
+                        ->placeholder('Masukan Deskripsi')
+                        ->rows(5)
+                        ->required()
+                        ->columnSpanFull(),
                     ]),
-
+                
             ]);
     }
 
@@ -85,27 +80,22 @@ class ProgramkegiatanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
-                    ->label('Urutan')
                     ->numeric()
+                    ->sortable()
                     ->formatStateUsing(function ($state, $record, $column, $rowLoop) {
                         return $rowLoop->iteration; // ini akan mulai dari 1
-                    })
-                    ->sortable(),
+                    }),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Status'),
-                Tables\Columns\TextColumn::make('addmenuProgram.nama_program')
-                    ->label('Program')
+                Tables\Columns\TextColumn::make('nama_kolaborasi')
+                    ->label('Nama Kolaborasi')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('gambar')
                     ->label('Gambar')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('deskripsi')
-                    ->label('deskripsi')
+                    ->label('Deskripsi')
                     ->limit(5)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('progres')
-                    ->label('Progress')
-                    ->formatStateUsing(fn ($state) => $state . '%')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -139,9 +129,9 @@ class ProgramkegiatanResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProgramkegiatans::route('/'),
-            'create' => Pages\CreateProgramkegiatan::route('/create'),
-            'edit' => Pages\EditProgramkegiatan::route('/{record}/edit'),
+            'index' => Pages\ListMenukolaborasis::route('/'),
+            'create' => Pages\CreateMenukolaborasi::route('/create'),
+            'edit' => Pages\EditMenukolaborasi::route('/{record}/edit'),
         ];
     }
 }

@@ -6,7 +6,7 @@
 
     {{-- menu kegiatan --}}
     <div class="flex items-center justify-center bg-white w-full h-full">
-        <div class="flex flex-wrap justify-center gap-6 py-4 max-w-[1024px]">
+        <div class="flex flex-wrap justify-center gap-6 py-4 px-2 max-w-full">
 
             @foreach ( $menukegiatan as $mk )
             <div class="flex flex-col items-center bg-[#6A9C89] w-[230px] h-[320px] rounded-lg">
@@ -47,7 +47,7 @@
 
             @foreach($kegiatan as $program_id => $items)
                 @foreach($items as $item)
-                <div class="flex justify-center items-center lg:w-[420px] md:w-[420px] w-[370px] lg:h-[249px] md:h-[229px] h-[218px] bg-[#F5F5F5] rounded-lg">
+                <div class="flex justify-center items-center lg:w-[420px] md:w-[420px] w-[370px] lg:h-[249px] md:h-[229px] h-[218px] bg-[#F5F5F5] shadow transition-transform duration-100 ease-in-out hover:scale-102 rounded-lg">
                     <div class="grid grid-rows-1 gap-2 h-full w-full rounded-lg px-2 py-2">
                         <div class="flex flex-col flex-wrap gap-2 lg:h-[164px] md:h-[164px] h-[144px] rounded-lg">
                             <div class="flex lg:h-[164px] lg:w-[144px] md:h-[164px] md:w-[144px] h-[144px] w-[124px] rounded-md">
