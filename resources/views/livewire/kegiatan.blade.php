@@ -62,8 +62,10 @@
                                             $bgColor = '#E1FF00';
                                         } elseif ($progres <= 75) {
                                             $bgColor = '#BBFF00';
-                                        } else {
+                                        } elseif ($progres <= 100) {
                                             $bgColor = '#00FF46';
+                                        } else {
+                                            $bgColor = '#8d8f8e';
                                         }
                                     @endphp
                                     <div class="h-full w-[{{ $progres }}%] rounded-lg" style="background-color: {{ $bgColor }};">

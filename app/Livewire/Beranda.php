@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\addmenukegiatan;
+use App\Models\album;
 use App\Models\lokasi;
 use App\Models\programkegiatan;
 use App\Models\sliderbranda;
@@ -16,6 +17,19 @@ class Beranda extends Component
     public $sosialmedia;
     public $kegiatan;
     public $menukegiatan;
+    public $albums;
+
+    // laod data album
+    public function loadalbums()
+    {
+        $this->albums = Album::with(['photos' => function ($q) {
+            $q->oldest()->limit(1); // ambil 5 foto per album
+        }])
+        ->where('is_active', 1)
+        ->latest()
+        ->take(5) // tampilkan hanya 3 album
+        ->get();
+    }
 
     // load data Addmenukegiatan
     public function loadmenukegiatan()
@@ -76,6 +90,7 @@ class Beranda extends Component
         $this->loadsosailmedia();
         $this->loadkegiatan();
         $this->loadmenukegiatan();
+        $this->loadalbums();
 
     }
     public function render()

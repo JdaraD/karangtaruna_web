@@ -20,11 +20,13 @@ use App\Livewire\Usahamandiri;
 use App\Livewire\Videodetails;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
+use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\UsahaMandiriController;
 use App\Livewire\Detailevent;
 use App\Livewire\Event;
 use App\Livewire\Foto;
 use App\Livewire\Video;
+use Google\Service\Walletobjects\Pagination;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -43,17 +45,19 @@ Route::get('/detailproduk/{id}', [UsahaMandiriController::class, 'show'])->name(
 Route::get('/kolaborasi', Kolaborasi::class)->name('kolaborasi');
 Route::get('/kolaborasidetail/{id}', [kolaborasiController::class, 'show'])->name('kolaborasidetail');
 Route::get('/detailkolaborasi/{id}', [DetailKolController::class, 'show'])->name('detailkolaborasi');
-// Route::get('/kolaborasidetail', Kolaborasidetail::class)->name('kolaborasidetail');
+// Route::get('/kolaborasidetail/{id}', Kolaborasidetail::class)->name('kolaborasidetail');
 Route::get('/foto', Foto::class)->name('foto');
 // Route::get('/foto', Foto::class)->name('foto');
 Route::get('/fotodetails/{slug}', Fotodetails::class)->name('fotodetails');
 Route::get('/video', Video::class)->name('video');
 // Route::get('/videodetails', Videodetails::class)->name('videodetails');
 Route::get('/news', News::class)->name('news');
+Route::get('/newsdetail/{id}', [NewsDetailController::class,'show'])->name('newsdetail');
 Route::get('/event', Event::class)->name('event');
 Route::get('/detailevent/{id}', [EventDetailController::class, 'show'])->name('detailevent');
 
 Route::get('/maps', [MapsController::class,'index'])->name('maps');
+// Route::get('/pagination', Pagination::class)->name('pagination');
 
 // Route::get('/download-foto/{id}', function ($id) {
 //     $record = App\Models\FotoStruktur::findOrFail($id);

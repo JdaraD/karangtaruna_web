@@ -24,19 +24,9 @@
                 
             </div>
         </div>
+        {{-- pagination --}}
+            <x-pagination-control :paginator="$acara" per-page-binding="perPage" />
+        {{-- pagination --}}
     </div>
-    {{-- overlay --}}
-        {{-- <div class="fixed inset-0 flex justify-center items-center shadow bg-gray-400/60 h-full w-full z-20">
-            <div class="absolute my-4 bg-amber-500 h-[100px] w-[80%] z-50">
-                <p>testsdadas</p>
-            </div>
-        </div> --}}
-        {{-- <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-amber-500 rounded-xl shadow-xl p-6 w-11/12 max-w-xl">
-                <p class="text-white text-center text-lg font-semibold">Ini adalah overlay notifikasi</p>
-            </div>
-        </div> --}}
-
-    {{-- overlay --}}
     
 </div>

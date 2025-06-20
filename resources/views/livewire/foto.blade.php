@@ -1,9 +1,9 @@
-<div class="select-none my-6">
-
-    <div class="flex justify-center items-center w-full h-full">
-        <div class="flex flex-wrap gap-4 justify-center items-center w-full max-w-[1152px] h-full">
+<div class="flex justify-center items-center select-none my-[28px] w-full">
+    <div class="flex flex-col gap-2 w-[88%] h-full">
+        <p class="uppercase font-[poppins] text-md font-bold">Foto</p>
+        <div class="border-b-1 w-full"></div>
+        <div class="flex justify-center flex-wrap gap-4 h-full w-full">
             {{-- content --}}
-            {{-- @for ($i = 0; $i < 10; $i++) --}}
                 
             @foreach ( $albums as $ab)
                 
@@ -37,11 +37,12 @@
             </a>
 
             @endforeach
-            {{-- @endfor --}}
 
             {{-- content --}}
 
-
         </div>
+        {{-- pagination --}}
+            <x-pagination-control :paginator="$albums" per-page-binding="perPage" />
+        {{-- pagination --}}
     </div>
 </div>

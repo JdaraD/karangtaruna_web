@@ -36,7 +36,7 @@
                 @endforeach
             </div>
 
-            <div class="h-full">
+            <div class="h-full" id="kontak">
 
                 <div class="flex h-[10%] justify-center items-center">
                     <p class="lg:text-sm md:text-sm text-xs font-[poppins] font-medium text-white normal-case">Kontak</p>

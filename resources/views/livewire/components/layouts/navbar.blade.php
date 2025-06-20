@@ -122,7 +122,7 @@
             <div class="lg:flex md:flex flex lg:col-span-1 md:col-span-1 col-span-2 w-full h-full justify-center items-center lg:gap-4 md:gap-4 gap-0">
     
                 {{-- Kontak Start --}}
-                <a href="">
+                <a href="#kontak">
                     <p class="uppercase font-[poppins] lg:text-sm md:text-sm text-[12px] font-medium hover:bg-gray-50 px-4 py-2 rounded-md">kontak</p>
                 </a>
     

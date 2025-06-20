@@ -1,7 +1,7 @@
 <x-layouts.app>
 <div class="flex justify-center items-center select-none my-[28px] w-full">
     <div class="flex flex-col gap-2 w-[88%] h-full">
-        <p class="uppercase font-[poppins] text-md font-bold">test</p>
+        <p class="uppercase font-[poppins] text-md font-bold">{{ $menu->nama_kolaborasi }}</p>
         <div class="border-b-1 w-full"></div>
         {{-- content --}}
 
@@ -24,25 +24,23 @@
                 @endforelse
             </div>
             <div class="flex flex-col gap-6 w-[452px] h-full">
-                <div class="flex justify-center bg-gray-400 items-center w-full h-full rounded-lg shadow-lg">
-                    <p class="uppercase font-[poppins] text-sm">kalender</p>
-
-                </div>
                 <div class="flex flex-col gap-4 w-full h-full rounded-lg">
-                    <p class="uppercase font-[poppins] text-sm">news</p>
+                    <p class="uppercase font-[poppins] text-sm font-bold">news</p>
                     <div class="border-b-1 w-full"></div>
                     <div class="flex flex-col gap-2 items-center w-full h-full">
-                        @for ($i = 0 ; $i < 6 ; $i++)
-                            <div class="flex flex-wrap gap-4 bg-gray-100 rounded-md shadow-md transition-transform duration-100 hover:scale-102 px-2 py-2 w-[98%] h-full">
+
+                        @foreach ($berita as $br)
+                            <a href="{{ route('newsdetail',['id' => $br->id]) }}" class="flex flex-wrap gap-4 bg-gray-100 rounded-md shadow-md transition-transform duration-100 hover:scale-102 px-2 py-2 w-[98%] h-full">
                                 <div class="flex justify-center w-[30%] h-full">
-                                    <img src="{{ asset('image/ln1.jpg') }}" alt="" class="w-[160px] h-[95px] object-cover rounded-lg">
+                                    <img src="{{ asset('storage/'.$br->gambar) }}" alt="" class="w-[160px] h-[95px] object-cover rounded-lg">
                                 </div>
                                 <div class="w-[60%] h-full line-clamp-3 text-justify">
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem explicabo reiciendis iusto in! Eveniet accusantium, fugiat incidunt id, totam odio nulla ipsa ipsum, consectetur sequi quod! Voluptate labore tempora animi! Lorem</p>
+                                    <p class="capitalize font-[poppins] text-sm font-bold">{{ $br->judul_berita }}</p>
+                                    <p class="capitalize font-[poppins] text-xs">{{ $br->deskripsi }}</p>
                                 </div>
-                            </div>
+                            </a>
         
-                        @endfor
+                        @endforeach 
                     </div>
 
 
@@ -50,7 +48,9 @@
             </div>
         </div>
         {{-- content --}}
-
+        {{-- pagination --}}
+            <x-pagination-control :paginator="$programs" per-page-binding="perPage" />
+        {{-- pagination --}}
     </div>
 
 </div>

@@ -2,32 +2,34 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Berita;
 use Carbon\Carbon;
+use Livewire\Component;
+use Livewire\WithPagination;
 
-class News extends Component
+class Calendar extends Component
 {
-    use WithPagination;
+     use WithPagination;
 
     public $selectedDate;
     public $currentMonth;
-    public $datesWithNews = [];
-    public $perPage = 8;
+    public $datesWithKolaborasi = [];
+    public $perPage = 6;
+    public $programId;
 
-    public function mount()
+    public function mount($programId)
     {
+        $this->programId = $programId;
         $this->selectedDate = now()->format('Y-m-d');
         $this->currentMonth = Carbon::parse($this->selectedDate)->startOfMonth();
-        $this->fetchDatesWithNews();
+        $this->fetchDatesWithKolaborasi();
     }
 
     public function selectDate($date)
     {
         $this->selectedDate = $date;
         $this->currentMonth = Carbon::parse($date)->startOfMonth();
-        $this->fetchDatesWithNews();
+        $this->fetchDatesWithKolaborasi();
         $this->resetPage();
     }
 
@@ -43,7 +45,7 @@ class News extends Component
         }
 
         $this->selectedDate = $newDate->format('Y-m-d');
-        $this->fetchDatesWithNews();
+        $this->fetchDatesWithKolaborasi();
         $this->resetPage();
     }
 
@@ -59,25 +61,27 @@ class News extends Component
         }
 
         $this->selectedDate = $newDate->format('Y-m-d');
-        $this->fetchDatesWithNews();
+        $this->fetchDatesWithKolaborasi();
         $this->resetPage();
     }
 
-    public function fetchDatesWithNews()
+    public function fetchDatesWithKolaborasi()
     {
         $start = $this->currentMonth->copy()->startOfMonth()->format('Y-m-d');
         $end = $this->currentMonth->copy()->endOfMonth()->format('Y-m-d');
 
-        $this->datesWithNews = Berita::whereBetween('tanggal', [$start, $end])
+        $this->datesWithKolaborasi = Kolaborasi::where('program_id', $this->programId)
+            ->whereBetween('tanggal', [$start, $end])
             ->where('is_active', 1)
             ->pluck('tanggal')
             ->map(fn($date) => Carbon::parse($date)->format('Y-m-d'))
             ->toArray();
     }
 
-    public function getBeritasProperty()
+    public function getProgramsProperty()
     {
-        return Berita::whereDate('tanggal', $this->selectedDate)
+        return Kolaborasi::where('program_id', $this->programId)
+            ->whereDate('tanggal', $this->selectedDate)
             ->where('is_active', 1)
             ->latest()
             ->paginate($this->perPage);
@@ -90,8 +94,8 @@ class News extends Component
 
     public function render()
     {
-        return view('livewire.news', [
-            'beritas' => $this->beritas
+        return view('livewire.kolaborasi-calendar', [
+            'programs' => $this->programs,
         ]);
     }
 }

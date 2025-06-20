@@ -107,8 +107,10 @@
                                             $bgColor = '#E1FF00';
                                         } elseif ($progres <= 75) {
                                             $bgColor = '#BBFF00';
-                                        } else {
+                                        } elseif ($progres <= 100) {
                                             $bgColor = '#00FF46';
+                                        } else {
+                                            $bgColor = '#8d8f8e';
                                         }
                                     @endphp
                                     <div class="h-full w-[{{ $progres }}%] rounded-lg" style="background-color: {{ $bgColor }};">
@@ -139,43 +141,87 @@
         {{-- title --}}
 
         {{-- content --}}
-        <div class="relative">
-
-            <div class="flex justify-center mb-4">
+        <div class="relative mb-10">
+            <div class="flex justify-center">
+                @php
+                    $maxSlot = 5;
+                @endphp
 
                 <div class="flex justify-center w-[80%] gap-4">
+                    @for ($i = 0; $i < $maxSlot; $i++)
+                        @php
+                            $album = $albums[$i] ?? null;
+                            $image = $album && $album->photos->first()
+                                        ? asset('storage/' . $album->photos->first()->gambar)
+                                        : null;
+                        @endphp
 
-                    {{-- <div class="bg-[#F5F5F5] w-[25%] h-[330px] rounded-lg"> --}}
-                        <img src="{{ asset('image/pp.jpg')}}" alt="nama folder" class="w-[25%] h-[330px] objeh-fullct-fit rounded-lg">
-                    {{-- </div> --}}
+                        @if ($i === 0 || $i === 4)
+                            {{-- Slot Kiri & Kanan --}}
+                            @if ($album)
+                                <a href="{{ route('fotodetails', $album->slug) }}"
+                                class="w-[25%] h-[330px] relative group block rounded-lg overflow-hidden">
+                                    <img src="{{ $image }}" class="object-cover w-full h-full rounded-lg">
+                                    {{-- Hover Icon --}}
+                                    <div class="absolute inset-0 flex justify-center items-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2 3h10v9H3V7z" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            @else
+                                <div class="w-[25%] h-[330px] bg-gray-200 animate-pulse rounded-lg"></div>
+                            @endif
 
-                    <div class="grid grid-cols-3 gap-4 w-[50%] h-[330px]">
-                        <div class="bg-gray-500 w-full h-[157px] col-span-2 rounded-lg">
-                            <img src="{{ asset('image/ln1.jpg')}}" alt="" class="h-full w-full object-cover rounded-lg">
-                        </div>
-                        <div class="bg-gray-500 w-full h-[157px] rounded-lg">
-                            <img src="{{ asset('image/ln2.jpeg')}}" alt="" class="h-full w-full object-cover rounded-lg">
-                        </div>
-                        <div class="bg-gray-500 w-full h-[157px] col-span-3 rounded-lg">
-                            <img src="{{ asset('image/ln3.jpeg')}}" alt="" class="h-full w-full object-cover rounded-lg">
-                        </div>
-                    </div>
+                        @elseif ($i === 1)
+                            {{-- Grid Tengah Start --}}
+                            <div class="grid grid-cols-3 gap-4 w-[50%] h-[330px]">
+                        @endif
 
-                    {{-- <div class="bg-[#F5F5F5] w-[25%] h-[330px] rounded-lg"> --}}
-                        <img src="{{ asset('image/pp1.jpg')}}" alt="" class="w-[25%] h-[330px] object-fit rounded-lg">
-                    {{-- </div> --}}
+                        @if ($i > 0 && $i < 4)
+                            @php
+                                $col = match($i) {
+                                    1 => 'col-span-2',
+                                    2 => 'col-span-1',
+                                    3 => 'col-span-3',
+                                };
+                            @endphp
 
+                            <div class="{{ $col }} h-[157px] w-full rounded-lg">
+                                @if ($album)
+                                    <a href="{{ route('fotodetails', $album->slug) }}"
+                                    class="relative group block w-full h-full rounded-lg overflow-hidden">
+                                        <img src="{{ $image }}" class="object-cover w-full h-full rounded-lg">
+                                        <div class="absolute inset-0 flex justify-center items-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h4l2 3h10v9H3V7z" />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                @else
+                                    <div class="w-full h-full bg-gray-200 animate-pulse rounded-lg"></div>
+                                @endif
+                            </div>
+
+                            @if ($i === 3)
+                                {{-- Grid Tengah End --}}
+                            </div>
+                            @endif
+                        @endif
+                    @endfor
                 </div>
 
             </div>
-
-            <div class="flex justify-center items-center h-[50px] w-full px-4">
-                <a href="" class="flex items-center justify-center bg-[#2E8A99] w-full rounded-sm font-[poppins] text-sm text-white">Data Selengkapnya</a>
-            </div>
-
+            
+        </div>
+        {{-- Tombol ke detail --}}
+        <div class="flex justify-center items-center h-[50px] w-full px-4 mt-2">
+            <a href="{{ route('foto') }}"
+            class="flex items-center justify-center bg-[#2E8A99] w-full rounded-sm font-[poppins] text-sm text-white">
+                Lihat Semua Album
+            </a>
         </div>
         {{-- content --}}
-
 
     </div>
     {{-- gallery karang taruna --}}
