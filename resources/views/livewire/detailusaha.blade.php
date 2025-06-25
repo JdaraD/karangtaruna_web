@@ -3,25 +3,25 @@
 
     <div class="flex flex-col gap-6 h-full w-full justify-center items-center">
         <div class="grid grid-cols-2 w-[90%] h-full gap-4">
-            <div class="flex flex-col justify-center items-center gap-2 my-2 mx-2">
+            <div class="flex flex-col items-center gap-2 my-2 mx-2">
                 @php
                     $fotoPertama = $usaha->foto_barang[0] ?? null;
                 @endphp
 
                 {{-- Foto besar --}}
                 @if ($fotoPertama)
-                    <div class="h-[314px] w-[314px] rounded-md">
+                    <div class="lg:h-[314px] lg:w-[314px] md:h-[314px] md:w-[314px] h-[220px] w-[180px] rounded-md">
                         <img id="mainPhoto" src="{{ asset('storage/' . $fotoPertama) }}" alt="Foto utama"
                             class="h-full w-full object-cover rounded-md transition-all duration-200">
                     </div>
                 @endif
 
                 {{-- Galeri thumbnail --}}
-                <div class="relative w-full max-w-[500px] h-[100px] mx-auto mt-4">
+                <div class="relative w-full max-w-[500px] lg:h-[100px] md:h-[100px] h-[80px] mx-auto mt-4">
 
                     <!-- Tombol Kiri -->
                     <button id="arrowLeft" onclick="scrollGallery(-1)"
-                        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-[100%] w-[30px] bg-white/80 text-black rounded-l-md">
+                        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-[60%] w-[30px] bg-white/80 text-black rounded-l-md">
                         &#10094;
                     </button>
 
@@ -50,7 +50,7 @@
 
                     <!-- Tombol Kanan -->
                     <button id="arrowRight" onclick="scrollGallery(1)"
-                        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-[100%] w-[30px] bg-white/80 text-black rounded-r-md">
+                        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-[60%] w-[30px] bg-white/80 text-black rounded-r-md">
                         &#10095;
                     </button>
                 </div>
@@ -58,14 +58,14 @@
             </div>
                 
             <div class="flex flex-col gap-2 my-2 mx-2">
-                <div class="w-full h-[60px]">
+                <div class="w-full lg:h-[60px] md:h-[60px] h-[40px]">
                     <p class="capitalize text-sm text-justify font-[poppins] font-bold">{{ $usaha->nama_barang }}</p>
                     <p class="capitalize text-xs text-justify font-[poppins] font-bold">Rp. {{ number_format($usaha->harga, 0, ',', '.') }}</p>
                 </div>
-                <div class="flex flex-col gap-2 w-full h-[286px]">
+                <div class="flex flex-col gap-2 w-full lg:h-[286px] md:h-[286px] h-[200px]">
                     <p class="capitalize text-sm text-justify font-[poppins] font-bold">deskripsi produk</p>
                     <div class="border border-b-1"></div>
-                    <p class="capitalize text-sm text-justify font-[poppins]">{{ $usaha->deskripsi }}</p>
+                    <p class="capitalize md:text-sm text-xs text-justify font-[poppins]">{{ $usaha->deskripsi }}</p>
                 </div>
                 <div class="flex flex-col gap-2 h-[128px]">
                     <p class="capitalize text-sm text-justify font-[poppins] font-bold">Link Shop</p>

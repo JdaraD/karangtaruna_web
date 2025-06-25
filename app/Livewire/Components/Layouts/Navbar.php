@@ -10,6 +10,15 @@ class Navbar extends Component
 {
     public $Text;
     public $tentangkami;
+    public $colorsetting;
+
+    // mengambil data warna
+    public function loadColorSetting()
+    {
+        $this->colorsetting = \App\Models\colorsetting::where('is_active', 1)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    }
 
     // Tentang Kami
     public function loadTentangKami ()
@@ -34,7 +43,8 @@ class Navbar extends Component
     {
         $this->loadRunningText();
         $this->loadTentangKami();
-        // dd($this->loadRunningText());
+        $this->loadColorSetting();
+        // dd($this->loadColorSetting());
     }
 
 

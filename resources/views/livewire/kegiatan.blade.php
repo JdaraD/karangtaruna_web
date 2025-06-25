@@ -33,53 +33,54 @@
         <p class="uppercase font-medium text-bold font-[poppins] text-xl">progress</p>
     </div>
 
-    <div class="flex items-center justify-center mt-6 bg-white w-full h-full">
-        <div class="flex flex-wrap justify-center gap-3 pb-4 max-w-[1440px]">
+<div class="flex items-center justify-center mt-6 bg-white w-full h-full">
+    <div class="flex flex-wrap justify-center gap-3 pb-4 w-[90%] md:w-full max-w-[1440px] mx-auto">
 
-            @foreach ( $program as $pg )
-                <div class="flex justify-center items-center lg:w-[420px] md:w-[420px] w-[370px] lg:h-[249px] md:h-[229px] h-[218px] bg-[#F5F5F5] shadow transition-transform duration-100 ease-in-out hover:scale-102 rounded-lg">
-                    <div class="grid grid-rows-1 gap-2 h-full w-full rounded-lg px-2 py-2">
+        @foreach ($program as $pg)
+            <div class="flex justify-center items-center lg:w-[464px] md:w-[420px] w-[370px] lg:h-[249px] md:h-[229px] h-[218px] bg-[#F5F5F5] shadow transition-transform duration-100 ease-in-out hover:scale-102 rounded-lg">
+                <div class="grid grid-rows-1 gap-2 h-full w-full rounded-lg px-2 py-2">
                         <div class="flex flex-col flex-wrap gap-2 lg:h-[164px] md:h-[164px] h-[144px] rounded-lg">
-                            <div class="flex lg:h-[164px] lg:w-[144px] md:h-[164px] md:w-[144px] h-[144px] w-[124px] rounded-md">
-                                <img src="{{ asset('storage/'.$pg->gambar) }}" alt="" class="object-fit rounded-lg">
-                            </div>
-                            <div class="relative lg:h-[164px] lg:w-[250px] md:w-[250px] w-[220px]">
-                                <p class="uppercase font-bold">{{ $pg->AddMenuProgram->nama_program }}</p>
-                                <p class="text-xs text-justify font-[poppins] line-clamp-6">{{ $pg->deskripsi }}</p>
-                            </div>
+                            <div class="flex lg:h-[164px] lg:w-[180px] md:h-[164px] md:w-[144px] h-[144px] w-[124px] rounded-md">
+                            <img src="{{ asset('storage/'.$pg->gambar) }}" alt="" class="object-cover rounded-lg">
                         </div>
-                        <div class="grid grid-rows-2 h-[60px] rounded-lg">
-                            <div class="flex justify-end">
-                                <p class="font-[poppins] text-md font-bold pr-2">{{ $pg->progres }}%</p>
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <div class="bg-[#D9D9D9] h-[90%] w-[98%] rounded-lg">
-                                    @php
-                                        $progres = $pg->progres;
-                                        if ($progres <= 25) {
-                                            $bgColor = '#FF4400';
-                                        } elseif ($progres <= 50) {
-                                            $bgColor = '#E1FF00';
-                                        } elseif ($progres <= 75) {
-                                            $bgColor = '#BBFF00';
-                                        } elseif ($progres <= 100) {
-                                            $bgColor = '#00FF46';
-                                        } else {
-                                            $bgColor = '#8d8f8e';
-                                        }
-                                    @endphp
-                                    <div class="h-full w-[{{ $progres }}%] rounded-lg" style="background-color: {{ $bgColor }};">
-                                        <p class="flex justify-center items-center font-[poppins] text-md capitalize font-medium">Progress</p>
-                                    </div>
+                        <div class="relative lg:h-[164px] lg:w-[250px] md:w-[250px] w-[200px]">
+                            <p class="uppercase font-bold">{{ $pg->AddMenuProgram->nama_program }}</p>
+                            <p class="text-xs text-justify font-[poppins] line-clamp-6">{{ $pg->deskripsi }}</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-rows-2 h-[60px] rounded-lg">
+                        <div class="flex justify-end">
+                            <p class="font-[poppins] text-md font-bold pr-2">{{ $pg->progres }}%</p>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <div class="bg-[#D9D9D9] h-[90%] w-[98%] rounded-lg">
+                                @php
+                                    $progres = $pg->progres;
+                                    if ($progres <= 25) {
+                                        $bgColor = '#FF4400';
+                                    } elseif ($progres <= 50) {
+                                        $bgColor = '#E1FF00';
+                                    } elseif ($progres <= 75) {
+                                        $bgColor = '#BBFF00';
+                                    } elseif ($progres <= 100) {
+                                        $bgColor = '#00FF46';
+                                    } else {
+                                        $bgColor = '#8d8f8e';
+                                    }
+                                @endphp
+                                <div class="h-full w-[{{ $progres }}%] rounded-lg" style="background-color: {{ $bgColor }};">
+                                    <p class="flex justify-center items-center font-[poppins] text-md capitalize font-medium">Progress</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+        @endforeach
 
-        </div>
     </div>
+</div>
+
     {{-- progress kegiatan --}}
 
     

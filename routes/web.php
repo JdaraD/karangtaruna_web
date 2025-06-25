@@ -27,6 +27,7 @@ use App\Livewire\Event;
 use App\Livewire\Foto;
 use App\Livewire\Video;
 use Google\Service\Walletobjects\Pagination;
+use Illuminate\Support\Facades\Mail;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -65,3 +66,18 @@ Route::get('/maps', [MapsController::class,'index'])->name('maps');
 
 //     return response()->download($path);
 // })->name('download.foto');
+
+// Route::get('/tes-email', function () {
+//     Mail::raw('Tes pengiriman email dari Laravel', function ($m) {
+//         $m->to('emailtujuan@gmail.com')->subject('Tes Gmail SMTP');
+//     });
+
+//     return 'Email terkirim!';
+// });
+
+Route::get('reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+
+Route::post('reset-password', [\App\Http\Controllers\ResetPasswordController::class, 'store'])
+    ->name('password.update');

@@ -13,6 +13,15 @@ class Footer extends Component
     public $alamat;
 
     public $nomorTambahan;
+    public $colorsetting;
+
+    // mengambil data warna
+    public function loadColorSetting()
+    {
+        $this->colorsetting = \App\Models\colorsetting::where('is_active', 1)
+            ->orderBy('created_at', 'desc')
+            ->first();
+    }
 
     // load data tentang kami
     protected function loadtentangkami() {
@@ -46,6 +55,7 @@ class Footer extends Component
         $this->loadtentangkami();
         $this->loadalamat();
         $this->loadnomorTambahan();
+        $this->loadColorSetting();
     }
     public function render()
     {

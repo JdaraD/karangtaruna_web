@@ -5,20 +5,24 @@
         <div class="flex justify-center flex-wrap gap-4 h-full w-full">
             {{-- content --}}
         @foreach ( $video as $vd )
-            <div class="hover:cursor-pointer">
-                <div class="flex flex-col justify-center items-center bg-white shadow-lg w-[360px] h-[240px] rounded-md">
-                    <div class="flex justify-center items-center w-full h-[200px] rounded-t-md">
-                        <iframe width="360px" height="200px" style="border-radius: 4px 4px 0px 0px"
-                        src="{{ $vd->video_embed }}" 
-                        frameborder="0" 
-                        allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="flex justify-center bg-[#D9D9D9] shadow items-center w-full h-[40px] rounded-b-md">
-                        <p class="font-[poppins] text-md font-medium capitalize">{{ $vd->deskripsi }}</p>
-                    </div>
-                </div>
-            </div>
+<div class="hover:cursor-pointer w-full flex justify-center">
+    <div class="flex flex-col justify-center items-center bg-white shadow-lg w-full max-w-[360px] rounded-md overflow-hidden">
+        <div class="w-full aspect-video">
+            <iframe
+                class="w-full h-full rounded-t-md"
+                src="{{ $vd->video_embed }}"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="flex justify-center bg-[#D9D9D9] shadow items-center w-full h-10 rounded-b-md px-2">
+            <p class="font-[poppins] text-sm sm:text-md font-medium capitalize text-center">
+                {{ $vd->deskripsi }}
+            </p>
+        </div>
+    </div>
+</div>
+
         @endforeach
         {{-- content --}}
         </div>

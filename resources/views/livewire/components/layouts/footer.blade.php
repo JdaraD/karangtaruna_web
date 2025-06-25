@@ -1,6 +1,6 @@
 <div class="relative select-none bottom-0 bg-black w-full">
     {{-- infomasi --}}
-    <div class="flex justify-center items-center align-content-center w-full h-full bg-black">
+    <div class="flex justify-center items-center align-content-center w-full h-full bg-[{{ $colorsetting->footer_color }}]" style="background-color: {{ $colorsetting->footer_color }};">
         <div class="grid grid-cols-3 h-full py-2 lg:gap-4 md:gap-4 gap-2 size-[94%]">
 
             <div class="grid grid-rows-4 gap-2 h-full">
@@ -104,7 +104,7 @@
 
     {{-- copyright --}}
     @foreach ( $tentangkami as $tentang )
-        <div class="bg-gray-800 text-center py-2 text-xs flex justify-center items-center gap-2">
+        <div class="bg-[{{ $colorsetting->footter_copyright_color }}] text-center py-2 text-xs flex justify-center items-center gap-2" style="background-color: {{ $colorsetting->footter_copyright_color }};">
             <img src="{{ asset('storage/'. $tentang->foto_profil) }}" alt="Logo" class="w-4 h-4">
             <p class="font-[poppins] font-medium lg:text-sm md:text-[10px] text-[8px] text-white normal-case">Copyright &copy; {{ date('Y') }} {{ $tentang->first_name }} {{ $tentang->last_name }}. All rights reserved.</p>
         </div>

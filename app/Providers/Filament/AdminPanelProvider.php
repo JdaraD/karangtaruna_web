@@ -2,13 +2,16 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\ForgotPassword;
 use App\Filament\Pages\Auth\LoginCustom;
+use App\Filament\Pages\Register;
 use App\Filament\Resources\AcaraResource;
 use App\Filament\Resources\AddmenukegiatanResource;
 use App\Filament\Resources\AlamatResource;
 use App\Filament\Resources\AlbumResource;
 use App\Filament\Resources\BannermarketResource;
 use App\Filament\Resources\BeritaResource;
+use App\Filament\Resources\ColorsettingResource;
 use App\Filament\Resources\DataanggotaResource;
 use App\Filament\Resources\FotoStrukturResource;
 use App\Filament\Resources\HukumResource;
@@ -20,6 +23,8 @@ use App\Filament\Resources\MisiResource;
 use App\Filament\Resources\MVideoResource;
 use App\Filament\Resources\NomortambahanResource;
 use App\Filament\Resources\PasalResource;
+use App\Filament\Resources\PengajuanBantuanResource;
+use App\Filament\Resources\PengajuanKegiatanResource;
 use App\Filament\Resources\ProgramkegiatanResource;
 use App\Filament\Resources\RunningTextBerandaResource;
 use App\Filament\Resources\SliderbrandaResource;
@@ -48,10 +53,18 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
+    // public function getPages(): array
+    // {
+    //     return [
+    //         Register::class,
+    //         // page lain juga bisa ada di sini
+    //     ];
+    // }
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -67,6 +80,9 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                Register::class,
+                ForgotPassword::class,
+
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
@@ -146,7 +162,7 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Program Kegiatan')
                         ->items([
-                            NavigationItem::make('Add Menu Program')
+                            NavigationItem::make('Tambah Menu Program')
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.addmenukegiatans.*'))
                                 ->url(fn(): string => AddmenukegiatanResource::getUrl()),
@@ -154,6 +170,10 @@ class AdminPanelProvider extends PanelProvider
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.programkegiatans.*'))
                                 ->url(fn(): string => ProgramkegiatanResource::getUrl()),
+                            NavigationItem::make('Manajemen Program Kegiatan')
+                                ->icon('heroicon-s-information-circle')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.pengajuan-kegiatans.*'))
+                                ->url(fn(): string => PengajuanKegiatanResource::getUrl()),
                             
                         ]),
                     NavigationGroup::make('Program Usaha Mandiri')
@@ -174,7 +194,7 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Program Kolaborasi')
                         ->items([
-                            NavigationItem::make('Add Menu Kolaborasi')
+                            NavigationItem::make('Tambah Menu Kolaborasi')
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.menukolaborasis.*'))
                                 ->url(fn(): string => MenukolaborasiResource::getUrl()),
@@ -199,7 +219,7 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make()
                         ->items([
-                            NavigationItem::make('Event')
+                            NavigationItem::make('Acara')
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.acaras.*'))
                                 ->url(fn(): string => AcaraResource::getUrl()),
@@ -214,10 +234,10 @@ class AdminPanelProvider extends PanelProvider
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.alamats.*'))
                                 ->url(fn(): string => AlamatResource::getUrl()),
 
-                            NavigationItem::make('Pesan')
+                            NavigationItem::make('Pesan Bantuan')
                                 ->icon('heroicon-s-information-circle')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index')),
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.pengajuan-bantuans.index'))
+                                ->url(fn(): string => PengajuanBantuanResource::getUrl()),
 
                             NavigationItem::make('Nomor Bantuan')
                                 ->icon('heroicon-s-information-circle')
@@ -239,16 +259,18 @@ class AdminPanelProvider extends PanelProvider
                         ->items([
                             NavigationItem::make('Color setting')
                                 ->icon('heroicon-s-cog')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index')),
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.colorsettings.*'))
+                                ->url(fn(): string => ColorsettingResource::getUrl()),
                             NavigationItem::make('Registrasi Akun')
-                                ->icon('heroicon-s-cog')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index')),
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->icon('heroicon-o-user-plus')
+                                ->url(Register::getUrl())
+                                ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com')
+                                ->isActiveWhen(fn (): bool => request()->routeIs(Register::getRouteName())),
                             NavigationItem::make('change password')
-                                ->icon('heroicon-s-cog')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.RunningTextBeranda.index')),
-                                // ->url(fn(): string => RunningTextBerandaResource::getUrl()),
+                                ->icon('heroicon-o-key')
+                                ->url(ForgotPassword::getUrl())
+                                // ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com')
+                                ->isActiveWhen(fn () => request()->routeIs(ForgotPassword::getRouteName())),
                         ]),
                   
                 ]);

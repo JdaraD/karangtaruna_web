@@ -1,4 +1,4 @@
-<div class="hidden sm:flex sm:items-center sm:justify-between mt-6 text-sm text-gray-700">
+<div class="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between mt-6 text-sm text-gray-700 text-center">
     <!-- Info Pagination -->
     <div>
         <p>

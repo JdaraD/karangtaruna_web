@@ -7,7 +7,7 @@
 
             @foreach ($album->photos as $photo )
                 
-                <div class="flex flex-col justify-center items-center bg-white shadow-lg w-[360px] h-[240px] rounded-md">
+                <div class="flex flex-col justify-center items-center bg-white shadow-lg lg:w-[360px] lg:h-[240px] md:w-[360px] md:h-[240px] w-[280px] h-[160px] rounded-md">
                     <img src="{{ asset('storage/'. $photo->gambar) }}" alt="" class="w-full h-full object-cover rounded-md">
                 </div>
 

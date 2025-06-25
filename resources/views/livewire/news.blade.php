@@ -1,21 +1,24 @@
-<div class="flex justify-center items-center select-none my-[28px] w-full">
-    <div class="flex flex-col gap-2 w-[88%] h-full">
+<div class="flex justify-center items-center select-none my-7 w-full px-4">
+    <div class="flex flex-col gap-4 w-full max-w-[1440px]">
         <p class="uppercase font-[poppins] text-md font-bold">News</p>
-        <div class="border-b-1 w-full"></div>
-        <div class="flex flex-row gap-2 h-full w-full">
+        <div class="border-b border-gray-300 w-full"></div>
+
+        <div class="flex flex-col-reverse lg:flex-row gap-4 w-full">
 
             {{-- KONTEN BERITA --}}
-            <div class="flex flex-col justify-center gap-4 items-center w-[900px] h-full">
+            <div class="flex flex-col gap-4 items-center w-full lg:basis-2/3">
 
                 @forelse ($beritas as $br)
                     <a href="{{ route('newsdetail', ['id' => $br->id]) }}"
-                        class="flex flex-wrap gap-2 w-[98%] h-full bg-gray-100 rounded-md shadow px-2 py-2 transition-transform duration-100 hover:scale-102">
-                        <div class="flex justify-center w-[40%] h-full">
+                        class="flex flex-col sm:flex-row gap-4 w-full bg-gray-100 rounded-md shadow px-4 py-3 transition-transform duration-100 lg:hover:scale-105 md:hover:scale-105 hover:scale-102">
+                        
+                        <div class="w-full sm:w-[40%]">
                             <img src="{{ asset('storage/' . $br->gambar) }}"
                                 alt="{{ $br->judul_berita }}"
                                 class="w-full h-[195px] object-cover rounded-lg">
                         </div>
-                        <div class="flex flex-col gap-2 w-[59%] h-full line-clamp-4 text-justify">
+
+                        <div class="w-full sm:w-[60%] flex flex-col gap-2 text-justify">
                             <p class="capitalize font-[poppins] text-md">{{ $br->judul_berita }}</p>
                             <p class="uppercase font-[poppins] text-sm line-clamp-4">{{ $br->deskripsi }}</p>
                             <p class="capitalize font-[poppins] text-sm italic">{{ \Carbon\Carbon::parse($br->tanggal)->translatedFormat('d F Y') }}</p>
@@ -28,11 +31,11 @@
             </div>
 
             {{-- KALENDER --}}
-            <div class="flex flex-col gap-4 w-[452px] h-full bg-gray-100 p-4 rounded-lg shadow-lg">
+            <div class="w-full lg:basis-1/3 bg-gray-100 p-4 rounded-lg shadow-lg">
                 <!-- Navigasi Bulan -->
                 <div class="flex items-center justify-between mb-2">
                     <button wire:click="previousMonth" class="px-2 py-1 bg-[#6A9C89] text-white rounded hover:bg-[#588474]">&larr;</button>
-                    <h2 class="text-lg font-bold">
+                    <h2 class="text-lg font-bold text-center w-full">
                         {{ \Carbon\Carbon::parse($currentMonth)->translatedFormat('F Y') }}
                     </h2>
                     <button wire:click="nextMonth" class="px-2 py-1 bg-[#6A9C89] text-white rounded hover:bg-[#588474]">&rarr;</button>
@@ -79,11 +82,9 @@
                     Tanggal terpilih: {{ \Carbon\Carbon::parse($selectedDate)->translatedFormat('d F Y') }}
                 </div>
             </div>
-
         </div>
 
         {{-- PAGINATION --}}
         <x-pagination-control :paginator="$beritas" per-page-binding="perPage" />
-
     </div>
 </div>

@@ -3,11 +3,13 @@
     <div class="relative overflow-hidden w-full lg:aspect-[26/9] md:aspect-[20/9] aspect-[16/9] mt-2 mb-2" id="slider">
         {{-- image --}}
         <div class="flex w-full h-full transition-transform duration-1000 ease-in-out" id="slides">
-            @foreach ( $slider as $sd )
-                <div class="w-full shrink-0">
-                    <img src="{{ asset('storage/'. $sd->gambar) }}" alt="" class="w-full h-full object-cover">
-                </div>
-            @endforeach
+            @if ($slider && $slider->count())
+                @foreach ($slider as $sd)
+                    <div class="w-full shrink-0">
+                        <img src="{{ asset('storage/'. $sd->gambar) }}" alt="" class="w-full h-full object-cover">
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         {{-- button --}}
@@ -24,8 +26,8 @@
     {{-- Program Khusus --}}
     <div class="relative flex flex-col">
         {{-- title --}}
-        <div class="flex justify-center py-4 ">
-            <p class="uppercase font-[poppins] text-[30px] font-bold">
+        <div class="flex justify-center items-center py-4 ">
+            <p class="uppercase font-[poppins] lg:text-[26px] md:text-[24px] text-[24px] font-bold text-center">
                 Program Karang Taruna
             </p>
         </div>
@@ -70,7 +72,7 @@
     <div class="relative flex flex-col">
         {{-- title --}}
         <div class="flex justify-center py-4 ">
-            <p class="uppercase font-[poppins] text-[30px] font-bold">
+            <p class="uppercase font-[poppins] lg:text-[26px] md:text-[24px] text-[24px] font-bold text-center">
                 Gallery Progress
             </p>
         </div>
@@ -134,7 +136,7 @@
     <div class="relative flex justify-center flex-col">
         {{-- title --}}
         <div class="flex justify-center py-4">
-            <p class="uppercase font-[poppins] text-[30px] font-bold">
+            <p class="uppercase font-[poppins] lg:text-[26px] md:text-[24px] text-[24px] font-bold text-center">
                 gallery karang taruna
             </p>
         </div>
@@ -147,7 +149,7 @@
                     $maxSlot = 5;
                 @endphp
 
-                <div class="flex justify-center w-[80%] gap-4">
+                <div class="flex justify-center lg:w-[80%] md:w-[90%] w-[90%] lg:gap-4 md:gap-4 gap-1">
                     @for ($i = 0; $i < $maxSlot; $i++)
                         @php
                             $album = $albums[$i] ?? null;
@@ -160,7 +162,7 @@
                             {{-- Slot Kiri & Kanan --}}
                             @if ($album)
                                 <a href="{{ route('fotodetails', $album->slug) }}"
-                                class="w-[25%] h-[330px] relative group block rounded-lg overflow-hidden">
+                                class="w-[25%] lg:h-[330px] md:h-[330px] h-[164px] relative group block rounded-lg overflow-hidden">
                                     <img src="{{ $image }}" class="object-cover w-full h-full rounded-lg">
                                     {{-- Hover Icon --}}
                                     <div class="absolute inset-0 flex justify-center items-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300">
@@ -170,12 +172,12 @@
                                     </div>
                                 </a>
                             @else
-                                <div class="w-[25%] h-[330px] bg-gray-200 animate-pulse rounded-lg"></div>
+                                <div class="w-[25%] lg:h-[330px] md:h-[330px] h-[164px] bg-gray-200 animate-pulse rounded-lg"></div>
                             @endif
 
                         @elseif ($i === 1)
                             {{-- Grid Tengah Start --}}
-                            <div class="grid grid-cols-3 gap-4 w-[50%] h-[330px]">
+                            <div class="grid grid-cols-3 lg:gap-4 md:gap-4 gap-1 w-[50%] lg:h-[330px] md:h-[330px] h-[90px]">
                         @endif
 
                         @if ($i > 0 && $i < 4)
@@ -187,7 +189,7 @@
                                 };
                             @endphp
 
-                            <div class="{{ $col }} h-[157px] w-full rounded-lg">
+                            <div class="{{ $col }} lg:h-[157px] md:h-[157px] h-[80px] w-full rounded-lg">
                                 @if ($album)
                                     <a href="{{ route('fotodetails', $album->slug) }}"
                                     class="relative group block w-full h-full rounded-lg overflow-hidden">
@@ -214,6 +216,8 @@
             </div>
             
         </div>
+        {{-- content --}}
+        
         {{-- Tombol ke detail --}}
         <div class="flex justify-center items-center h-[50px] w-full px-4 mt-2">
             <a href="{{ route('foto') }}"
@@ -230,103 +234,154 @@
     <div class="relative flex justify-center flex-col">
         {{-- title --}}
         <div class="flex justify-center py-4">
-            <p class="uppercase font-[poppins] text-[30px] font-bold">
+            <p class="uppercase font-[poppins] lg:text-[26px] md:text-[24px] text-[24px] font-bold text-center">
                 kontak
             </p>
         </div>
         {{-- title --}}
     </div>
+
     {{-- content --}}
-    <div class="flex items-center justify-center bg-white w-full h-full">
-        <div class="flex flex-wrap justify-center gap-[50px] mb-4 max-w-[1440px]">
-            <div class="flex flex-col gap-4 w-[700px] h-[516px]">
-                <div class="py-2 px-4 bg-[#D9D9D9] w-full h-[314px] rounded-lg">
-                    <p class="flex items-center justify-center capitalize font-semibold font-[poppins] text-xl mb-2">hubungi kami</p>
-                    <div class="grid grid-cols-2 gap-10">
-                        <div class="w-full h-full">
-                            <ul class="grid gap-4 font-[poppins]">
-                                <li class="grid grid-cols-[100px_1fr] items-start">
-                                    <label for="nama" class="text-left font-semibold text-sm">Nama :</label>
-                                    <input type="text" name="nama" id="nama" class="w-full h-[25px] rounded-lg px-2 bg-white">
-                                </li>
-                                <li class="grid grid-cols-[100px_1fr] items-start text-sm">
-                                    <label for="alamat" class="text-left font-semibold">Alamat :</label>
-                                    <textarea name="alamat" id="alamat" class="w-full h-[90px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
-                                </li>
-                                <li class="grid grid-cols-[100px_1fr] items-start text-sm">
-                                    <label for="nomor" class="text-left font-semibold">Nomor :</label>
-                                    <input type="text" name="nomor" id="nomor" class="w-full h-[25px] rounded-lg px-2 bg-white">
-                                </li>
-                                <li class="grid grid-cols-[100px_1fr] items-start text-sm">
-                                    <label for="keperluan" class="text-left font-semibold">Keperluan :</label>
-                                    <input type="text" name="keperluan" id="keperluan" class="w-full h-[25px] rounded-lg px-2 bg-white">
-                                </li>
-                                <li class="grid grid-cols-[100px_1fr] items-start text-sm">
-                                    <label for="tanggal" class="text-left font-semibold">Tanggal :</label>
-                                    <input type="text" name="tanggal" id="tanggal" class="w-full h-[25px] rounded-lg px-2 bg-white">
-                                </li>
-                            </ul>
-                            
-                        </div>
-                        <div class="flex flex-col w-full gap-4 h-full">
-                            <div class="w-full h-[200px]">
-                                <label for="detail" class="capitalize font-[poppins] font-semibold flex mb-2 justify-center">detail keperluan</label>
-                                <textarea name="detail" id="detail" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+    <div class="flex items-center justify-center bg-white w-full min-h-screen px-4 py-6">
+        <div class="flex flex-col lg:flex-row flex-wrap justify-center gap-6 max-w-[1440px] w-full">
+            {{-- Form --}}
+            <div class="flex flex-col gap-4 w-full max-w-[700px]">
+                <form wire:submit.prevent="submit" class="py-4 px-4 bg-[#D9D9D9] w-full rounded-lg">
+                    <p class="text-center capitalize font-semibold font-[poppins] lg:text-[26px] md:text-[24px] text-[24px] mb-4">hubungi kami</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Input kiri --}}
+                        <div class="space-y-4 font-[poppins]">
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="nama" class="font-semibold">Nama :</label>
+                                <input type="text" wire:model.defer="nama" id="nama" class="w-full h-8 rounded-lg px-2 bg-white" />
                             </div>
-                            <div class="flex justify-end items-center w-full h-[48px]">
-                                <button id="" for="" class="flex items-center justify-center bg-[#2E8A99] w-[120px] h-[24px] rounded-md font-[poppins] font-semibold font-md text-white">kirim</button>
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="alamat" class="font-semibold">Alamat :</label>
+                                <textarea wire:model.defer="alamat" id="alamat" class="w-full h-[90px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                            </div>
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="email" class="font-semibold">Email :</label>
+                                <input type="email" wire:model.defer="email" id="email" class="w-full h-8 rounded-lg px-2 bg-white" />
+                            </div>
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="no_telp" class="font-semibold">Nomor :</label>
+                                <input type="text" wire:model.defer="no_telp" id="no_telp" class="w-full h-8 rounded-lg px-2 bg-white" />
+                            </div>
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="keperluan" class="font-semibold">Keperluan :</label>
+                                <input type="text" wire:model.defer="keperluan" id="keperluan" class="w-full h-8 rounded-lg px-2 bg-white" />
+                            </div>
+                            <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
+                                <label for="tanggal" class="font-semibold">Tanggal :</label>
+                                <input type="date" wire:model.defer="tanggal" id="tanggal" class="w-full h-8 rounded-lg px-2 bg-white" />
+                            </div>
+                        </div>
+
+                        {{-- Pesan & Submit --}}
+                        <div class="flex flex-col gap-4 justify-between">
+                            <div class="flex flex-col gap-2">
+                                <label for="detail" class="capitalize font-[poppins] font-semibold text-center">Detail Keperluan</label>
+                                <textarea wire:model.defer="detail_Keperluan" id="detail" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                            </div>
+                            <div class="flex justify-end items-center">
+                                <button type="submit" class="bg-[#2E8A99] w-[120px] h-[32px] rounded-md font-[poppins] font-semibold text-white hover:bg-[#1F5B64] transition">Kirim</button>
+                                <span wire:loading wire:target="submit" class="ml-3 text-sm text-gray-600">Mengirim...</span>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                {{-- sosial media --}}
-                <div class="bg-[#D9D9D9] py-2 w-full h-[198px] rounded-lg">
-                    <p class="flex items-center justify-center capitalize font-semibold font-[poppins] text-xl mb-2">sosial media</p>
-                    <div class="w-[90%] px-10">
-                        @foreach ( $sosialmedia as $sm )
-                            
-                        <div class="flex items-center gap-2 mb-2">
-                            <img src="{{ asset('storage/'.$sm->logo) }}" alt="" class="w-9 h-9">
-                            
-                            <div class="flex gap-2">
-                                <p class="font-[poppins] font-semibold text-sm capitalize">{{ $sm->judul }} :</p>
-                                <a href="{{ $sm->link_aplikasi }}">
-                                    <p class="font-[poppins] font-semibold text-sm">{{ $sm->nama_akun }}</p>
-                                </a>
+                </form>
+
+                {{-- Sosial Media --}}
+                <div class="bg-[#D9D9D9] py-4 px-6 w-full rounded-lg">
+                    <p class="text-center capitalize font-semibold font-[poppins] text-xl mb-4">sosial media</p>
+                    <div class="space-y-3">
+                        @foreach ($sosialmedia as $sm)
+                            <div class="flex items-center gap-2">
+                                <img src="{{ asset('storage/'.$sm->logo) }}" alt="" class="w-9 h-9" />
+                                <div class="flex gap-2 flex-wrap">
+                                    <p class="font-[poppins] font-semibold text-sm capitalize">{{ $sm->judul }} :</p>
+                                    <a href="{{ $sm->link_aplikasi }}" class="text-sm font-[poppins] font-semibold text-blue-700 hover:underline">
+                                        {{ $sm->nama_akun }}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
-
                     </div>
                 </div>
-                {{-- sosial media --}}
-
-
             </div>
 
             {{-- Maps --}}
             @foreach ($lokasi as $lk)
-                <div class="bg-[#D9D9D9] w-[500px] h-[516px] rounded-lg">
-                    <div class="h-full w-full rounded-md">
-                        <iframe
-                            src="{{ $lk->lokasi_embed }}"
-                            width="100%"
-                            height="100%"
-                            style="border-radius: 8px"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                        ></iframe>
-                    </div>
+                <div class="bg-[#D9D9D9] w-full max-w-[500px] h-[300px] md:h-[516px] rounded-lg overflow-hidden">
+                    <iframe
+                        src="{{ $lk->lokasi_embed }}"
+                        class="w-full h-full"
+                        style="border-radius: 8px"
+                        allowfullscreen
+                        loading="lazy"
+                    ></iframe>
                 </div>
             @endforeach
-            {{-- Maps --}}
-
-
         </div>
     </div>
+
     {{-- content --}}
+
+    {{-- loading --}}
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit" wire:loading >
+        <div class="flex justify-center items-center w-full h-full px-4">
+            {{-- loading box --}}
+            <div class="w-[400px] h-[400px] max-w-[400px] bg-white rounded-md flex flex-col gap-4 justify-center items-center shadow-lg p-6">
+                @foreach ($TentangKami as $tk)
+                    <div class="w-full flex flex-col gap-4 items-center">
+                        <img
+                            src="{{ asset('storage/' . $tk->foto_profil) }}"
+                            alt="{{ $tk->first_name }} {{ $tk->last_name }}"
+                            class="w-[100px] h-[100px] rounded-full object-cover"
+                        >
+                        <p class="text-center text-black font-bold capitalize font-[poppins]">
+                            {{ $tk->first_name }} {{ $tk->last_name }}
+                        </p>
+                    </div>
+                @endforeach
+
+                {{-- loading --}}
+                <div class="w-full flex flex-col items-center gap-4 mt-4">
+                    <p class="text-center text-black font-medium capitalize font-[poppins]">Loading</p>
+                    <div class="loader"></div>
+                </div>
+
+                {{-- loader style --}}
+                <style>
+                    .loader {
+                        height: 25px;
+                        aspect-ratio: 2.5;
+                        --_g: no-repeat radial-gradient(farthest-side, #000 90%, #0000);
+                        background: var(--_g), var(--_g), var(--_g), var(--_g);
+                        background-size: 20% 50%;
+                        animation: l44 1s infinite linear alternate;
+                    }
+
+                    @keyframes l44 {
+                        0%, 5%    {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
+                        12.5%     {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
+                        25%       {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 0,    calc(2*100%/3) 50%, calc(3*100%/3) 50%}
+                        37.5%     {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0,    calc(2*100%/3) 0,    calc(3*100%/3) 50%}
+                        50%       {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0,    calc(3*100%/3) 0}
+                        62.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0}
+                        75%       {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 100%,calc(3*100%/3) 100%}
+                        87.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 100%}
+                        95%, 100% {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+    {{-- loading --}}
+
+</div>
+
 
 </div>
 
@@ -392,19 +447,5 @@
     }
 
     // image sider
-
-    // function initMap() {
-        // const map = new google.maps.Map(document.getElementById("map"), {
-            // center: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
-            // zoom: 12
-        // });
-
-        // Tambahkan marker (opsional)
-        // const marker = new google.maps.Marker({
-            // position: { lat: -6.9147, lng: 107.6122 }, // Koordinat Parung, Bogor
-            // map: map,
-            // title: "Parung, Bogor"
-        // });
-    // }
     
 </script>

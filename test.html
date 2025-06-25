@@ -1,285 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Image Slider</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #23e3c9;
-        }
-
-        .slider {
-            width: 800px;
-            height: 500px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .slides {
-            display: flex;
-            width: calc(800px * 5); /* 5 slides */
-            transition: all 1s ease-in-out;
-        }
-
-        .slide {
-            width: 800px;
-            height: 500px;
-            flex-shrink: 0;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Manual navigation */
-        .navigation-manual {
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            display: flex;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .manual-btn {
-            border: 2px solid #40D3DC;
-            padding: 5px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.5s;
-        }
-
-        .manual-btn:not(:last-child) {
-            margin-right: 20px;
-        }
-
-        .manual-btn:hover {
-            background: #40D3DC;
-        }
-
-        /* Automatic navigation dots */
-        .navigation-auto {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 9;
-        }
-
-        .navigation-auto div {
-            border: 2px solid #40D3DC;
-            padding: 5px;
-            border-radius: 10px;
-            transition: 0.5s;
-        }
-
-        .navigation-auto div:not(:last-child) {
-            margin-right: 20px;
-        }
-
-        .navigation-auto .active {
-            background: #40D3DC;
-        }
-    </style>
+    <title>Pengajuan Kegiatan</title>
 </head>
-<body>
-    <div class="slider" id="slider">
-        <div class="slides" id="slides">
-            <div class="slide"><img src="public/image/ln1.jpg" alt=""></div>
-            <div class="slide"><img src="public/image/ln2.jpeg" alt=""></div>
-            <div class="slide"><img src="public/image/ln3.jpeg" alt=""></div>
-            <div class="slide"><img src="public/image/pp1.jpg" alt=""></div>
-            <div class="slide"><img src="public/image/program.jpg" alt=""></div>
+<body style="font-family: poppins, sans-serif;">
+    <h2 style="font-weight: bold; text-transform: uppercase;">Pengajuan Bantuan Baru !!!</h2>
+    <div style="display: inline-block; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <p style="margin: 4px; font-family: poppins; text-transform: capitalize; font-weight: bold; font-size: medium;">karang taruna desa waru</p>
         </div>
-
-        <!-- Automatic dots -->
-        <div class="navigation-auto" id="auto-dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-
-        <!-- Manual buttons -->
-        <div class="navigation-manual">
-            <label for="img-1" class="manual-btn" onclick="manualSlide(0)"></label>
-            <label for="img-2" class="manual-btn" onclick="manualSlide(1)"></label>
-            <label for="img-3" class="manual-btn" onclick="manualSlide(2)"></label>
-            <label for="img-4" class="manual-btn" onclick="manualSlide(3)"></label>
-            <label for="img-5" class="manual-btn" onclick="manualSlide(4)"></label>
-        </div>
+            <div style="border-bottom: 3px double black; width: calc(100% + 30px); margin-top: 5px; margin-left: -10px;"></div>
     </div>
 
-    <script>
-        const slides = document.getElementById('slides');
-        const dots = document.querySelectorAll('.navigation-auto .dot');
-        const slider = document.getElementById('slider');
-        let index = 0;
-        let interval = null;
+    <div>
+        <table cellpadding="8" cellspacing="0" border="0">
+            <tr>
+                <td><strong>Nama</strong></td>
+                <td>{{ $pengajuan->nama }}</td>
+            </tr>
+            <tr>
+                <td><strong>Alamat</strong></td>
+                <td>{{ $pengajuan->alamat }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nomor</strong></td>
+                <td>{{ $pengajuan->no_telp }}</td>
+            </tr>
+            <tr>
+                <td><strong>Keperluan</strong></td>
+                <td>{{ $pengajuan->keperluan }}</td>
+            </tr>
+            <tr>
+                <td><strong>Tanggal</strong></td>
+                <td>{{ \Carbon\Carbon::parse($pengajuan->tanggal)->format('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Anggaran</strong></td>
+                <td>Rp {{ number_format($pengajuan->total_anggaran, 0, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td><strong>Detail Keperluan</strong></td>
+                <td>{{ $pengajuan->detail_Keperluan }}</td>
+            </tr>
+            @if ($pengajuan->file_path)
+            <tr>
+                <td><strong>File Terlampir</strong></td>
+                <td><em>Terlampir dalam email</em></td>
+            </tr>
+            @endif
+        </table>
 
-        function showSlide(i) {
-            slides.style.transform = `translateX(-${800 * i}px)`;
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[i].classList.add('active');
-            index = i;
-        }
+    </div>
 
-        function nextSlide() {
-            index = (index + 1) % 5;
-            showSlide(index);
-        }
 
-        function startAutoSlide() {
-            interval = setInterval(nextSlide, 5000);
-        }
+    <p>Silakan cek file terlampir untuk informasi lebih lanjut.</p>
 
-        function stopAutoSlide() {
-            clearInterval(interval);
-        }
-
-        function manualSlide(i) {
-            stopAutoSlide();
-            showSlide(i);
-            startAutoSlide();
-        }
-
-        slider.addEventListener('mouseenter', stopAutoSlide);
-        slider.addEventListener('mouseleave', startAutoSlide);
-
-        // Start
-        showSlide(0);
-        startAutoSlide();
-    </script>
 </body>
 </html>
 
 
-<footer class="flex relative select-none">
-    {{-- infomasi --}}
-    <div class="flex justify-center items-center align-content-center w-full lg:h-[344px] md:h-[284px] h-[224px] bg-black">
-        <div class="grid grid-cols-3 h-full py-2 gap-4 size-[90%]">
-
-            <div class="grid grid-rows-4 gap-2 h-full">
-                @foreach ( $tentangkami as $tentang )
-                    
-                <div class="flex row-span-1 items-center gap-2">
-                    {{-- logo Start --}}
-                    <img src="{{ asset('storage/' .$tentang->foto_profil)}}" alt="" class="lg:size-15 md:size-10 size-8">
-                    {{-- logo Ends --}}
-                    
-                    {{-- logo Start --}}
-                    {{-- logo Ends --}}
-                    
-                    {{-- identity name --}}
-                    <div>
-                        <p class="font-[poppins] font-medium lg:text-sm md:text-sm text-[10px] text-white normal-case">{{ $tentang->first_name }}</p>
-                        <p class="font-[poppins] font-medium lg:text-xs md:text-[10px] text-[8px] text-white normal-case">{{ $tentang->last_name }}</p>
-                    </div>
-                    {{-- identity name --}}
-                    
-                </div>
-                
-                {{-- Deskripsi --}}
-                <div class="row-span-3 h-fitt">
-                    
-                    <p class="pb-2 lg:text-sm md:text-sm text-[10px] font-[poppins] font-semibold text-white normal-case">Deskripsi</p>
-                    <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white line-clamp-9 normal-case">{{ $tentang->description }}</p>
-                    <a href="{{ route('tentang') }}" class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] text-justify text-white hover:text-blue-300 normal-case">Selengkapnya...</a>
-                    
-                </div>
-                {{-- Deskripsi --}}
-                
-                @endforeach
-            </div>
-
-            <div class="h-full">
-
-                <div class="flex h-[10%] justify-center items-center">
-                    <p class="lg:text-sm md:text-sm text-xs font-[poppins] font-medium text-white normal-case">Kontak</p>
-                </div>
-                @foreach ( $alamat as $almt )
-                    <div class="h-[90%]">
-
-                        {{-- address --}}
-                        <p class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] font-medium text-white normal-case text-justify pb-4">{{ $almt->alamat }}</p>
-                        {{-- address --}}
-
-                        {{-- icons 1 --}}
-                        <div class="flex gap-2 mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="lg:size-5 md:size-5 size-3" fill="white">
-                                <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
-                            </svg>
-                            <address class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] font-medium text-white">{{ $almt->nomor_telepon }}</address>
+    <div class="absolute block top-2 md:left-14 left-8 lg:hidden md:flex z-100">
+        <div class="w-full h-full rounded-lg drop-shadow-sm">
+            <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium " aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-basic-modal" data-hs-overlay="#hs-basic-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 mr-2 text-black">
+                    <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                </svg>
+            </button>
+              
+              <div id="hs-basic-modal" class="hs-overlay hidden w-full h-[20cm] fixed top-0 start-0 z-[50] overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-basic-modal-label">
+                <div class="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 transition-all w-full">
+                  <div class="flex flex-col bg-gradient-to-b mx-2 md:h-[16.5cm] h-[13.7cm] from-[#048DD1] to-[#226786] border shadow-sm rounded-xl pointer-events-auto border-black dark:border-white shadow-neutral-700/70 dark:shadow-neutral-700/70">
+                    <div class="grid grid-cols-3 w-full items-center py-3 px-4 border-b dark:border-white">
+                        <div class="col-span-1">
+                            <h3 id="hs-basic-modal-label" class="font-bold text-white">
+                            <p class="text-lg uppercase">Menu</p>
+                            </h3>
 
                         </div>
-                        {{-- icons 1 --}}
-
-                        {{-- icons 2 --}}
-                        <div class="flex gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="lg:size-5 md:size-5 size-3" fill="white">
-                                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                      <div class="flex col-span-2 justify-end items-center gap-4">
+                        <button type="button" class="hs-dark-mode hs-dark-mode-active:hidden inline-flex items-center gap-x-2 py-2 px-3 bg-white/10 rounded-xl text-sm text-white hover:bg-white/20 focus:outline-none focus:bg-white/20" data-hs-theme-click-value="dark">
+                            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                             </svg>
-                            <address class="lg:text-xs md:text-[10px] text-[8px] font-[poppins] font-medium text-white">{{ $almt->email }}</address>
-
-                        </div>
-                        {{-- icons 2 --}}
-                    </div>    
-                @endforeach
-
-            </div>
-
-            <div class="h-full">
-
-                <div class="flex h-[10%] justify-center items-center">
-                    <p class="lg:text-sm md:text-sm text-xs font-[poppins] font-medium text-white normal-case">Bantuan</p>
-                </div>
-
-                <div>
-                    <div class="h-[90%]">
-                        @foreach ( $nomorTambahan as $NT )
-                            {{-- icons 1 --}}
-                            <div class="flex gap-2 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="lg:size-5 md:size-5 size-3" fill="white">
-                                    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                                Dark
+                            </button>
+                            <button type="button" class="hs-dark-mode hs-dark-mode-active:inline-flex hidden items-center gap-x-2 py-2 px-3 bg-white/10 rounded-full text-sm text-white hover:bg-white/20 focus:outline-none focus:bg-white/20" data-hs-theme-click-value="light">
+                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M12 2v2"></path>
+                                <path d="M12 20v2"></path>
+                                <path d="m4.93 4.93 1.41 1.41"></path>
+                                <path d="m17.66 17.66 1.41 1.41"></path>
+                                <path d="M2 12h2"></path>
+                                <path d="M20 12h2"></path>
+                                <path d="m6.34 17.66-1.41 1.41"></path>
+                                <path d="m19.07 4.93-1.41 1.41"></path>
                                 </svg>
-                                
-                                <div class="flex gap-2">
-                                    <p class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">{{ $NT->nama }} :</p>
-                                    <address class="lg:text-xs md:text-xs text-[8px] font-[poppins] font-medium normal-case text-white">{{ $NT->nomor }}</address>
+                                Light
+                        </button>
+
+                        <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-white" aria-label="Close" data-hs-overlay="#hs-basic-modal">
+                        <span class="sr-only">Close</span>
+                        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                        </button>
+
+                      </div>
+                    </div>
+                    <div class="pt-4 overflow-y-auto mx-2">
+                        <div class="flex mb-3 w-full">
+                            <a href="" class="grid grid-cols-4 w-full items-center h-10 rounded-lg focus:bg-[#F7AE47] hover:bg-[#F7AE47]">
+                                <div class="flex col-span-3 text-center items-center gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill text-white ml-2" viewBox="0 0 16 16">
+                                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                                        <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+                                    </svg>
+                                    <p class="text-md font-arimo capitalize font-bold text-white hover:text-gray-600">Beranda</p>
+
                                 </div>
+                            </a>
+                        </div>
+                        <div class="w-full">
+                            <div class="hs-accordion-group">
+
+                                {{-- Absensi --}}
+                                <div class="hs-accordion mb-3 rounded-lg " id="hs-basic-heading-2">
+                                    <button class="hs-accordion-toggle grid grid-cols-4 h-10 items-center text-sm w-full font-semibold text-start focus:bg-[#F7AE47] hover:bg-[#F7AE47] text-white rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400" aria-expanded="false" aria-controls="hs-basic-collapse-2">
+                                        <div class="flex col-span-3 ml-2 items-center gap-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                            </svg>
+    
+                                            <p class="text-md font-arimo capitalize font-bold text-white">Kehadiran</p>
+
+                                        </div>
+                                        <div class="col-span-1">
+                                            <svg class="bi bi-caret-left-fill w-full hs-accordion-active:hidden block size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                            </svg>
+    
+                                            <svg class="bi bi-caret-down-fill w-full hs-accordion-active:block hidden size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+
+                                        </div>
+
+                                    </button>
+                                    <div id="hs-basic-collapse-1" class="hs-accordion-content hidden w-full mt-1 overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-heading-two">
+                                        <div class="flex items-center gap-2">
+                                            <p class="text-white dark:text-neutral-200 w-full">
+                                                <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Presensi</a>
+                                                <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Permohonan Izin/Cuti</a>
+                                                {{-- @if (auth()->user()->hasRole('admin')) --}}
+                                                <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Presensi Karyawan</a>    
+                                                {{-- @endif --}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- End Absensi --}}
                                 
+                                {{-- Kegiatan --}}
+                                {{-- @if (auth()->user()->hasRole('pegawai'))  --}}
+                                <div class="hs-accordion mb-3 rounded-lg" id="hs-basic-heading-2">
+                                    <button class="hs-accordion-toggle grid grid-cols-4 h-10 items-center text-sm w-full font-semibold text-start focus:bg-[#F7AE47] hover:bg-[#F7AE47] text-white rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400" aria-expanded="false" aria-controls="hs-basic-collapse-2">
+                                        <div class="flex col-span-3 ml-2 items-center gap-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                                                </svg>
+    
+                                            <p class="text-md font-arimo capitalize font-bold text-white">Kegiatan</p>
+                                        </div>
+                                        
+                                        <div class="col-span-1">
+                                            <svg class="bi bi-caret-left-fill w-full hs-accordion-active:hidden block size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                            </svg>
+    
+                                            <svg class="bi bi-caret-down-fill w-full hs-accordion-active:block hidden size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div id="hs-basic-collapse-2" class="hs-accordion-content hidden w-full rounded-lg mt-1 overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-heading-two">
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-white dark:text-neutral-200 w-full">
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Kegiatan Harian</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Kegiatan Dinas</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Kegiatan Rapat</a>
+                                        </p>
+                                    </div>
+                                    </div>
+                                </div>
+                                {{-- @endif --}}
+                                {{-- End Kegiatan --}}
+
+                                {{-- Laporan --}}
+                                <div class="hs-accordion mb-3 rounded-lg" id="hs-basic-heading-3">
+                                    <button class="hs-accordion-toggle grid grid-cols-4 h-10 items-center text-sm w-full font-semibold text-start focus:bg-[#F7AE47] hover:bg-[#F7AE47] text-white rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400" aria-expanded="false" aria-controls="hs-basic-collapse-3">
+                                        <div class="flex col-span-3 ml-2 items-center gap-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-database-fill" viewBox="0 0 16 16">
+                                                <path d="M3.904 1.777C4.978 1.289 6.427 1 8 1s3.022.289 4.096.777C13.125 2.245 14 2.993 14 4s-.875 1.755-1.904 2.223C11.022 6.711 9.573 7 8 7s-3.022-.289-4.096-.777C2.875 5.755 2 5.007 2 4s.875-1.755 1.904-2.223"/>
+                                                <path d="M2 6.161V7c0 1.007.875 1.755 1.904 2.223C4.978 9.71 6.427 10 8 10s3.022-.289 4.096-.777C13.125 8.755 14 8.007 14 7v-.839c-.457.432-1.004.751-1.49.972C11.278 7.693 9.682 8 8 8s-3.278-.307-4.51-.867c-.486-.22-1.033-.54-1.49-.972"/>
+                                                <path d="M2 9.161V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13s3.022-.289 4.096-.777C13.125 11.755 14 11.007 14 10v-.839c-.457.432-1.004.751-1.49.972-1.232.56-2.828.867-4.51.867s-3.278-.307-4.51-.867c-.486-.22-1.033-.54-1.49-.972"/>
+                                                <path d="M2 12.161V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16s3.022-.289 4.096-.777C13.125 14.755 14 14.007 14 13v-.839c-.457.432-1.004.751-1.49.972-1.232.56-2.828.867-4.51.867s-3.278-.307-4.51-.867c-.486-.22-1.033-.54-1.49-.972"/>
+                                                </svg>
+    
+                                            <p class="text-md font-arimo capitalize font-bold text-white">Laporan</p>
+                                        </div>
+                                        
+                                        <div class="col-span-1">
+                                            <svg class="bi bi-caret-left-fill w-full hs-accordion-active:hidden block size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                            </svg>
+    
+                                            <svg class="bi bi-caret-down-fill w-full hs-accordion-active:block hidden size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div id="hs-basic-collapse-3" class="hs-accordion-content hidden w-full rounded-lg mt-1 overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-heading-two">
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-white dark:text-neutral-200 w-full">
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="#">Lapoeran Absen</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Lapoeran Harian</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="#">Lapoeran Dinas</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold mb-1 rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="#">Lapoeran Rapat</a>
+                                        </p>
+                                    </div>
+                                    </div>
+                                </div>
+                                {{-- End Laporan --}}
+                                {{-- @if (auth()->user()->hasRole('admin')) --}}
+                                    {{-- Management karyawan --}}
+                                <div class="hs-accordion mb-5 rounded-lg " id="hs-basic-heading-4">
+                                    <button class="hs-accordion-toggle grid grid-cols-4 hs-accordion-active:text-blue-600 h-10 items-center text-sm w-full font-semibold text-start focus:bg-[#F7AE47] hover:bg-[#F7AE47] text-white hover:text-gray-500 focus:outline-none focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400" aria-expanded="false" aria-controls="hs-basic-collapse-4">
+                                        <div class="flex col-span-3 ml-2 items-center gap-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 -960 960 960" width="24px" fill="#e8eaed" class="text-white" >
+                                                <path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/>
+                                            </svg>
+    
+                                            <p class="text-md font-arimo capitalize font-bold text-white">Kelola Pengguna</p>
+                                        </div>
+                                        
+                                        <div class="col-span-1">
+                                            <svg class="bi bi-caret-left-fill w-full hs-accordion-active:hidden block size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                                            </svg>
+    
+                                            <svg class="bi bi-caret-down-fill w-full hs-accordion-active:block hidden size-5 text-white" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div id="hs-basic-collapse-4" class="hs-accordion-content hidden w-full mt-1 rounded-lg overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-heading-two">
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-white dark:text-neutral-200 w-full">
+                                            <a class="block text-sm font-arimo capitalize font-bold rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Data Karyawan</a>
+                                            <a class="block text-sm font-arimo capitalize font-bold rounded-md pl-[50px] active:bg-[#F7AE47] hover:bg-[#F7AE47] hover:text-gray-600" href="">Buat Akun</a>
+                                        </p>
+                                    </div>
+                                    </div>
+                                </div>
+                                {{-- End Management karyawan --}}
+                                {{-- @endif --}}
+                                
+                                </div>
                             </div>
-                            {{-- icons 1 --}}
-                        @endforeach
+                        </div>
+                    </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-    {{-- infomasi --}}
-
-    {{-- copyright --}}
-    <div class="absolute flex justify-center items-center bottom-0 right-0 bg-[#D9D9D9] lg:h-[45px] lg:w-[345px] md:h-[45px] md:w-[345px] h-[28px] w-[185px] gap-2 lg:rounded-tl-[28px] md:rounded-tl-[24px] rounded-tl-[18px]">
-        <img src="{{ asset('image/logo.png')}}" alt="" class="lg:size-8 md:size-4 size-4">
-        <p class="font-[poppins] font-medium lg:text-xs md:text-[10px] text-[8px] text-black normal-case">copyright &copy; by Karang Taruna Desa Waru</p>
-    </div>
-    {{-- copyright --}}
-
-</footer>
 
 
-<div class="bg-gray-800 text-center py-2 text-xs flex justify-center items-center gap-2">
-        <img src="{{ asset('image/logo.png') }}" alt="Logo" class="w-4 h-4">
-        <span>Copyright &copy; {{ date('Y') }} Karang Taruna Desa Waru. All rights reserved.</span>
-    </div>

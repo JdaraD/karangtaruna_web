@@ -22,12 +22,12 @@ class AcaraResource extends Resource
 
     public static function getPluralModelLabel(): string
     {
-        return 'Event';
+        return 'Acara';
     }
 
     public static function getModelLabel(): string
     {
-        return 'Event';
+        return 'Acara';
     }
 
     public static function form(Form $form): Form

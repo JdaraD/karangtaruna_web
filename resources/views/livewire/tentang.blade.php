@@ -1,6 +1,6 @@
 <div class="select-none">
 
-    <div class="flex justify-center items-center w-full h-[300px] select-none">
+    <div class="flex justify-center items-center w-full h-[full] px-4 py-4 select-none">
 
         {{-- dekripsi --}}
         <div class="h-full w-[88%] mt-6">
@@ -37,9 +37,9 @@
     </div>
 
     {{-- visi & misi --}}
-    <div class="h-full w-full mt-10">
+    <div class="h-full w-full mt-6">
 
-        <div class="flex flex-col md:flex-row justify-center items-start gap-10 px-10 py-6">
+        <div class="flex flex-col md:flex-row justify-center items-start lg:gap-10 md:gap-8 gap-14 px-10 py-6">
             <!-- VISI -->
             <div class="relative flex justify-center items-center bg-yellow-100 rounded-lg p-6 w-full md:w-1/2 shadow-md">
                 <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-teal-700 text-white text-lg font-bold rounded-full w-24 h-24 flex items-center justify-center shadow-md">
@@ -77,12 +77,12 @@
     {{-- identity & slogan --}}
     <div class="flex flex-wrap justify-center h-full w-full py-4 gap-8 max-w-[1024]">
         @if ( $tentangkami )  
-            <div class="flex justify-center items-center h-[509px] w-[509px] bg-white shadow-md rounded-md">
-                <img src="{{ asset('storage/' . $tentangkami->foto_profil) }}" alt="" class="h-[60%] w-[60%] ">
+            <div class="flex justify-center items-center lg:h-[509px] lg:w-[509px] md:h-[509px] md:w-[509px] h-[360px] w-[360px] bg-white shadow-lg rounded-md">
+                <img src="{{ asset('storage/' . $tentangkami->foto_profil) }}" alt="" class="h-[80%] w-[80%] ">
             </div>
         @endif
 
-        <div class="flex flex-col gap-4 px-4 py-4 h-full w-[509px] bg-white shadow-md rounded-md">
+        <div class="flex flex-col gap-4 px-4 py-4 h-full lg:w-[509px] md:w-[509px] w-[360px] bg-white shadow-lg rounded-md">
             <div class="flex justify-center items-center">
                 <p class="capitalize font-bold font-[poppins] text-xl">value</p>
             </div>
