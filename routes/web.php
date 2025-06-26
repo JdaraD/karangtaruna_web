@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\UsahaMandiriController;
+use App\Livewire\Auth\Login;
 use App\Livewire\Detailevent;
 use App\Livewire\Event;
 use App\Livewire\Foto;
@@ -32,7 +33,7 @@ use Illuminate\Support\Facades\Mail;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-
+Route::get('/admin/login',Login::class)->name('filament.admin.auth.login');
 Route::get('/', Beranda::class)->name('Beranda');
 Route::get('/tentangkami', Tentang::class)->name('tentang');
 Route::get('/dasarhukum', Dasarhukum::class)->name('dasarhukum');

@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center">
 
-    <div class="w-full max-w-md p-6 rounded-lg shadow-xl">
+    <div class="w-full max-w-md w p-6 bg-amber-200 rounded-lg shadow-xl">
         <h2 class="text-2xl font-bold text-center text-white mb-6">Login Custom</h2>
 
             <form wire:submit.prevent="authenticate" class="space-y-4 mt-4">
