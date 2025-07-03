@@ -67,7 +67,12 @@ class AdminPanelProvider extends PanelProvider
     // }
     public function panel(Panel $panel): Panel
     {
+        $dataprofil = \App\Models\tentangKami::where('is_active', 1)->orderBy('created_at','asc')->first();
         return $panel
+            // ->brandLogo($dataprofil?->foto_profil ? asset('storage/' . $dataprofil?->foto_profil) : null)
+            ->brandName('Admin'. ' ' .
+                trim(($dataprofil?->first_name ?? '') . ' ' . ($dataprofil?->last_name ?? 'Nama Default'))
+            )
             ->default()
             ->id('admin')
             ->path('admin')
