@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('total_anggaran', 15, 2);
             $table->text('detail_Keperluan')->nullable();
             $table->string('file_path')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }

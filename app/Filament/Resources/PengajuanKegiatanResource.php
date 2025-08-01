@@ -6,12 +6,14 @@ use App\Filament\Resources\PengajuanKegiatanResource\Pages;
 use App\Filament\Resources\PengajuanKegiatanResource\RelationManagers;
 use App\Models\PengajuanKegiatan;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -89,14 +91,14 @@ class PengajuanKegiatanResource extends Resource
                             ->placeholder('Masukan Detail Keperluan')
                             ->rows(5)
                             ->columnSpanFull(),
-                        FileUpload::make('file_path')
-                            ->label('File Pendukung')
-                            ->disk('public') // pastikan disk public digunakan
-                            ->directory('pengajuan-files') // folder tempat file disimpan
-                            ->visibility('public')
-                            ->downloadable() // agar bisa di-download dari edit form
-                            ->preserveFilenames() // opsional: agar nama file asli tetap
-                            ->maxSize(10240), // (opsional) bisa urutkan file
+                        // FileUpload::make('file_path')
+                        //     ->label('File Pendukung')
+                        //     ->disk('public') // pastikan disk public digunakan
+                        //     ->directory('pengajuan-files') // folder tempat file disimpan
+                        //     ->visibility('public')
+                        //     ->downloadable() // agar bisa di-download dari edit form
+                        //     ->preserveFilenames() // opsional: agar nama file asli tetap
+                        //     ->maxSize(10240), // (opsional) bisa urutkan file
                     ]),
 
             ]);
@@ -142,11 +144,25 @@ class PengajuanKegiatanResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('file_path')
                     ->label('File Pendukung')
-                    ->searchable(),
+                    ->searchable()
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->formatStateUsing(fn ($state) => 'Download') // Teks yang ditampilkan
+                        ->url(fn ($record) => $record->file_path ? asset('storage/' . $record->file_path) : null),
                 Tables\Columns\TextColumn::make('detail_Keperluan')
                     ->label('Detail Keperluan')
                     ->limit(50) // batasi tampilan teks
                     ->searchable(),
+                CheckboxColumn::make('is_admin')
+                    ->label('Dilihat')
+                    ->beforeStateUpdated(function ($record, $state) {
+                        // $state bernilai true atau false, tergantung checkbox
+                        // Lakukan sesuatu jika ingin custom aksi sebelum update
+                    })
+                    ->afterStateUpdated(function ($record, $state) {
+                        // Jika mau aksi setelah update, misalnya logging
+                    })
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

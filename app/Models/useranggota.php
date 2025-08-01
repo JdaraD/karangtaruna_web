@@ -4,21 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class PengajuanBantuan extends Model
+class useranggota extends Model
 {
-    use HasFactory;
+    use Notifiable, HasFactory;
+
+    protected $table = 'useranggotas';
+
     protected $fillable = [
-        'order',
+        // Tambahkan kolom yang ingin diisi
         'is_active',
-        'nama',
-        'alamat',
+        'name',
         'email',
-        'no_telp',
-        'keperluan',
-        'tanggal',
-        'detail_Keperluan',
-        'is_admin',
+        'password',
         'created_at',
         'updated_at',
     ];

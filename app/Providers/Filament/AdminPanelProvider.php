@@ -9,6 +9,8 @@ use App\Filament\Resources\AcaraResource;
 use App\Filament\Resources\AddmenukegiatanResource;
 use App\Filament\Resources\AlamatResource;
 use App\Filament\Resources\AlbumResource;
+use App\Filament\Resources\AnggotaResource\Pages\DaftarAnggota;
+use App\Filament\Resources\AnggotaResource\Pages\DaftarUser;
 use App\Filament\Resources\BannermarketResource;
 use App\Filament\Resources\BeritaResource;
 use App\Filament\Resources\ColorsettingResource;
@@ -26,12 +28,14 @@ use App\Filament\Resources\PasalResource;
 use App\Filament\Resources\PengajuanBantuanResource;
 use App\Filament\Resources\PengajuanKegiatanResource;
 use App\Filament\Resources\ProgramkegiatanResource;
+use App\Filament\Resources\RegisUserAnggotaResource\Pages\RegisterUserAnggota;
 use App\Filament\Resources\RunningTextBerandaResource;
 use App\Filament\Resources\SliderbrandaResource;
 use App\Filament\Resources\SlideriklanResource;
 use App\Filament\Resources\SosialMediaResource;
 use App\Filament\Resources\TentangKamiResource;
 use App\Filament\Resources\UsahamandiriResource;
+use App\Filament\Resources\UserRegisResource\Pages\DaftarUserAnggota;
 use App\Filament\Resources\ValueResource;
 use App\Filament\Resources\VideoResource;
 use App\Filament\Resources\VisiResource;
@@ -271,6 +275,11 @@ class AdminPanelProvider extends PanelProvider
                                 ->url(Register::getUrl())
                                 ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com')
                                 ->isActiveWhen(fn (): bool => request()->routeIs(Register::getRouteName())),
+                            NavigationItem::make('Daftar Akun Anggota')
+                                ->icon('heroicon-o-user-plus')
+                                // ->url(DaftarAnggota::getUrl())
+                                ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com'),
+                                // ->isActiveWhen(fn (): bool => request()->routeIs(DaftarAnggota::getRouteName())),
                             NavigationItem::make('change password')
                                 ->icon('heroicon-o-key')
                                 ->url(ForgotPassword::getUrl())

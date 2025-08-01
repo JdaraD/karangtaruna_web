@@ -20,6 +20,7 @@ class PengajuanKegiatan extends Model
         'total_anggaran',
         'detail_Keperluan',
         'file_path',
+        'is_admin',
         'created_at',
         'updated_at',
     ];

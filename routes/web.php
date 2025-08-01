@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DetailKolController;
 use App\Http\Controllers\EventDetailController;
 use App\Http\Controllers\kegiatanController;
@@ -23,17 +24,23 @@ use App\Http\Controllers\MapsController;
 use App\Http\Controllers\NewsDetailController;
 use App\Http\Controllers\UsahaMandiriController;
 use App\Livewire\Auth\Login;
+use App\Livewire\Auth\LoginUser;
+use App\Livewire\Auth\Registeranggota;
 use App\Livewire\Detailevent;
 use App\Livewire\Event;
 use App\Livewire\Foto;
 use App\Livewire\Video;
 use Google\Service\Walletobjects\Pagination;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::get('/admin/login',Login::class)->name('filament.admin.auth.login');
+// Route::get('/login', LoginUser::class)->name('user');
+Route::get('/register', Registeranggota::class)->name('register');
+
 Route::get('/', Beranda::class)->name('Beranda');
 Route::get('/tentangkami', Tentang::class)->name('tentang');
 Route::get('/dasarhukum', Dasarhukum::class)->name('dasarhukum');
@@ -82,3 +89,6 @@ Route::get('reset-password/{token}', function (string $token) {
 
 Route::post('reset-password', [\App\Http\Controllers\ResetPasswordController::class, 'store'])
     ->name('password.update');
+
+// Route::get('register', [RegisterController::class, 'create'])->name('register');
+// Route::post('register', [RegisterController::class, 'store']);

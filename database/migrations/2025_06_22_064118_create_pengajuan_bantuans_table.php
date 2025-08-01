@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('keperluan');
             $table->date('tanggal');
             $table->text('detail_Keperluan')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }

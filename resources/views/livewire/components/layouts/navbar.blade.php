@@ -101,6 +101,91 @@
                         <a href="#kontak">
                             <p class="uppercase font-[poppins] lg:text-sm md:text-sm text-[12px] font-medium hover:bg-gray-50 px-4 py-2 rounded-md">kontak</p>
                         </a>
+
+                        <div x-data="{ open: false }" class="relative inline-block text-left">
+                            {{-- @php
+                                $isProfilActive = request()->routeIs('tentang') || request()->routeIs('sktuktur') ||request()->routeIs('dasarhukum');
+                            @endphp --}}
+                            {{-- @if (Auth::guard('useranggota')->check())
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </form>
+                            @else
+                                <button @click="open = !open"
+                                    class="uppercase font-[poppins] text-sm inline-flex justify-center w-full rounded-md px-4 py-2 font-medium text-gray-700 hover:bg-gray-50">
+                                    login
+                                </button>
+                            @endif --}}
+                            
+                            <div x-show="open" @click.outside="open = false" x-transition
+                                class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/50 backdrop-blur-sm">
+                                <button @click="open = false"
+                                    class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300">
+                                    &times;
+                                </button>
+                                
+                                <!-- Konten menu di tengah layar -->
+                                <div class="backdrop-blur-lg bg-white/10 border border-white/30 rounded-2xl shadow-2xl p-8 w-full max-w-md z-10">
+                                    @if ( $tentangkami)
+                                        <div class="flex justify-center items-center">
+                                            <img src="{{ asset('storage/'. $tentangkami->foto_profil) }}" class="w-16 h-16 md:w-20 md:h-20" />
+                                        </div>
+                                        <h2 class="text-2xl font-bold text-white mb-6 mt-2 text-center drop-shadow">Login User</h2>
+                                        
+                                    @endif
+    
+                                    @if (session()->has('success'))
+                                        <div class="mb-4 text-green-200 bg-green-500/20 border border-green-300 px-4 py-2 rounded text-sm">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+    
+                                    @if (session()->has('error'))
+                                        <div class="mb-4 text-red-200 bg-red-500/20 border border-red-300 px-4 py-2 rounded text-sm">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+    
+                                    <form wire:submit.prevent="login" class="space-y-5">
+                                        <div>
+                                            <label class="block text-sm font-medium text-white mb-1">Email</label>
+                                            <input type="email" wire:model.defer="email"
+                                                class="w-full bg-white/30 text-white placeholder-white/70 border border-white/30 focus:ring-white focus:border-white px-4 py-2 rounded-lg shadow-sm backdrop-blur-md"
+                                                required
+                                                oninvalid="this.setCustomValidity('Silakan masukkan email Anda.')" >
+                                            @error('email') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
+                                        </div>
+    
+                                        <div>
+                                            <label class="block text-sm font-medium text-white mb-1">Password</label>
+                                            <input type="password" wire:model.defer="password"
+                                                class="w-full bg-white/30 text-white placeholder-white/70 border border-white/30 focus:ring-white focus:border-white px-4 py-2 rounded-lg shadow-sm backdrop-blur-md"
+                                                required
+                                                oninvalid="this.setCustomValidity('Silakan masukkan password Anda.')" >
+                                            @error('password') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
+                                        </div>
+    
+                                        <button type="submit"
+                                            class="w-full bg-white/20 text-white py-2 rounded-lg hover:bg-white/30 transition duration-200 font-semibold">
+                                            Login
+                                        </button>
+    
+                                        <div class="text-center mt-4">
+                                            <a href="{{ route('register') }}" class="text-sm text-white hover:underline">
+                                                Belum punya akun? Daftar
+                                            </a>
+                                            <span class="text-white mx-2">|</span>
+                                            <a href="#" class="text-sm text-white hover:underline">
+                                                Lupa Password?
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        
+                        </div>
+
             
                         {{-- Search start--}}
                         {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="lg:size-6 md:size-6 size-5">

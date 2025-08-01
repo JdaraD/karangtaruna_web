@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+    'useranggota' => [ // <--- tambahkan ini
+        'driver' => 'session',
+        'provider' => 'useranggota',
+        ],
+
     ],
 
     /*
@@ -69,6 +75,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'useranggota' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\useranggota::class,
+        ],
     ],
 
     /*

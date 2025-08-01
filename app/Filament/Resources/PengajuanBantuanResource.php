@@ -10,6 +10,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -124,6 +125,16 @@ class PengajuanBantuanResource extends Resource
                     ->label('Detail Keperluan')
                     ->limit(50) // batasi tampilan teks
                     ->searchable(),
+                CheckboxColumn::make('is_admin')
+                    ->label('Dilihat')
+                    ->beforeStateUpdated(function ($record, $state) {
+                        // $state bernilai true atau false, tergantung checkbox
+                        // Lakukan sesuatu jika ingin custom aksi sebelum update
+                    })
+                    ->afterStateUpdated(function ($record, $state) {
+                        // Jika mau aksi setelah update, misalnya logging
+                    })
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
