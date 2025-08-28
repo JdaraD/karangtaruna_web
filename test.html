@@ -60,6 +60,49 @@
 </html>
 
 
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit" wire:loading >
+        <div class="flex justify-center items-center w-full h-full px-4">
+            {{-- loading box --}}
+            <div class="w-[400px] h-[400px] max-w-[400px] bg-white rounded-md flex flex-col gap-4 justify-center items-center shadow-lg p-6">
+                @foreach ($TentangKami as $tk)
+                    <div class="w-full flex flex-col gap-4 items-center">
+                        <img
+                            src="{{ asset('storage/' . $tk->foto_profil) }}"
+                            alt="{{ $tk->first_name }} {{ $tk->last_name }}"
+                            class="w-[100px] h-[100px] rounded-full object-cover"
+                        >
+                        <p class="text-center text-black font-bold capitalize font-[poppins]">
+                            {{ $tk->first_name }} {{ $tk->last_name }}
+                        </p>
+                    </div>
+                @endforeach
+
+                {{-- loading / success --}}
+                <div class="w-full flex flex-col items-center gap-4 mt-4">
+                    {{-- Saat loading --}}
+                    <div wire:loading wire:target="submit" class="flex flex-col items-center gap-2">
+                        <p class="text-center text-black font-medium capitalize font-[poppins]">Loading</p>
+                        <div class="loader"></div>
+                    </div>
+
+                    {{-- Saat selesai --}}
+                    <div 
+                        x-data="{ show: false }" 
+                        x-on:success-event.window="show = true; setTimeout(() => window.location.reload(), 1500)"
+                        x-show="show"
+                        class="flex flex-col items-center gap-2"
+                    >
+                        <p class="text-green-600 font-medium capitalize font-[poppins]">Berhasil</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="absolute block top-2 md:left-14 left-8 lg:hidden md:flex z-100">
         <div class="w-full h-full rounded-lg drop-shadow-sm">
             <button type="button" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium " aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-basic-modal" data-hs-overlay="#hs-basic-modal">

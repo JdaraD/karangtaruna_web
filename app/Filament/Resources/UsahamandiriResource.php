@@ -61,6 +61,7 @@ class UsahamandiriResource extends Resource
                                 'Dekorasi Rumah' => 'Dekorasi Rumah',
                                 'Aksesoris' => 'Aksesoris',
                                 'Pertanian' => 'Pertanian',
+                                'Lainnya' => 'Lainnya',
                             ],
                         ]),
                     Forms\Components\TextInput::make('harga')

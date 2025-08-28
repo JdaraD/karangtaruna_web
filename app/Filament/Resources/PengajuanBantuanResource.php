@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
+use App\Filament\Exports\KegiatanExporter;
 use App\Filament\Resources\PengajuanBantuanResource\Pages;
 use App\Filament\Resources\PengajuanBantuanResource\RelationManagers;
 use App\Models\PengajuanBantuan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -149,11 +154,42 @@ class PengajuanBantuanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->icon('heroicon-o-eye')->label('Lihat Detail'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Hapus')
+                    ->successNotificationTitle('Pengajuan Bantuan Berhasil Dihapus')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->modalHeading('Hapus Pengajuan Bantuan')
+                    ->modalSubheading('Apakah Anda yakin ingin menghapus pengajuan ini?')
+                    ->modalButton('Hapus Pengajuan'),
+                
+
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export')
+                    ->label('Download Data')
+                    ->icon('heroicon-o-arrow-down-tray'),
+                // Action::make('exportSurat')
+                //     ->label('Download Surat')
+                //     ->icon('heroicon-o-arrow-down-tray')
+                //     ->action(function () {
+                //         $data = PengajuanBantuan::all(); // ambil semua data dari DB
+
+                //         $pdf = Pdf::loadView('exports.kop-surat', compact('data'));
+
+                //         return response()->streamDownload(
+                //             fn () => print($pdf->output()),
+                //             'laporan-pengajuan-bantuan.pdf'
+                //         );
+                //     }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                FilamentExportBulkAction::make('export'),
+
             ]);
     }
 

@@ -106,31 +106,31 @@
                     <ul class="grid gap-4 font-[poppins]">
                         <li class="grid grid-cols-[140px_1fr] items-start">
                             <label class="text-left font-semibold text-sm capitalize">Nama :</label>
-                            <input type="text" wire:model.defer="nama" class="w-full h-[30px] rounded-lg px-2 bg-white">
+                            <input type="text" wire:model="nama" class="w-full h-[30px] rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Nama Anda.')">
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
                             <label class="text-left font-semibold capitalize">Alamat :</label>
-                            <textarea wire:model.defer="alamat" class="w-full h-[140px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                            <textarea wire:model="alamat" class="w-full h-[140px] rounded-lg px-2 py-2 bg-white resize-none" required oninvalid="this.setCustomValidity('Silakan masukkan Alamat Anda.')"></textarea>
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
                             <label class="text-left font-semibold capitalize">Email :</label>
-                            <input type="text" wire:model.defer="email" class="w-full h-[30px] rounded-lg px-2 py-2 bg-white resize-none"></input>
+                            <input type="text" wire:model="email" class="w-full h-[30px] rounded-lg px-2 py-2 bg-white resize-none" required oninvalid="this.setCustomValidity('Silakan masukkan Email Anda.')"></input>
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
-                            <label class="text-left font-semibold capitalize">Nomor :</label>
-                            <input type="text" wire:model.defer="no_telp" class="w-full h-[30px] rounded-lg px-2 bg-white">
+                            <label class="text-left font-semibold capitalize">Nomor Hp :</label>
+                            <input type="number" wire:model="no_telp" class="w-full h-[30px] rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Nomor Hp Anda.')">
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
                             <label class="text-left font-semibold capitalize">Keperluan :</label>
-                            <input type="text" wire:model.defer="keperluan" class="w-full h-[30px] rounded-lg px-2 bg-white">
+                            <input type="text" wire:model="keperluan" class="w-full h-[30px] rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Keperluan Anda.')">
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
                             <label class="text-left font-semibold capitalize">Tanggal :</label>
-                            <input type="date" wire:model.defer="tanggal" class="w-full h-[30px] rounded-lg px-2 bg-white">
+                            <input type="date" wire:model="tanggal" class="w-full h-[30px] rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Tanggal Keperluan Anda.')">
                         </li>
                         <li class="grid grid-cols-[140px_1fr] items-start text-sm">
                             <label class="text-left font-semibold capitalize">Total Anggaran :</label>
-                            <input type="number" wire:model.defer="total_anggaran" class="w-full h-[30px] rounded-lg px-2 bg-white">
+                            <input type="number" wire:model="total_anggaran" class="w-full h-[30px] rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Total Anggaran Anda.')">
                         </li>
                     </ul>
                 </div>
@@ -139,73 +139,73 @@
                 <div class="flex flex-col w-full gap-4 h-full">
                     <div class="w-full">
                         <label class="capitalize font-[poppins] font-semibold flex mb-2 justify-center">Detail Keperluan</label>
-                        <textarea wire:model.defer="detail_Keperluan" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                        <textarea wire:model="detail_Keperluan" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none" required oninvalid="this.setCustomValidity('Silakan masukkan Detail Keperluan Anda.')"></textarea>
                     </div>
 
-                <div class="w-full">
-                    <label class="text-sm font-semibold capitalize font-[poppins] mb-1 block">Upload File</label>
+                    <div class="w-full">
+                        <label class="text-sm font-semibold capitalize font-[poppins] mb-1 block">Upload File</label>
 
-                    <label for="uploadFile" class="cursor-pointer relative inline-block">
-                        <div class="flex justify-center items-center bg-white w-[120px] h-[90px] shadow-sm rounded-md border border-gray-200 relative">
-                            {{-- Loading Spinner --}}
-                            <div wire:loading wire:target="file" class="absolute inset-0 flex justify-center items-center bg-white/80 rounded-md z-10">
-                                <div class="dot-loader">
-                                    <span></span><span></span><span></span>
+                        <label for="uploadFile" wire:model="file" class="cursor-pointer relative inline-block">
+                            <div class="flex justify-center items-center bg-white w-[120px] h-[90px] shadow-sm rounded-md border border-gray-200 relative">
+                                {{-- Loading Spinner --}}
+                                <div wire:loading wire:target="file" class="absolute inset-0 flex justify-center items-center bg-white/80 rounded-md z-10">
+                                    <div class="dot-loader">
+                                        <span></span><span></span><span></span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <style>
-                                .dot-loader {
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    gap: 8px;
-                                    height: 80px; /* Tambahkan tinggi agar bisa tersentral */
-                                }
-
-                                .dot-loader span {
-                                    width: 10px;
-                                    height: 10px;
-                                    background: #4b5563;
-                                    border-radius: 50%;
-                                    animation: bounce 0.6s infinite alternate;
-                                }
-
-                                .dot-loader span:nth-child(2) {
-                                    animation-delay: 0.2s;
-                                }
-
-                                .dot-loader span:nth-child(3) {
-                                    animation-delay: 0.4s;
-                                }
-
-                                @keyframes bounce {
-                                    to {
-                                        transform: translateY(-10px);
-                                        opacity: 0.5;
+                                <style>
+                                    .dot-loader {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        gap: 8px;
+                                        height: 80px; /* Tambahkan tinggi agar bisa tersentral */
                                     }
-                                }
-                            </style>
 
-                            {{-- Ceklis saat upload selesai --}}
-                            @if ($file)
-                                <div wire:loading.remove wire:target="file" class="absolute top-1 right-1 bg-green-500 text-white p-1 rounded-full z-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
-                            @endif
+                                    .dot-loader span {
+                                        width: 10px;
+                                        height: 10px;
+                                        background: #4b5563;
+                                        border-radius: 50%;
+                                        animation: bounce 0.6s infinite alternate;
+                                    }
 
-                            {{-- Ikon Plus --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#aaa" viewBox="0 0 256 256">
-                                <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/>
-                            </svg>
-                        </div>
-                    </label>
+                                    .dot-loader span:nth-child(2) {
+                                        animation-delay: 0.2s;
+                                    }
 
-                    <input id="uploadFile" type="file" wire:model="file" class="hidden">
-                    @error('file') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                </div>
+                                    .dot-loader span:nth-child(3) {
+                                        animation-delay: 0.4s;
+                                    }
+
+                                    @keyframes bounce {
+                                        to {
+                                            transform: translateY(-10px);
+                                            opacity: 0.5;
+                                        }
+                                    }
+                                </style>
+
+                                {{-- Ceklis saat upload selesai --}}
+                                @if ($file)
+                                    <div wire:loading.remove wire:target="file" class="absolute top-1 right-1 bg-green-500 text-white p-1 rounded-full z-10">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                @endif
+
+                                {{-- Ikon Plus --}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#aaa" viewBox="0 0 256 256">
+                                    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/>
+                                </svg>
+                            </div>
+                        </label>
+
+                        <input id="uploadFile" type="file" wire:model="file" class="hidden">
+                        @error('file') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
 
                     <div class="flex justify-end items-center w-full h-[48px]">
                         <button type="submit" class="flex items-center justify-center bg-[#2E8A99] w-[120px] h-[32px] rounded-md font-[poppins] font-semibold text-white hover:bg-[#1F5B64] transition">Kirim</button>
@@ -213,13 +213,24 @@
                 </div>
             </div>
         </form>
+        @if (session()->has('success'))
+        <div class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
     </div>
 
     {{-- pengajuan kegiatan --}}
 
     {{-- loading --}}
-    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit" wire:loading >
-        <div class="flex justify-center items-center w-full h-full px-4">
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit" wire:loading>
+        <div class="flex justify-center items-center w-full h-full px-4"
+        x-data 
+        @form-submitted.window="
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000)   // reload 2 detik setelah notif sukses
+        ">
             {{-- loading box --}}
             <div class="w-[400px] h-[400px] max-w-[400px] bg-white rounded-md flex flex-col gap-4 justify-center items-center shadow-lg p-6">
                 @foreach ($TentangKami as $tk)
@@ -235,35 +246,23 @@
                     </div>
                 @endforeach
 
-                {{-- loading --}}
+                {{-- success / ceklis --}}
                 <div class="w-full flex flex-col items-center gap-4 mt-4">
-                    <p class="text-center text-black font-medium capitalize font-[poppins]">Loading</p>
-                    <div class="loader"></div>
+                    <p class="text-center text-black font-medium capitalize font-[poppins]">
+                        Berhasil terkirim
+                    </p>
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            class="w-10 h-10 text-green-600" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor" 
+                            stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
                 </div>
 
-                {{-- loader style --}}
-                <style>
-                    .loader {
-                        height: 25px;
-                        aspect-ratio: 2.5;
-                        --_g: no-repeat radial-gradient(farthest-side, #000 90%, #0000);
-                        background: var(--_g), var(--_g), var(--_g), var(--_g);
-                        background-size: 20% 50%;
-                        animation: l44 1s infinite linear alternate;
-                    }
-
-                    @keyframes l44 {
-                        0%, 5%    {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        12.5%     {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        25%       {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 0,    calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        37.5%     {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0,    calc(2*100%/3) 0,    calc(3*100%/3) 50%}
-                        50%       {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0,    calc(3*100%/3) 0}
-                        62.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0}
-                        75%       {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 100%,calc(3*100%/3) 100%}
-                        87.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 100%}
-                        95%, 100% {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                    }
-                </style>
             </div>
         </div>
     </div>

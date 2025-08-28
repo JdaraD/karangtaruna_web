@@ -124,47 +124,47 @@ class AdminPanelProvider extends PanelProvider
                                 ->icon('heroicon-s-information-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.running-text-berandas.*'))
                                 ->url(fn(): string => RunningTextBerandaResource::getUrl()),
-                            NavigationItem::make('Slider Branda')
-                                ->icon('heroicon-s-information-circle')
+                            NavigationItem::make('Slider Beranda')
+                                ->icon('heroicon-s-photo')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.sliderbrandas.*'))
                                 ->url(fn(): string => SliderbrandaResource::getUrl()),
                         ]),
                     NavigationGroup::make('Profil')
                         ->items([
                             NavigationItem::make('Tentang Kami')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-user-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.tentang-kamis.*'))
                                 ->url(fn(): string => TentangKamiResource::getUrl()),
                             NavigationItem::make('Visi')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-eye')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.visis.*'))
                                 ->url(fn(): string => VisiResource::getUrl()),
                             NavigationItem::make('Misi')
-                                ->icon('heroicon-s-information-circle')
-                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.Misis.*'))
+                                ->icon('heroicon-s-rocket-launch')
+                                ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.misis.*'))
                                 ->url(fn(): string => MisiResource::getUrl()),
                             NavigationItem::make('Value')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-hashtag')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.values.*'))
                                 ->url(fn(): string => ValueResource::getUrl()),
                             NavigationItem::make('Dasar Hukum')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-scale')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.hukums.*'))
                                 ->url(fn(): string => HukumResource::getUrl()),
                             NavigationItem::make('Pasal-Pasal')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-bookmark-square')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.pasals.*'))
                                 ->url(fn(): string => PasalResource::getUrl()),
                     ]),
                     NavigationGroup::make('Struktur Organisasi')
                         ->items([
                             NavigationItem::make('Foto Struktur Organisasi')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-building-office')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.foto-strukturs.*'))
                                 ->url(fn(): string => FotoStrukturResource::getUrl()),
 
                             NavigationItem::make('Data Anggota')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-users')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.dataanggotas.*'))
                                 ->url(fn(): string => DataanggotaResource::getUrl()),
                             
@@ -172,15 +172,15 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Program Kegiatan')
                         ->items([
                             NavigationItem::make('Tambah Menu Program')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-folder-plus')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.addmenukegiatans.*'))
                                 ->url(fn(): string => AddmenukegiatanResource::getUrl()),
                             NavigationItem::make('Program Kegiatan')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-briefcase')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.programkegiatans.*'))
                                 ->url(fn(): string => ProgramkegiatanResource::getUrl()),
                             NavigationItem::make('Manajemen Program Kegiatan')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-folder-open')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.pengajuan-kegiatans.*'))
                                 ->url(fn(): string => PengajuanKegiatanResource::getUrl()),
                             
@@ -188,7 +188,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Program Usaha Mandiri')
                         ->items([
                             NavigationItem::make('Slider Iklan')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-photo')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.slideriklans.*'))
                                 ->url(fn(): string => SlideriklanResource::getUrl()),
                             NavigationItem::make('Banner Market')
@@ -196,7 +196,7 @@ class AdminPanelProvider extends PanelProvider
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.bannermarkets.*'))
                                 ->url(fn(): string => BannermarketResource::getUrl()),
                             NavigationItem::make('Produk')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-shopping-bag')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.usahamandiris.*'))
                                 ->url(fn(): string => UsahamandiriResource::getUrl()),
                             
@@ -204,11 +204,11 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Program Kolaborasi')
                         ->items([
                             NavigationItem::make('Tambah Menu Kolaborasi')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-plus-circle')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.menukolaborasis.*'))
                                 ->url(fn(): string => MenukolaborasiResource::getUrl()),
                             NavigationItem::make('Kolaborasi')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-rectangle-group')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.kolaborasis.*'))
                                 ->url(fn(): string => KolaborasiResource::getUrl()),
                             
@@ -216,12 +216,12 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Media')
                         ->items([
                             NavigationItem::make('Foto')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-camera')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.albums.*'))
                                 ->url(fn(): string => AlbumResource::getUrl()),
                             
                             NavigationItem::make('Video')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-video-camera')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.kumpulanvideos.*'))
                                 ->url(fn(): string => KumpulanvideoResource::getUrl()),
                             
@@ -229,12 +229,12 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make()
                         ->items([
                             NavigationItem::make('Acara')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-star')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.acaras.*'))
                                 ->url(fn(): string => AcaraResource::getUrl()),
                             
                             NavigationItem::make('Berita')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-newspaper')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.beritas.*'))
                                 ->url(fn(): string => BeritaResource::getUrl()),
 
@@ -244,21 +244,21 @@ class AdminPanelProvider extends PanelProvider
                                 ->url(fn(): string => AlamatResource::getUrl()),
 
                             NavigationItem::make('Pesan Bantuan')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-inbox')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.pengajuan-bantuans.index'))
                                 ->url(fn(): string => PengajuanBantuanResource::getUrl()),
 
                             NavigationItem::make('Nomor Bantuan')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-phone')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.nomortambahans.*'))
                                 ->url(fn(): string => NomortambahanResource::getUrl()),
 
                             NavigationItem::make('Maps')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-arrow-down')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.lokasis.*'))
                                 ->url(fn(): string => LokasiResource::getUrl()),
                             NavigationItem::make('Sosial Media')
-                                ->icon('heroicon-s-information-circle')
+                                ->icon('heroicon-s-at-symbol')
                                 ->isActiveWhen(fn(): bool => request()->routeIs('filament.admin.resources.' . SosialMediaResource::getSlug() . '.*'))
                                 ->url(fn(): string => SosialMediaResource::getUrl()),
                             
@@ -275,11 +275,6 @@ class AdminPanelProvider extends PanelProvider
                                 ->url(Register::getUrl())
                                 ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com')
                                 ->isActiveWhen(fn (): bool => request()->routeIs(Register::getRouteName())),
-                            NavigationItem::make('Daftar Akun Anggota')
-                                ->icon('heroicon-o-user-plus')
-                                // ->url(DaftarAnggota::getUrl())
-                                ->visible(fn () => Auth::user()?->email === 'admin@karangtaruna.com'),
-                                // ->isActiveWhen(fn (): bool => request()->routeIs(DaftarAnggota::getRouteName())),
                             NavigationItem::make('change password')
                                 ->icon('heroicon-o-key')
                                 ->url(ForgotPassword::getUrl())

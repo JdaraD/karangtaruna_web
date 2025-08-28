@@ -71,9 +71,12 @@ class Menukegiatan extends Component
         // dd($email);
 
         Mail::to('juliandara17@gmail.com')->send(new \App\Mail\PengajuanMasuk($data, $kami));
+        // $this->dispatch('reset-form');
 
         session()->flash('success', 'Pengajuan berhasil dikirim.');
         $this->reset(['nama', 'alamat', 'email', 'no_telp', 'keperluan', 'tanggal', 'total_anggaran', 'detail_Keperluan', 'file']);
+        $this->dispatch('form-submitted');
+
     }
 
     // laod data programKegiatan

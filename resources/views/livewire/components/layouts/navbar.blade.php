@@ -1,14 +1,14 @@
 <div class="relative">
     {{-- website --}}
     <div class="flex justify-center items-center">
-        <div id="mainNavbar" class="relative transition-all duration-300 z-20 ease-in-out">
+        <div id="mainNavbar" class="w-full relative transition-all duration-300 z-20 ease-in-out">
             
             {{-- Header --}}
                 
             {{-- Navbar --}}
             <div class="flex w-full lg:h-[72px] md:h-[72px] h-[72px] bg-[{{ $colorsetting->header_color }}] justify-center" style="background-color: {{ $colorsetting->header_color }};">
             
-                <div class="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-4 gap-4 h-full size-[90%]">
+                <div class="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-4 gap-4 h-full w-[90%]">
             
                     {{-- Logo Start --}}
                     @if ( $tentangkami )
@@ -118,7 +118,7 @@
                                 </button>
                             @endif --}}
                             
-                            <div x-show="open" @click.outside="open = false" x-transition
+                            {{-- <div x-show="open" @click.outside="open = false" x-transition
                                 class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/50 backdrop-blur-sm">
                                 <button @click="open = false"
                                     class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300">
@@ -182,7 +182,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                         
                         </div>
 
@@ -435,15 +435,13 @@
     window.addEventListener("scroll", function () {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        if (scrollTop > 10) {
-            navbar.classList.add('fixed', 'top-0', 'left-0', 'w-full', 'shadow-md');
-            navbar.classList.remove('relative');
-            navbar.style.backgroundColor = originalBg;
-        } else {
-            navbar.classList.remove('fixed', 'top-0', 'left-0', 'w-full', 'shadow-md');
-            navbar.classList.add('relative');
-            navbar.style.backgroundColor = originalBg;
-        }
+    if (scrollTop > 10) {
+        navbar.classList.add('fixed', 'top-0', 'inset-x-0', 'shadow-md');
+        navbar.classList.remove('relative');
+    } else {
+        navbar.classList.remove('fixed', 'top-0', 'inset-x-0', 'shadow-md');
+        navbar.classList.add('relative');
+    }
 
         lastScrollTop = scrollTop;
     });

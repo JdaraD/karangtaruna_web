@@ -72,17 +72,11 @@ class Beranda extends Component
 
         Mail::to($email)->send(new \App\Mail\BantuanMasuk($data, $kami));
 
+        $this->dispatch('reset-form');
         session()->flash('message', 'Pengajuan Bantaun berhasil dikirim.');
 
-        // $this->reset(['nama', 'alamat', 'email', 'no_telp', 'keperluan', 'tanggal', 'detail_Keperluan']);
-        $this->reset();
-        $this->loadlokasi();
-        $this->loadslider();
-        $this->loadsosailmedia();
-        $this->loadkegiatan();
-        $this->loadmenukegiatan();
-        $this->loadalbums();
-        $this->loadTentangKami();
+        $this->reset(['nama', 'alamat', 'email', 'no_telp', 'keperluan', 'tanggal', 'detail_Keperluan']);
+
     }
 
     // laod data album

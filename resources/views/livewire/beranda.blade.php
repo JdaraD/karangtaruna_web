@@ -254,27 +254,27 @@
                         <div class="space-y-4 font-[poppins]">
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
                                 <label for="nama" class="font-semibold">Nama :</label>
-                                <input type="text" wire:model.defer="nama" id="nama" class="w-full h-8 rounded-lg px-2 bg-white" />
+                                <input type="text" wire:model="nama" id="nama" class="w-full h-8 rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Nama Anda.')"/>
                             </div>
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
                                 <label for="alamat" class="font-semibold">Alamat :</label>
-                                <textarea wire:model.defer="alamat" id="alamat" class="w-full h-[90px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                                <textarea wire:model="alamat" id="alamat" class="w-full h-[90px] rounded-lg px-2 py-2 bg-white resize-none" required oninvalid="this.setCustomValidity('Silakan masukkan Alamat Anda.')"></textarea>
                             </div>
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
                                 <label for="email" class="font-semibold">Email :</label>
-                                <input type="email" wire:model.defer="email" id="email" class="w-full h-8 rounded-lg px-2 bg-white" />
+                                <input type="email" wire:model="email" id="email" class="w-full h-8 rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Email Anda.')"/>
                             </div>
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
-                                <label for="no_telp" class="font-semibold">Nomor :</label>
-                                <input type="text" wire:model.defer="no_telp" id="no_telp" class="w-full h-8 rounded-lg px-2 bg-white" />
+                                <label for="no_telp" class="font-semibold">Nomor Hp :</label>
+                                <input type="number" wire:model="no_telp" id="no_telp" class="w-full h-8 rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Nomor Hp Anda.')"/>
                             </div>
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
                                 <label for="keperluan" class="font-semibold">Keperluan :</label>
-                                <input type="text" wire:model.defer="keperluan" id="keperluan" class="w-full h-8 rounded-lg px-2 bg-white" />
+                                <input type="text" wire:model="keperluan" id="keperluan" class="w-full h-8 rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Keperluan Anda.')"/>
                             </div>
                             <div class="grid grid-cols-[100px_1fr] items-start text-sm gap-2">
                                 <label for="tanggal" class="font-semibold">Tanggal :</label>
-                                <input type="date" wire:model.defer="tanggal" id="tanggal" class="w-full h-8 rounded-lg px-2 bg-white" />
+                                <input type="date" wire:model="tanggal" id="tanggal" class="w-full h-8 rounded-lg px-2 bg-white" required oninvalid="this.setCustomValidity('Silakan masukkan Tanggal Keperluan Anda.')"/>
                             </div>
                         </div>
 
@@ -282,11 +282,11 @@
                         <div class="flex flex-col gap-4 justify-between">
                             <div class="flex flex-col gap-2">
                                 <label for="detail" class="capitalize font-[poppins] font-semibold text-center">Detail Keperluan</label>
-                                <textarea wire:model.defer="detail_Keperluan" id="detail" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none"></textarea>
+                                <textarea wire:model="detail_Keperluan" id="detail" class="w-full h-[168px] rounded-lg px-2 py-2 bg-white resize-none" required oninvalid="this.setCustomValidity('Silakan masukkan Detail Keperluan Anda.')"></textarea>
                             </div>
                             <div class="flex justify-end items-center">
                                 <button type="submit" class="bg-[#2E8A99] w-[120px] h-[32px] rounded-md font-[poppins] font-semibold text-white hover:bg-[#1F5B64] transition">Kirim</button>
-                                <span wire:loading wire:target="submit" class="ml-3 text-sm text-gray-600">Mengirim...</span>
+                                {{-- <span wire:loading wire:target="submit" class="ml-3 text-sm text-gray-600">Mengirim...</span> --}}
                             </div>
                         </div>
                     </div>
@@ -329,7 +329,7 @@
     {{-- content --}}
 
     {{-- loading --}}
-    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit" wire:loading >
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(209,213,219,0.3)]" wire:target="submit"  wire:loading >
         <div class="flex justify-center items-center w-full h-full px-4">
             {{-- loading box --}}
             <div class="w-[400px] h-[400px] max-w-[400px] bg-white rounded-md flex flex-col gap-4 justify-center items-center shadow-lg p-6">
@@ -346,35 +346,23 @@
                     </div>
                 @endforeach
 
-                {{-- loading --}}
+                {{-- success / ceklis --}}
                 <div class="w-full flex flex-col items-center gap-4 mt-4">
-                    <p class="text-center text-black font-medium capitalize font-[poppins]">Loading</p>
-                    <div class="loader"></div>
+                    <p class="text-center text-black font-medium capitalize font-[poppins]">
+                        Berhasil terkirim
+                    </p>
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            class="w-10 h-10 text-green-600" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor" 
+                            stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
                 </div>
 
-                {{-- loader style --}}
-                <style>
-                    .loader {
-                        height: 25px;
-                        aspect-ratio: 2.5;
-                        --_g: no-repeat radial-gradient(farthest-side, #000 90%, #0000);
-                        background: var(--_g), var(--_g), var(--_g), var(--_g);
-                        background-size: 20% 50%;
-                        animation: l44 1s infinite linear alternate;
-                    }
-
-                    @keyframes l44 {
-                        0%, 5%    {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        12.5%     {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        25%       {background-position: calc(0*100%/3) 0,    calc(1*100%/3) 0,    calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                        37.5%     {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 0,    calc(2*100%/3) 0,    calc(3*100%/3) 50%}
-                        50%       {background-position: calc(0*100%/3) 100%,calc(1*100%/3) 100%,calc(2*100%/3) 0,    calc(3*100%/3) 0}
-                        62.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 100%,calc(2*100%/3) 100%,calc(3*100%/3) 0}
-                        75%       {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 100%,calc(3*100%/3) 100%}
-                        87.5%     {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 100%}
-                        95%, 100% {background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%}
-                    }
-                </style>
             </div>
         </div>
     </div>

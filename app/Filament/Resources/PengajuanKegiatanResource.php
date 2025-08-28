@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
+use App\Filament\Exports\KegiatanExporter;
 use App\Filament\Resources\PengajuanKegiatanResource\Pages;
 use App\Filament\Resources\PengajuanKegiatanResource\RelationManagers;
 use App\Models\PengajuanKegiatan;
@@ -177,11 +180,29 @@ class PengajuanKegiatanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->icon('heroicon-o-eye')->label('Lihat Detail'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Hapus')
+                    ->successNotificationTitle('Pengajuan Kegiatan Berhasil Dihapus')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->modalHeading('Hapus Pengajuan Kegiatan')
+                    ->modalSubheading('Apakah Anda yakin ingin menghapus pengajuan ini?')
+                    ->modalButton('Hapus Pengajuan'),
+                // Tables\Actions\ExportAction::make()
+                //     ->label('Ekspor')
+                //     ->icon('heroicon-o-arrow-down-tray')
+                //     ->color('primary')
+                //     ->exporter(KegiatanExporter::class),
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                FilamentExportBulkAction::make('export'),
             ]);
     }
 
