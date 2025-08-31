@@ -7,6 +7,7 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Exports\KegiatanExporter;
 use App\Filament\Resources\PengajuanKegiatanResource\Pages;
 use App\Filament\Resources\PengajuanKegiatanResource\RelationManagers;
+use App\Mail\PengajuanMasuk;
 use App\Models\PengajuanKegiatan;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
@@ -14,12 +15,14 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Mail;
 
 class PengajuanKegiatanResource extends Resource
 {
@@ -194,15 +197,46 @@ class PengajuanKegiatanResource extends Resource
                 //     ->icon('heroicon-o-arrow-down-tray')
                 //     ->color('primary')
                 //     ->exporter(KegiatanExporter::class),
+                Tables\Actions\Action::make('Kirim Email')
+                    ->form([
+                        Forms\Components\Textarea::make('catatan')
+                            ->label('Catatan untuk penerima')
+                            ->required()
+                            ->maxLength(500),
+                    ])
+                    ->action(function (PengajuanKegiatan $record, array $data) {
+                        if (empty($record->email)) {
+                            Notification::make()
+                                ->title('Gagal mengirim email: alamat email kosong.')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+                        $kami = [
+                            'nama' => 'Admin Bantuan',
+                            'email' => 'admin@example.com',
+                            'catatan' => $data['catatan'], // <-- catatan masuk ke data
+                        ];
+
+                        Mail::to($record->email)->send(new PengajuanMasuk($record, $kami));
+
+                        Notification::make()
+                            ->title('Email berhasil dikirim ke ' . $record->email)
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->headerActions([
-                FilamentExportHeaderAction::make('export'),
+                FilamentExportHeaderAction::make('export')
+                ->label('Download Data')
+                ->icon('heroicon-o-arrow-down-tray'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
                 FilamentExportBulkAction::make('export'),
+                
             ]);
     }
 

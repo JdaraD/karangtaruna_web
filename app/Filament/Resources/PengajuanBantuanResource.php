@@ -7,11 +7,14 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Exports\KegiatanExporter;
 use App\Filament\Resources\PengajuanBantuanResource\Pages;
 use App\Filament\Resources\PengajuanBantuanResource\RelationManagers;
+use App\Mail\BantuanMasuk;
+use App\Mail\PengajuanMasuk;
 use App\Models\PengajuanBantuan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -19,6 +22,7 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Mail;
 
 class PengajuanBantuanResource extends Resource
 {
@@ -163,6 +167,34 @@ class PengajuanBantuanResource extends Resource
                     ->modalHeading('Hapus Pengajuan Bantuan')
                     ->modalSubheading('Apakah Anda yakin ingin menghapus pengajuan ini?')
                     ->modalButton('Hapus Pengajuan'),
+                Tables\Actions\Action::make('Kirim Email')
+                    ->form([
+                        Forms\Components\Textarea::make('catatan')
+                            ->label('Catatan untuk penerima')
+                            ->required()
+                            ->maxLength(500),
+                    ])
+                    ->action(function (PengajuanBantuan $record, array $data) {
+                        if (empty($record->email)) {
+                            Notification::make()
+                                ->title('Gagal mengirim email: alamat email kosong.')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+                        $kami = [
+                            'nama' => 'Admin Bantuan',
+                            'email' => 'admin@example.com',
+                            'catatan' => $data['catatan'], // <-- catatan masuk ke data
+                        ];
+
+                        Mail::to($record->email)->send(new BantuanMasuk($record, $kami));
+
+                        Notification::make()
+                            ->title('Email berhasil dikirim ke ' . $record->email)
+                            ->success()
+                            ->send();
+                    }),
                 
 
             ])
